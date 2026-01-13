@@ -1,0 +1,157 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Inter', sans-serif;
+  --font-outfit: 'Outfit', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply font-sans text-slate-200;
+  background-color: #050510;
+}
+
+.glass-panel {
+  @apply bg-white/30 backdrop-blur-xl border border-white/20 shadow-xl;
+}
+
+.glass-card {
+  @apply bg-white/40 backdrop-blur-md border border-white/30 shadow-lg hover:bg-white/50 transition-all;
+}
+
+@keyframes floatBG {
+
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+.liquid-bg {
+  background-size: 200% 200%;
+  animation: floatBG 15s ease-in-out infinite;
+}
+
+/* Holographic Glass */
+.holo-glass {
+  @apply relative overflow-hidden bg-transparent backdrop-blur-xl transition-all duration-500;
+  background-color: rgba(255, 255, 255, 0.02);
+  background-image:
+    radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
+    radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
+    radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 3px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow:
+    0 4px 30px rgba(0, 0, 0, 0.5),
+    inset 0 0 20px rgba(255, 255, 255, 0.02);
+}
+
+.holo-glass::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(125deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.05) 30%,
+      rgba(255, 255, 255, 0.01) 70%,
+      transparent 100%);
+  z-index: 0;
+  pointer-events: none;
+}
+
+.holo-glass:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(251, 191, 36, 0.4);
+  box-shadow:
+    0 10px 40px -10px rgba(251, 191, 36, 0.2),
+    inset 0 0 20px rgba(251, 191, 36, 0.05);
+}
+
+/* Advanced Space Theme Utilities */
+.cosmic-gradient {
+  background: linear-gradient(to right, #fbbf24, #f59e0b, #ef4444);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: cosmicFlow 4s linear infinite;
+}
+
+@keyframes cosmicFlow {
+  0% {
+    background-position: 0% 50%;
+  }
+
+  100% {
+    background-position: 200% 50%;
+  }
+}
+
+.glow-text {
+  text-shadow: 0 0 10px rgba(251, 191, 36, 0.5), 0 0 20px rgba(245, 158, 11, 0.3);
+}
+
+.card-glow {
+  transition: all 0.4s ease;
+}
+
+.card-glow:hover {
+  border-color: rgba(251, 191, 36, 0.5);
+  box-shadow: 0 10px 40px -10px rgba(251, 191, 36, 0.2);
+  transform: translateY(-5px);
+}
+
+.launch-btn {
+  @apply relative overflow-hidden bg-transparent border-2 border-amber-400 text-amber-400 font-bold py-4 px-8 rounded-md transition-all duration-300;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.2);
+}
+
+.launch-btn:hover {
+  @apply bg-amber-400 text-slate-900;
+  box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);
+}
+
+.launch-btn::before {
+  content: '';
+  @apply absolute top-0 left-[-100%] w-full h-full bg-white/20 skew-x-[-20deg] transition-all duration-500;
+}
+
+/* Navbar Space Theme */
+.star-dust-bg {
+  background-color: rgba(255, 255, 255, 0.03);
+  background-image:
+    radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
+    radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
+    radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 3px);
+  background-size: 550px 550px, 350px 350px, 250px 250px;
+  background-position: 0 0, 40px 60px, 130px 270px;
+  box-shadow:
+    inset 0 0 20px rgba(0, 0, 0, 0.5),
+    0 0 15px rgba(251, 191, 36, 0.1);
+  /* Amber outer glow */
+}
+
+.nav-reactor-active {
+  box-shadow: 0 0 15px rgba(251, 191, 36, 0.6), inset 0 0 10px rgba(251, 191, 36, 0.4);
+  background: rgba(251, 191, 36, 0.1);
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  text-shadow: 0 0 5px rgba(251, 191, 36, 0.8);
+}
+
+.nav-item {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.nav-item:hover {
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.6);
+  transform: translateY(-1px);
+}

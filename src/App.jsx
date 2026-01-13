@@ -1,0 +1,41 @@
+import React, { Suspense, lazy } from 'react';
+import Navbar from './components/Navbar';
+import AntigravityBackground from './components/AntigravityBackground';
+import Hero from './components/Hero'; // Keep Hero eager for LCP
+
+// Lazy load non-critical sections
+const About = lazy(() => import('./components/About'));
+const Experience = lazy(() => import('./components/Experience'));
+const Projects = lazy(() => import('./components/Projects'));
+const Education = lazy(() => import('./components/Education'));
+const Contact = lazy(() => import('./components/Contact'));
+
+function App() {
+  return (
+    <div className="relative min-h-screen font-sans text-slate-200 overflow-x-hidden selection:bg-amber-400/30 selection:text-amber-200">
+      <AntigravityBackground />
+      <Navbar />
+
+      <main className="relative z-10">
+        <Hero />
+        <Suspense fallback={
+          <div className="flex items-center justify-center h-40 text-amber-400 font-mono text-sm">
+            Initializing System...
+          </div>
+        }>
+          <About />
+          <Experience />
+          <Projects />
+          <Education />
+          <Contact />
+        </Suspense>
+      </main>
+
+      <footer className="relative z-10 py-6 text-center text-slate-500 text-sm font-mono">
+        <p>Designed & Built by Hanesh Koganti</p>
+      </footer>
+    </div>
+  );
+}
+
+export default App;
