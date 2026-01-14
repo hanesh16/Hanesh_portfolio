@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import polaroidImg from '../assets/polaroid_placeholder.png';
 
 const Hero = () => {
     return (
@@ -89,7 +90,7 @@ const Hero = () => {
                             {/* Image Container */}
                             <div className="overflow-hidden bg-black aspect-square relative z-10 border border-slate-200">
                                 <img
-                                    src="/src/assets/polaroid_placeholder.png"
+                                    src={polaroidImg}
                                     alt="Space Explorer"
                                     className="w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700"
                                 />
