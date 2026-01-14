@@ -50,7 +50,7 @@ const Hero = () => {
                         transition={{ duration: 0.5, delay: 0.4 }}
                         className="text-5xl md:text-7xl font-bold font-outfit mb-6 leading-tight drop-shadow-2xl"
                     >
-                        I'm <span className="cosmic-gradient drop-shadow-sm filter">Hanesh Koganti</span>
+                        I'm <span className="text-white drop-shadow-[0_4px_4px_rgba(0,0,0,0.8)] filter">Hanesh Koganti</span>
                     </motion.h1>
 
                     <motion.h2

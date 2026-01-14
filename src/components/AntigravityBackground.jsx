@@ -23,7 +23,7 @@ const Sun = () => {
     return (
         <mesh ref={sunRef}>
             <sphereGeometry args={[1.8, 64, 64]} />
-            <meshBasicMaterial map={texture} />
+            <meshBasicMaterial map={texture} color="#cccccc" />
         </mesh>
     );
 };
@@ -68,7 +68,7 @@ const SolarSystem = () => {
 
     return (
         <group position={position}>
-            <pointLight intensity={1.5} color="#ffaa00" /> {/* Sun Light at center of group */}
+            <pointLight intensity={1.0} color="#ffaa00" /> {/* Sun Light at center of group */}
             <Sun />
             {/* Venus: Small, close, fast */}
             <Planet textureImg={venusImg} size={0.3} orbitRadius={2.8} speed={0.5} offset={0} />
