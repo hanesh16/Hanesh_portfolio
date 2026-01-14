@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import polaroidImg from '../assets/polaroid_placeholder.png';
+import TiltCard from './TiltCard';
 
 const Hero = () => {
     return (
@@ -39,21 +40,13 @@ const Hero = () => {
                         Space Explorer & <br className="hidden md:block" /> Web Developer.
                     </motion.h2>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.5, delay: 0.8 }}
-                        className="holo-glass inline-block p-8 rounded-2xl mb-10 relative overflow-hidden text-left"
-                    >
-                        {/* Liquid Background Layer */}
-                        <div className="absolute inset-0 z-0 liquid-bg opacity-20 pointer-events-none"
-                            style={{ backgroundImage: 'linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)' }}>
+                    <TiltCard index={8} variant="scifi-tech" className="mb-10 text-left inline-block">
+                        <div className="relative z-10 p-2">
+                            <p className="text-slate-300 text-lg leading-relaxed">
+                                I'm a software engineer specializing in building exceptional digital experiences. Currently, I'm plotting coordinates for accessible, human-centered products in the vast web universe.
+                            </p>
                         </div>
-
-                        <p className="text-slate-300 text-lg leading-relaxed relative z-10">
-                            I'm a software engineer specializing in building exceptional digital experiences. Currently, I'm plotting coordinates for accessible, human-centered products in the vast web universe.
-                        </p>
-                    </motion.div>
+                    </TiltCard>
 
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}

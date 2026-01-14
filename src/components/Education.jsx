@@ -41,7 +41,7 @@ const Education = () => {
                 <div className="grid md:grid-cols-2 gap-8 mb-12">
                     {education.map((edu, index) => (
                         <div key={index} className="h-full">
-                            <TiltCard index={index} className="h-full">
+                            <TiltCard index={index} className="h-full" variant="scifi">
                                 <div className="h-full flex flex-col">
                                     <div className="mb-4">
                                         <div className="flex justify-between items-start mb-2">
@@ -63,7 +63,7 @@ const Education = () => {
                     ))}
                 </div>
 
-                <TiltCard className="border-l-4 border-amber-400">
+                <TiltCard className="border-l-4 border-amber-400" variant="scifi">
                     <h3 className="text-lg font-bold text-slate-100 mb-2">Certifications</h3>
                     <ul className="space-y-2">
                         {certifications.map((cert, index) => (

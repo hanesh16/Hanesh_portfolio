@@ -48,7 +48,7 @@ const Experience = () => {
                             <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-slate-900 border-2 border-amber-400"></div>
                             <div className="absolute left-[-5px] top-[4px] w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
 
-                            <TiltCard index={index}>
+                            <TiltCard index={index} variant="scifi">
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
                                     <div>
                                         <h3 className="text-xl md:text-2xl font-bold text-slate-100">{exp.role}</h3>

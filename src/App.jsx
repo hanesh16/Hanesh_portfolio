@@ -2,6 +2,7 @@ import React, { Suspense, lazy } from 'react';
 import Navbar from './components/Navbar';
 import AntigravityBackground from './components/AntigravityBackground';
 import Hero from './components/Hero'; // Keep Hero eager for LCP
+import SpaceLoader from './components/SpaceLoader';
 
 // Lazy load non-critical sections
 const About = lazy(() => import('./components/About'));
@@ -21,11 +22,7 @@ function App() {
 
       <main className="relative z-10">
         <Hero />
-        <Suspense fallback={
-          <div className="flex items-center justify-center h-40 text-amber-400 font-mono text-sm">
-            Initializing System...
-          </div>
-        }>
+        <Suspense fallback={<SpaceLoader />}>
           <About />
           <Experience />
           <Projects />

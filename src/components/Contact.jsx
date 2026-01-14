@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import TiltCard from './TiltCard';
 
 const Contact = () => {
     return (
@@ -11,12 +12,7 @@ const Contact = () => {
                 viewport={{ once: true }}
                 className="max-w-4xl mx-auto px-6 relative z-10"
             >
-                <div className="holo-glass p-12 rounded-2xl text-center relative overflow-hidden">
-                    {/* Liquid Background Layer */}
-                    <div className="absolute inset-0 z-0 liquid-bg opacity-20 pointer-events-none"
-                        style={{ backgroundImage: 'linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)' }}>
-                    </div>
-
+                <TiltCard className="h-full relative overflow-hidden text-center p-12" variant="scifi-tech">
                     <div className="relative z-10">
                         <p className="text-amber-400 font-mono mb-4">03. What's Next?</p>
                         <h2 className="text-4xl md:text-5xl font-bold font-outfit mb-6 text-slate-100">Get In Touch</h2>
@@ -30,7 +26,7 @@ const Contact = () => {
                             Initiate Contact protocol
                         </a>
                     </div>
-                </div>
+                </TiltCard>
             </motion.div>
         </section >
     );

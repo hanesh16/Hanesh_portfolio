@@ -14,6 +14,20 @@ const Navbar = () => {
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
 
+    const navStyle = {
+        background: "rgba(0, 0, 0, 0.4)", // Pitch dark transparent
+        backdropFilter: "blur(12px)",
+        border: "1px solid rgba(255, 255, 255, 0.1)",
+        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
+        backgroundImage: `
+            radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
+            radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
+            radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 3px)
+        `,
+        backgroundSize: "550px 550px, 350px 350px, 250px 250px",
+        backgroundPosition: "0 0, 40px 60px, 130px 270px"
+    };
+
     return (
         <>
             {/* Desktop Navbar */}
@@ -31,12 +45,9 @@ const Navbar = () => {
                         padding: scrolled ? "0.6rem" : "1rem",
                     }}
                     transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-                    className="relative flex items-center justify-center rounded-full shadow-2xl overflow-hidden backdrop-blur-xl border border-white/10 ring-1 ring-white/5 star-dust-bg"
+                    className="relative flex items-center justify-center rounded-full overflow-hidden"
+                    style={navStyle}
                 >
-                    {/* Liquid Background Layer */}
-                    <div className="absolute inset-0 z-0 liquid-bg opacity-30 pointer-events-none"
-                        style={{ backgroundImage: 'linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)' }}></div>
-
                     <div className="flex items-center justify-between w-full px-2 relative z-10">
                         {/* Logo - Orbit Effect */}
                         <Link
@@ -44,7 +55,7 @@ const Navbar = () => {
                             smooth={true}
                             duration={800}
                             offset={-100}
-                            className="pl-4 pr-2 font-bold font-outfit text-slate-200 cursor-pointer select-none whitespace-nowrap text-xl relative group block"
+                            className="pl-4 pr-2 font-bold font-outfit text-white cursor-pointer select-none whitespace-nowrap text-xl relative group block drop-shadow-lg"
                         >
                             HK
                             <span className="text-amber-400 inline-block relative">
@@ -76,7 +87,7 @@ const Navbar = () => {
                                         smooth={true}
                                         duration={800}
                                         offset={-100}
-                                        className={`nav-item flex items-center gap-2 rounded-full text-sm font-medium text-slate-400 transition-all duration-300 cursor-pointer hover:bg-white/5 hover:text-amber-300 whitespace-nowrap ${scrolled ? 'px-3 py-2' : 'px-4 py-2 text-base'}`}
+                                        className={`nav-item flex items-center gap-2 rounded-full text-sm font-semibold text-white transition-all duration-300 cursor-pointer hover:bg-white/5 hover:text-amber-300 whitespace-nowrap drop-shadow-md ${scrolled ? 'px-3 py-2' : 'px-4 py-2 text-base'}`}
                                     >
                                         {item.icon}
                                         <span className="hidden md:inline">{item.name}</span>
@@ -96,16 +107,13 @@ const Navbar = () => {
                 transition={{ duration: 0.5 }}
                 className="flex md:hidden fixed top-6 left-6 z-50 origin-top-left"
             >
-                <div className="flex items-center gap-4 px-5 py-3 rounded-full shadow-2xl overflow-hidden backdrop-blur-xl border border-white/10 ring-1 ring-white/5 star-dust-bg relative">
-                    <div className="absolute inset-0 z-0 liquid-bg opacity-30 pointer-events-none"
-                        style={{ backgroundImage: 'linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)' }}></div>
-
+                <div className="flex items-center gap-4 px-5 py-3 rounded-full overflow-hidden relative" style={navStyle}>
                     <Link
                         to="hero"
                         smooth={true}
                         duration={800}
                         offset={-100}
-                        className="relative z-10 font-bold font-outfit text-slate-200 text-xl cursor-pointer"
+                        className="relative z-10 font-bold font-outfit text-white text-xl cursor-pointer drop-shadow-lg"
                     >
                         HK<span className="text-amber-400">.</span>
                     </Link>
@@ -119,7 +127,7 @@ const Navbar = () => {
                         smooth={true}
                         duration={800}
                         offset={-100}
-                        className="relative z-10 nav-item flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-amber-300 cursor-pointer"
+                        className="relative z-10 nav-item flex items-center gap-2 text-sm font-semibold text-white hover:text-amber-300 cursor-pointer drop-shadow-md"
                     >
                         <User size={16} />
                         <span>About</span>
@@ -134,10 +142,7 @@ const Navbar = () => {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="flex md:hidden fixed bottom-6 left-1/2 z-50 origin-bottom w-[90%] max-w-[350px]"
             >
-                <div className="w-full relative flex items-center justify-around px-2 py-3 rounded-full shadow-2xl overflow-hidden backdrop-blur-xl border border-white/10 ring-1 ring-white/5 star-dust-bg">
-                    <div className="absolute inset-0 z-0 liquid-bg opacity-30 pointer-events-none"
-                        style={{ backgroundImage: 'linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)' }}></div>
-
+                <div className="w-full relative flex items-center justify-around px-2 py-3 rounded-full overflow-hidden" style={navStyle}>
                     {[
                         { name: 'Experience', icon: <Briefcase size={20} /> },
                         { name: 'Projects', icon: <Code size={20} /> },
@@ -152,7 +157,7 @@ const Navbar = () => {
                             smooth={true}
                             duration={800}
                             offset={-100}
-                            className="relative z-10 nav-item p-3 rounded-full text-slate-400 hover:text-amber-300 transition-all duration-300 cursor-pointer"
+                            className="relative z-10 nav-item p-3 rounded-full text-white hover:text-amber-300 transition-all duration-300 cursor-pointer drop-shadow-md"
                         >
                             {item.icon}
                         </Link>

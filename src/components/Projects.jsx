@@ -49,7 +49,7 @@ const Projects = () => {
 
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 perspective-container">
                     {projects.map((project, index) => (
-                        <TiltCard key={index} index={index} className="h-full">
+                        <TiltCard key={index} index={index} className="h-full" variant="scifi">
                             <div className="flex flex-col h-full">
                                 <div className="flex justify-between items-center mb-6">
                                     <div className="folder-icon text-amber-400 group-hover:text-amber-300 transition-colors">

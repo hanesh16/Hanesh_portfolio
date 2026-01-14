@@ -27,27 +27,27 @@ const AudioPlayer = () => {
                     await audioRef.current.play();
                     setIsPlaying(true);
                 } catch (err) {
-                    console.log("Autoplay blocked. Waiting for interaction.");
+                    console.log("Autoplay blocked. Waiting for ANY interaction.");
                     setIsPlaying(false);
 
-                    // Aggressive fallback: Start on ANY interaction
-                    const startAudio = () => {
+                    // Robust Fallback: Trigger play on the very first user interaction of ANY kind
+                    const enableAudio = () => {
                         if (audioRef.current) {
                             audioRef.current.play()
                                 .then(() => {
                                     setIsPlaying(true);
-                                    // Remove all listeners once playing
-                                    ['click', 'mousemove', 'keydown', 'touchstart', 'scroll'].forEach(event =>
-                                        document.removeEventListener(event, startAudio)
+                                    // Cleanup all listeners immediately
+                                    ['click', 'scroll', 'keydown', 'mousemove', 'touchstart'].forEach(evt =>
+                                        document.removeEventListener(evt, enableAudio)
                                     );
                                 })
-                                .catch(e => console.error("Playback failed:", e));
+                                .catch(e => console.error("Still blocked:", e));
                         }
                     };
 
-                    // Listen for any user activity
-                    ['click', 'mousemove', 'keydown', 'touchstart', 'scroll'].forEach(event =>
-                        document.addEventListener(event, startAudio, { once: true })
+                    // Add listeners for every possible interaction
+                    ['click', 'scroll', 'keydown', 'mousemove', 'touchstart'].forEach(evt =>
+                        document.addEventListener(evt, enableAudio, { once: true })
                     );
                 }
             }

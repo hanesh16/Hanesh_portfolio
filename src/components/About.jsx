@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import TiltCard from './TiltCard';
 
 const About = () => {
     // Skills data
@@ -21,12 +22,7 @@ const About = () => {
                     viewport={{ once: true }}
                     className="w-full"
                 >
-                    <div className="holo-glass p-8 rounded-2xl relative overflow-hidden">
-                        {/* Liquid Background Layer */}
-                        <div className="absolute inset-0 z-0 liquid-bg opacity-20 pointer-events-none"
-                            style={{ backgroundImage: 'linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)' }}>
-                        </div>
-
+                    <TiltCard className="h-full" variant="scifi">
                         <div className="relative z-10">
                             <div className="flex items-center gap-2 mb-6">
                                 <span className="text-amber-400 font-bold text-lg">01.</span>
@@ -50,7 +46,7 @@ const About = () => {
                                 ))}
                             </ul>
                         </div>
-                    </div>
+                    </TiltCard>
                 </motion.div>
 
                 {/* Right: Image/Visual */}

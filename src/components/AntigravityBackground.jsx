@@ -153,19 +153,19 @@ const ParticleGroup = ({ count, size, radius, sunTexture }) => {
 };
 
 const AntigravityBackground = () => {
-    // Generate Sun Texture once
+    // Generate Sun Texture once (High Resolution for 4K)
     const sunTexture = useMemo(() => {
         const canvas = document.createElement('canvas');
-        canvas.width = 32;
-        canvas.height = 32;
+        canvas.width = 64; // Increased from 32 for sharper look
+        canvas.height = 64;
         const context = canvas.getContext('2d');
-        const gradient = context.createRadialGradient(16, 16, 0, 16, 16, 16);
+        const gradient = context.createRadialGradient(32, 32, 0, 32, 32, 32);
         gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
         gradient.addColorStop(0.2, 'rgba(255, 215, 0, 1)');
         gradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.8)');
         gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
         context.fillStyle = gradient;
-        context.fillRect(0, 0, 32, 32);
+        context.fillRect(0, 0, 64, 64);
         return new THREE.CanvasTexture(canvas);
     }, []);
 
@@ -173,16 +173,25 @@ const AntigravityBackground = () => {
         <div className="fixed inset-0 z-[-1] bg-black">
             <Canvas
                 camera={{ position: [0, 0, 6], fov: 60 }}
+                dpr={[1, 2]} // Support High-DPI (Retina/4K) screens
+                gl={{
+                    antialias: true,
+                    alpha: false,
+                    powerPreference: "high-performance",
+                    stencil: false,
+                    depth: false
+                }}
+                performance={{ min: 0.5 }} // Adaptive quality if FPS drops
                 eventSource={document.getElementById('root')}
             >
                 {/* 1. Small Background Stars (Dense, Wide) */}
-                <ParticleGroup count={1200} size={0.015} radius={12} sunTexture={sunTexture} />
+                <ParticleGroup count={1000} size={0.012} radius={12} sunTexture={sunTexture} />
 
                 {/* 2. Medium Stars (Interactive, Mid-range) */}
-                <ParticleGroup count={500} size={0.03} radius={8} sunTexture={sunTexture} />
+                <ParticleGroup count={300} size={0.025} radius={8} sunTexture={sunTexture} />
 
                 {/* 3. Large Glowing Suns (Sparse, Close) */}
-                <ParticleGroup count={100} size={0.06} radius={5} sunTexture={sunTexture} />
+                <ParticleGroup count={60} size={0.05} radius={5} sunTexture={sunTexture} />
             </Canvas>
         </div>
     );
