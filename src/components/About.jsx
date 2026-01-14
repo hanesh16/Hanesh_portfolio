@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import TiltCard from './TiltCard';
+import polaroidImg from '../assets/polaroid_placeholder.png';
 
 const About = () => {
     // Skills data
@@ -58,11 +59,13 @@ const About = () => {
                     className="relative group"
                 >
                     <div className="relative z-10 w-full max-w-sm mx-auto md:ml-auto">
-                        {/* Placeholder for Profile Image */}
+                        {/* Profile Image (Moved from Hero) */}
                         <div className="aspect-square bg-slate-900 border-2 border-amber-400/30 shadow-xl rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-300 rotate-3 group-hover:rotate-0">
-                            <div className="w-full h-full flex items-center justify-center bg-slate-900 text-slate-600 text-6xl">
-                                HK
-                            </div>
+                            <img
+                                src={polaroidImg}
+                                alt="Hanesh Koganti Profile"
+                                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                            />
                             {/* Overlay */}
                             <div className="absolute inset-0 bg-amber-400/10 group-hover:bg-transparent transition-all duration-300"></div>
                         </div>

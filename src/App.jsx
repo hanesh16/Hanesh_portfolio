@@ -11,6 +11,7 @@ const Projects = lazy(() => import('./components/Projects'));
 const Education = lazy(() => import('./components/Education'));
 const Contact = lazy(() => import('./components/Contact'));
 const ExploreSpace = lazy(() => import('./components/ExploreSpace'));
+const SolarSystemExplorer = lazy(() => import('./components/SolarSystemExplorer'));
 import AudioPlayer from './components/AudioPlayer';
 
 function App() {
@@ -29,12 +30,10 @@ function App() {
           <Education />
           <Contact />
           <ExploreSpace />
+
+          <SolarSystemExplorer />
         </Suspense>
       </main>
-
-      <footer className="relative z-10 py-6 text-center text-slate-500 text-sm font-mono">
-        <p>Designed & Built by Hanesh Koganti</p>
-      </footer>
     </div>
   );
 }

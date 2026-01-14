@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const ExploreSpace = () => {
     return (
-        <section className="relative w-full py-32 flex flex-col items-center justify-center overflow-hidden"
+        <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden"
             style={{ backgroundColor: 'transparent', fontFamily: '"Inter", sans-serif' }}>
 
 

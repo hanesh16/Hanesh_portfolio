@@ -1,8 +1,86 @@
-import React, { useRef, useMemo } from 'react';
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Points, PointMaterial } from '@react-three/drei';
+import React, { useRef, useMemo, Suspense } from 'react';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Points, PointMaterial, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import * as random from 'maath/random/dist/maath-random.esm';
+import sunImg from '../assets/textures/8k_sun.jpg';
+
+import venusImg from '../assets/textures/Venus.jpg';
+import marsImg from '../assets/textures/Mars.jpg';
+import jupiterImg from '../assets/textures/Jupiter.jpg';
+import saturnImg from '../assets/textures/Saturn.jpg';
+
+const Sun = () => {
+    const texture = useTexture(sunImg);
+    const sunRef = useRef();
+
+    useFrame((state, delta) => {
+        if (sunRef.current) {
+            sunRef.current.rotation.y += delta * 0.05; // Slow rotation
+        }
+    });
+
+    return (
+        <mesh ref={sunRef}>
+            <sphereGeometry args={[1.8, 64, 64]} />
+            <meshBasicMaterial map={texture} />
+        </mesh>
+    );
+};
+
+const Planet = ({ textureImg, size, orbitRadius, speed, offset }) => {
+    const texture = useTexture(textureImg);
+    const planetRef = useRef();
+    const angleRef = useRef(offset); // Start at random angle
+
+    useFrame((state, delta) => {
+        if (planetRef.current) {
+            // Update Orbit Angle
+            angleRef.current += delta * speed;
+
+            // Orbit around local origin [0, 0, 0] (Sun's position)
+            const x = Math.cos(angleRef.current) * orbitRadius;
+            const z = Math.sin(angleRef.current) * orbitRadius;
+
+            planetRef.current.position.set(x, 0, z); // Keep Y same as Sun
+
+            // Self-Rotation
+            planetRef.current.rotation.y += delta * 0.2;
+        }
+    });
+
+    return (
+        <mesh ref={planetRef}>
+            <sphereGeometry args={[size, 32, 32]} />
+            <meshStandardMaterial map={texture} />
+        </mesh>
+    );
+};
+
+const SolarSystem = () => {
+    const { viewport } = useThree();
+    const isMobile = viewport.width < 7; // Threshold for mobile layout
+
+    // Responsive Position:
+    // Desktop: Right side [10, 1.5, -12] (Moved further right)
+    // Mobile: Centered, Higher, Further back [0, 2.5, -18]
+    const position = isMobile ? [0, 2.5, -18] : [10, 1.5, -12];
+
+    return (
+        <group position={position}>
+            <pointLight intensity={1.5} color="#ffaa00" /> {/* Sun Light at center of group */}
+            <Sun />
+            {/* Venus: Small, close, fast */}
+            <Planet textureImg={venusImg} size={0.3} orbitRadius={2.8} speed={0.5} offset={0} />
+            {/* Mars: Small, red, moderate */}
+            <Planet textureImg={marsImg} size={0.25} orbitRadius={3.8} speed={0.3} offset={2} />
+            {/* Jupiter: Huge, far, slow */}
+            <Planet textureImg={jupiterImg} size={0.8} orbitRadius={5.5} speed={0.15} offset={4} />
+            {/* Saturn: Large, very far, very slow */}
+            <Planet textureImg={saturnImg} size={0.7} orbitRadius={7.5} speed={0.1} offset={1} />
+        </group>
+    );
+};
 
 const ParticleGroup = ({ count, size, radius, sunTexture }) => {
     const ref = useRef();
@@ -184,6 +262,12 @@ const AntigravityBackground = () => {
                 performance={{ min: 0.5 }} // Adaptive quality if FPS drops
                 eventSource={document.getElementById('root')}
             >
+                <ambientLight intensity={0.1} />
+
+                <Suspense fallback={null}>
+                    <SolarSystem />
+                </Suspense>
+
                 {/* 1. Small Background Stars (Dense, Wide) */}
                 <ParticleGroup count={1000} size={0.012} radius={12} sunTexture={sunTexture} />
 
