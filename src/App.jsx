@@ -9,11 +9,14 @@ const Experience = lazy(() => import('./components/Experience'));
 const Projects = lazy(() => import('./components/Projects'));
 const Education = lazy(() => import('./components/Education'));
 const Contact = lazy(() => import('./components/Contact'));
+const ExploreSpace = lazy(() => import('./components/ExploreSpace'));
+import AudioPlayer from './components/AudioPlayer';
 
 function App() {
   return (
     <div className="relative min-h-screen font-sans text-slate-200 overflow-x-hidden selection:bg-amber-400/30 selection:text-amber-200">
       <AntigravityBackground />
+      <AudioPlayer />
       <Navbar />
 
       <main className="relative z-10">
@@ -28,6 +31,7 @@ function App() {
           <Projects />
           <Education />
           <Contact />
+          <ExploreSpace />
         </Suspense>
       </main>
 

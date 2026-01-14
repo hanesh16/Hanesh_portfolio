@@ -39,13 +39,19 @@ const Navbar = () => {
 
                     <div className="flex items-center justify-between w-full px-2 relative z-10">
                         {/* Logo - Orbit Effect */}
-                        <div className="pl-4 pr-2 font-bold font-outfit text-slate-200 cursor-pointer select-none whitespace-nowrap text-xl relative group">
+                        <Link
+                            to="hero"
+                            smooth={true}
+                            duration={800}
+                            offset={-100}
+                            className="pl-4 pr-2 font-bold font-outfit text-slate-200 cursor-pointer select-none whitespace-nowrap text-xl relative group block"
+                        >
                             HK
                             <span className="text-amber-400 inline-block relative">
                                 .
                                 <span className="absolute -top-1 -right-1 w-2 h-2 bg-amber-400 rounded-full animate-ping opacity-75"></span>
                             </span>
-                        </div>
+                        </Link>
 
                         <div className={`h-6 w-[1px] bg-slate-600 mx-2 transition-opacity duration-300 ${scrolled ? 'opacity-100' : 'opacity-0'}`}></div>
 
@@ -94,9 +100,15 @@ const Navbar = () => {
                     <div className="absolute inset-0 z-0 liquid-bg opacity-30 pointer-events-none"
                         style={{ backgroundImage: 'linear-gradient(45deg, transparent 0%, rgba(255,255,255,0.4) 50%, transparent 100%)' }}></div>
 
-                    <div className="relative z-10 font-bold font-outfit text-slate-200 text-xl">
+                    <Link
+                        to="hero"
+                        smooth={true}
+                        duration={800}
+                        offset={-100}
+                        className="relative z-10 font-bold font-outfit text-slate-200 text-xl cursor-pointer"
+                    >
                         HK<span className="text-amber-400">.</span>
-                    </div>
+                    </Link>
 
                     <div className="h-5 w-[1px] bg-white/20 relative z-10"></div>
 
