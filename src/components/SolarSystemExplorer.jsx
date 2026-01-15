@@ -190,35 +190,37 @@ const SolarSystemExplorer = () => {
                 {selectedPlanet && <InfoCard planetKey={selectedPlanet} onClose={() => setSelectedPlanet(null)} />}
             </AnimatePresence>
 
-            <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
-                <ambientLight intensity={0.1} />
-                <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+            <div style={{ pointerEvents: isInteractionEnabled ? 'auto' : 'none' }} className="w-full h-full">
+                <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
+                    <ambientLight intensity={0.1} />
+                    <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
 
-                <OrbitControls
-                    enablePan={false}
-                    minDistance={10}
-                    maxDistance={60}
-                    enabled={isInteractionEnabled} // Controlled by toggle
-                    autoRotate={!isInteractionEnabled} // Auto-rotate when idle/disabled
-                    autoRotateSpeed={0.5}
-                />
+                    <OrbitControls
+                        enablePan={false}
+                        minDistance={10}
+                        maxDistance={60}
+                        enabled={isInteractionEnabled} // Controlled by toggle
+                        autoRotate={!isInteractionEnabled} // Auto-rotate when idle/disabled
+                        autoRotateSpeed={0.5}
+                    />
 
-                <Suspense fallback={null}>
-                    <Sun onSelect={setSelectedPlanet} />
+                    <Suspense fallback={null}>
+                        <Sun onSelect={setSelectedPlanet} />
 
-                    {/* Orbits Visuals */}
-                    <OrbitPath radius={4} />
-                    <OrbitPath radius={6} />
-                    <OrbitPath radius={10} />
-                    <OrbitPath radius={15} />
+                        {/* Orbits Visuals */}
+                        <OrbitPath radius={4} />
+                        <OrbitPath radius={6} />
+                        <OrbitPath radius={10} />
+                        <OrbitPath radius={15} />
 
-                    {/* Planets */}
-                    <Planet id="venus" textureImg={venusImg} size={0.6} orbitRadius={4} speed={0.8} offset={0} onSelect={setSelectedPlanet} />
-                    <Planet id="mars" textureImg={marsImg} size={0.5} orbitRadius={6} speed={0.6} offset={2} onSelect={setSelectedPlanet} />
-                    <Planet id="jupiter" textureImg={jupiterImg} size={1.2} orbitRadius={10} speed={0.3} offset={4} onSelect={setSelectedPlanet} />
-                    <Planet id="saturn" textureImg={saturnImg} size={1.0} orbitRadius={15} speed={0.2} offset={1} onSelect={setSelectedPlanet} />
-                </Suspense>
-            </Canvas>
+                        {/* Planets */}
+                        <Planet id="venus" textureImg={venusImg} size={0.6} orbitRadius={4} speed={0.8} offset={0} onSelect={setSelectedPlanet} />
+                        <Planet id="mars" textureImg={marsImg} size={0.5} orbitRadius={6} speed={0.6} offset={2} onSelect={setSelectedPlanet} />
+                        <Planet id="jupiter" textureImg={jupiterImg} size={1.2} orbitRadius={10} speed={0.3} offset={4} onSelect={setSelectedPlanet} />
+                        <Planet id="saturn" textureImg={saturnImg} size={1.0} orbitRadius={15} speed={0.2} offset={1} onSelect={setSelectedPlanet} />
+                    </Suspense>
+                </Canvas>
+            </div>
         </section>
     );
 };

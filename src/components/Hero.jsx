@@ -21,7 +21,7 @@ const Hero = () => {
             <div className="max-w-7xl mx-auto px-6 w-full flex items-center justify-start">
 
                 {/* Left-Aligned Text Content */}
-                <div className="w-full md:w-2/3 lg:w-1/2 z-10 text-left mt-24 md:mt-0">
+                <div className="w-full md:w-2/3 lg:w-1/2 z-10 text-left mt-8 md:mt-0">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
