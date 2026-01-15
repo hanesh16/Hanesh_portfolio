@@ -151,7 +151,9 @@ const SolarSystemExplorer = () => {
     const [isInteractionEnabled, setIsInteractionEnabled] = useState(false);
 
     return (
-        <section className="relative w-full h-screen bg-black overflow-hidden group">
+        <section
+            className={`relative w-full h-[100dvh] bg-black overflow-hidden group ${isInteractionEnabled ? 'touch-none' : 'touch-auto'}`}
+        >
             {/* UI Overlay - Mobile Adjusted Position */}
             <div className="absolute top-24 left-6 md:top-6 md:left-6 z-10 pointer-events-none">
                 <h3 className="text-white font-mono text-sm md:text-xl font-bold tracking-widest uppercase opacity-80">
@@ -170,8 +172,8 @@ const SolarSystemExplorer = () => {
                 <button
                     onClick={() => setIsInteractionEnabled(!isInteractionEnabled)}
                     className={`group w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-md border transition-all duration-300 ${isInteractionEnabled
-                            ? 'bg-amber-500/10 border-amber-500 text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
-                            : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:text-white'
+                        ? 'bg-amber-500/10 border-amber-500 text-amber-500 shadow-[0_0_15px_rgba(245,158,11,0.2)]'
+                        : 'bg-white/5 border-white/10 text-slate-400 hover:bg-white/10 hover:text-white'
                         }`}
                     aria-label={isInteractionEnabled ? "Disable Interaction" : "Enable Interaction"}
                 >
@@ -220,5 +222,12 @@ const SolarSystemExplorer = () => {
         </section>
     );
 };
+
+// Preload textures
+useTexture.preload(sunImg);
+useTexture.preload(venusImg);
+useTexture.preload(marsImg);
+useTexture.preload(jupiterImg);
+useTexture.preload(saturnImg);
 
 export default SolarSystemExplorer;

@@ -281,4 +281,11 @@ const AntigravityBackground = () => {
     );
 };
 
+// Preload textures to ensure they are available immediately
+useTexture.preload(sunImg);
+useTexture.preload(venusImg);
+useTexture.preload(marsImg);
+useTexture.preload(jupiterImg);
+useTexture.preload(saturnImg);
+
 export default AntigravityBackground;
