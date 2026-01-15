@@ -154,8 +154,18 @@ const SolarSystemExplorer = () => {
         <section
             className={`relative w-full h-[100dvh] bg-black overflow-hidden group ${isInteractionEnabled ? 'touch-none' : 'touch-auto'}`}
         >
+            {/* Scroll Shield - Critical for Mobile */}
+            {/* When locked, this invisible layer sits ON TOP of the Canvas but BELOW the UI. */}
+            {/* It captures touches so the browser scrolls naturally, preventing the Canvas from "stealing" the gesture. */}
+            {!isInteractionEnabled && (
+                <div
+                    className="absolute inset-0 z-20 w-full h-full"
+                    style={{ touchAction: 'auto' }}
+                />
+            )}
+
             {/* UI Overlay - Mobile Adjusted Position */}
-            <div className="absolute top-24 left-6 md:top-6 md:left-6 z-10 pointer-events-none">
+            <div className="absolute top-24 left-6 md:top-6 md:left-6 z-30 pointer-events-none">
                 <h3 className="text-white font-mono text-sm md:text-xl font-bold tracking-widest uppercase opacity-80">
                     System Explorer
                 </h3>
@@ -168,7 +178,7 @@ const SolarSystemExplorer = () => {
             </div>
 
             {/* Toggle Switch - Mobile Adjusted Position & Round Style */}
-            <div className="absolute top-24 right-6 md:top-6 md:right-6 z-10">
+            <div className="absolute top-24 right-6 md:top-6 md:right-6 z-30">
                 <button
                     onClick={() => setIsInteractionEnabled(!isInteractionEnabled)}
                     className={`group w-12 h-12 flex items-center justify-center rounded-full backdrop-blur-md border transition-all duration-300 ${isInteractionEnabled
@@ -190,7 +200,7 @@ const SolarSystemExplorer = () => {
                 {selectedPlanet && <InfoCard planetKey={selectedPlanet} onClose={() => setSelectedPlanet(null)} />}
             </AnimatePresence>
 
-            <div style={{ pointerEvents: isInteractionEnabled ? 'auto' : 'none' }} className="w-full h-full">
+            <div className="w-full h-full">
                 <Canvas camera={{ position: [0, 20, 25], fov: 45 }}>
                     <ambientLight intensity={0.1} />
                     <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
