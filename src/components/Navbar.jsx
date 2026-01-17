@@ -84,8 +84,8 @@ const Navbar = () => {
                                         activeClass="nav-reactor-active text-amber-400"
                                         to={item.name.toLowerCase()}
                                         spy={true}
-                                        smooth={true}
-                                        duration={800}
+                                        smooth="easeInOutQuart"
+                                        duration={1000}
                                         offset={-100}
                                         className={`nav-item flex items-center gap-2 rounded-full text-sm font-semibold text-white transition-all duration-300 cursor-pointer hover:bg-white/5 hover:text-amber-300 whitespace-nowrap drop-shadow-md ${scrolled ? 'px-3 py-2' : 'px-4 py-2 text-base'}`}
                                     >
@@ -124,8 +124,8 @@ const Navbar = () => {
                         activeClass="text-amber-400"
                         to="about"
                         spy={true}
-                        smooth={true}
-                        duration={800}
+                        smooth="easeInOutQuart"
+                        duration={1000}
                         offset={-100}
                         className="relative z-10 nav-item flex items-center gap-2 text-sm font-semibold text-white hover:text-amber-300 cursor-pointer drop-shadow-md"
                     >
@@ -154,8 +154,8 @@ const Navbar = () => {
                             activeClass="nav-reactor-active text-amber-400"
                             to={item.name.toLowerCase()}
                             spy={true}
-                            smooth={true}
-                            duration={800}
+                            smooth="easeInOutQuart"
+                            duration={1000}
                             offset={-100}
                             className="relative z-10 nav-item p-3 rounded-full text-white hover:text-amber-300 transition-all duration-300 cursor-pointer drop-shadow-md"
                         >

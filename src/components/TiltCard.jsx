@@ -66,7 +66,7 @@ const TiltCard = ({ children, className = "", index = 0, variant = "default" }) 
                     clipPath: isTechShape
                         ? "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)" // Aggressive Tech Shape
                         : "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)",
-                    background: "rgba(0, 0, 0, 0.4)", // More transparent black
+                    backgroundColor: "rgba(0, 0, 0, 0.4)", // More transparent black
                     backdropFilter: "blur(12px)",
                     border: "1px solid rgba(255, 255, 255, 0.1)",
                     boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
