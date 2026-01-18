@@ -116,7 +116,7 @@ const SolarSystem = ({ sunTexture }) => {
     // Responsive Position:
     // Desktop: Right side [10, 1.5, -12]
     // Mobile: Centered, Higher, Further back [0, 2.5, -18]
-    const position = isMobile ? [0, 2.0, -18] : [10, 0, -12];
+    const position = isMobile ? [0, 4.5, -20] : [10, 0, -12];
 
     return (
         <group position={position} rotation={[0.4, 0, 0.2]}> {/* Tilted Axis */}
