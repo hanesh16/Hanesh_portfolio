@@ -11,41 +11,7 @@ import jupiterImg from '../assets/textures/Jupiter.jpg';
 import saturnImg from '../assets/textures/Saturn.jpg';
 
 
-const SunMaterial = shaderMaterial(
-    { map: null },
-    // Vertex Shader
-    `
-    varying vec2 vUv;
-    varying vec3 vNormal;
-    void main() {
-        vUv = uv;
-        vNormal = normalize(normalMatrix * normal);
-        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-    }
-    `,
-    // Fragment Shader
-    `
-    uniform sampler2D map;
-    varying vec2 vUv;
-    varying vec3 vNormal;
-    void main() {
-        vec4 texColor = texture2D(map, vUv);
-        // Calculate intensity based on view angle (facing ratio)
-        // View direction in view space is effectively (0,0,1)
-        float intensity = dot(vNormal, vec3(0.0, 0.0, 1.0));
-        intensity = pow(intensity, 1.5); // Tune the curve for "roundness"
-        
-        // Darken edges slightly to give volume
-        vec3 color = texColor.rgb * intensity;
-        
-        // Optional: Add a slight rim glow or preserve original brightness at center
-        // but let's keep it simple and clean first to fix "flatness"
-        gl_FragColor = vec4(color, texColor.a);
-    }
-    `
-);
 
-extend({ SunMaterial });
 
 const OrbitRing = ({ radius }) => {
     return (
@@ -56,7 +22,7 @@ const OrbitRing = ({ radius }) => {
     );
 };
 
-const Sun = ({ glowTexture }) => {
+const Sun = () => {
     const texture = useTexture(sunImg);
     const sunRef = useRef();
 
@@ -67,16 +33,10 @@ const Sun = ({ glowTexture }) => {
     });
 
     return (
-        <group>
-            <mesh ref={sunRef}>
-                <sphereGeometry args={[1.5, 64, 64]} />
-                <sunMaterial map={texture} />
-            </mesh>
-            {/* Glow Effect */}
-            <sprite scale={[10, 10, 1]}>
-                <spriteMaterial map={glowTexture} color="#ffaa00" transparent opacity={0.4} blending={THREE.AdditiveBlending} depthWrite={false} />
-            </sprite>
-        </group>
+        <mesh ref={sunRef}>
+            <sphereGeometry args={[1.5, 64, 64]} />
+            <meshBasicMaterial map={texture} color="#cccccc" />
+        </mesh>
     );
 };
 
@@ -121,7 +81,7 @@ const SolarSystem = ({ sunTexture }) => {
     return (
         <group position={position} rotation={[0.4, 0, 0.2]}> {/* Tilted Axis */}
             <pointLight intensity={1.5} color="#ffaa00" distance={50} decay={2} /> {/* Sun Light at center of group */}
-            <Sun glowTexture={sunTexture} />
+            <Sun />
 
             {/* Orbit Rings */}
             <OrbitRing radius={2.8} />
