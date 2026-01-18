@@ -73,14 +73,14 @@ const Hero = () => {
     }, []);
 
     return (
-        <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
+        <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-12 md:pt-20">
             {/* Background Elements - Light Theme */}
             {/* Grid and stars handled by InteractiveGrid component now */}
 
             <div className="max-w-7xl mx-auto px-6 w-full flex items-center justify-start">
 
                 {/* Left-Aligned Text Content */}
-                <div className="w-full md:w-2/3 lg:w-1/2 z-10 text-left mt-8 md:mt-0">
+                <div className="w-full md:w-2/3 lg:w-1/2 z-10 text-left mt-0 md:mt-0">
                     <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}

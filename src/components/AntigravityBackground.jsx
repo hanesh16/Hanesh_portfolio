@@ -1,6 +1,6 @@
 import React, { useRef, useMemo, Suspense } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Points, PointMaterial, useTexture } from '@react-three/drei';
+import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
+import { Points, PointMaterial, useTexture, shaderMaterial } from '@react-three/drei';
 import * as THREE from 'three';
 import * as random from 'maath/random/dist/maath-random.esm';
 import sunImg from '../assets/textures/8k_sun.jpg';
@@ -10,7 +10,53 @@ import marsImg from '../assets/textures/Mars.jpg';
 import jupiterImg from '../assets/textures/Jupiter.jpg';
 import saturnImg from '../assets/textures/Saturn.jpg';
 
-const Sun = () => {
+
+const SunMaterial = shaderMaterial(
+    { map: null },
+    // Vertex Shader
+    `
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    void main() {
+        vUv = uv;
+        vNormal = normalize(normalMatrix * normal);
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+    `,
+    // Fragment Shader
+    `
+    uniform sampler2D map;
+    varying vec2 vUv;
+    varying vec3 vNormal;
+    void main() {
+        vec4 texColor = texture2D(map, vUv);
+        // Calculate intensity based on view angle (facing ratio)
+        // View direction in view space is effectively (0,0,1)
+        float intensity = dot(vNormal, vec3(0.0, 0.0, 1.0));
+        intensity = pow(intensity, 1.5); // Tune the curve for "roundness"
+        
+        // Darken edges slightly to give volume
+        vec3 color = texColor.rgb * intensity;
+        
+        // Optional: Add a slight rim glow or preserve original brightness at center
+        // but let's keep it simple and clean first to fix "flatness"
+        gl_FragColor = vec4(color, texColor.a);
+    }
+    `
+);
+
+extend({ SunMaterial });
+
+const OrbitRing = ({ radius }) => {
+    return (
+        <mesh rotation={[-Math.PI / 2, 0, 0]}>
+            <ringGeometry args={[radius - 0.05, radius + 0.05, 128]} />
+            <meshBasicMaterial color="#ffffff" opacity={0.05} transparent side={THREE.DoubleSide} />
+        </mesh>
+    );
+};
+
+const Sun = ({ glowTexture }) => {
     const texture = useTexture(sunImg);
     const sunRef = useRef();
 
@@ -21,10 +67,16 @@ const Sun = () => {
     });
 
     return (
-        <mesh ref={sunRef}>
-            <sphereGeometry args={[1.8, 64, 64]} />
-            <meshBasicMaterial map={texture} color="#cccccc" />
-        </mesh>
+        <group>
+            <mesh ref={sunRef}>
+                <sphereGeometry args={[1.5, 64, 64]} />
+                <sunMaterial map={texture} />
+            </mesh>
+            {/* Glow Effect */}
+            <sprite scale={[10, 10, 1]}>
+                <spriteMaterial map={glowTexture} color="#ffaa00" transparent opacity={0.4} blending={THREE.AdditiveBlending} depthWrite={false} />
+            </sprite>
+        </group>
     );
 };
 
@@ -57,19 +109,26 @@ const Planet = ({ textureImg, size, orbitRadius, speed, offset }) => {
     );
 };
 
-const SolarSystem = () => {
+const SolarSystem = ({ sunTexture }) => {
     const { viewport } = useThree();
     const isMobile = viewport.width < 7; // Threshold for mobile layout
 
     // Responsive Position:
-    // Desktop: Right side [10, 1.5, -12] (Moved further right)
+    // Desktop: Right side [10, 1.5, -12]
     // Mobile: Centered, Higher, Further back [0, 2.5, -18]
-    const position = isMobile ? [0, 2.5, -18] : [10, 1.5, -12];
+    const position = isMobile ? [0, 2.0, -18] : [10, 0, -12];
 
     return (
-        <group position={position}>
-            <pointLight intensity={1.0} color="#ffaa00" /> {/* Sun Light at center of group */}
-            <Sun />
+        <group position={position} rotation={[0.4, 0, 0.2]}> {/* Tilted Axis */}
+            <pointLight intensity={1.5} color="#ffaa00" distance={50} decay={2} /> {/* Sun Light at center of group */}
+            <Sun glowTexture={sunTexture} />
+
+            {/* Orbit Rings */}
+            <OrbitRing radius={2.8} />
+            <OrbitRing radius={3.8} />
+            <OrbitRing radius={5.5} />
+            <OrbitRing radius={7.5} />
+
             {/* Venus: Small, close, fast */}
             <Planet textureImg={venusImg} size={0.3} orbitRadius={2.8} speed={0.5} offset={0} />
             {/* Mars: Small, red, moderate */}
@@ -265,7 +324,7 @@ const AntigravityBackground = () => {
                 <ambientLight intensity={0.1} />
 
                 <Suspense fallback={null}>
-                    <SolarSystem />
+                    <SolarSystem sunTexture={sunTexture} />
                 </Suspense>
 
                 {/* 1. Small Background Stars (Dense, Wide) */}

@@ -1,6 +1,6 @@
 import React, { useState, useRef, Suspense } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useTexture, Stars } from '@react-three/drei';
+import { OrbitControls, useTexture, Stars, Html } from '@react-three/drei';
 import { motion, AnimatePresence } from 'framer-motion';
 import * as THREE from 'three';
 
@@ -74,47 +74,67 @@ const planetData = {
 
 // --- 3D Components ---
 
-const Sun = ({ onSelect }) => {
+const Sun = ({ onSelect, isSelected }) => {
     const texture = useTexture(sunImg);
-    const sunRef = useRef();
+    const meshRef = useRef();
 
     useFrame((state, delta) => {
-        if (sunRef.current) sunRef.current.rotation.y += delta * 0.05;
+        if (meshRef.current) meshRef.current.rotation.y += delta * 0.05;
     });
 
     return (
-        <mesh ref={sunRef} onClick={(e) => { e.stopPropagation(); onSelect('sun'); }}
+        <group onClick={(e) => { e.stopPropagation(); onSelect(isSelected ? null : 'sun'); }}
             onPointerOver={() => document.body.style.cursor = 'pointer'}
             onPointerOut={() => document.body.style.cursor = 'auto'}>
-            <sphereGeometry args={[2.5, 64, 64]} />
-            <meshBasicMaterial map={texture} />
-            <pointLight intensity={2} color="#ffaa00" distance={100} decay={2} />
-        </mesh>
+
+            <mesh ref={meshRef}>
+                <sphereGeometry args={[2.5, 64, 64]} />
+                <meshBasicMaterial map={texture} />
+                <pointLight intensity={2} color="#ffaa00" distance={100} decay={2} />
+            </mesh>
+
+            <AnimatePresence>
+                {isSelected && <InfoCard planetKey="sun" onClose={() => onSelect(null)} radius={2.5} />}
+            </AnimatePresence>
+        </group>
     );
 };
 
-const Planet = ({ textureImg, size, orbitRadius, speed, offset, id, onSelect }) => {
+const Planet = ({ textureImg, size, orbitRadius, speed, offset, id, onSelect, isSelected }) => {
     const texture = useTexture(textureImg);
-    const planetRef = useRef();
+    const groupRef = useRef();
+    const meshRef = useRef();
     const angleRef = useRef(offset);
 
     useFrame((state, delta) => {
-        if (planetRef.current) {
-            angleRef.current += delta * speed * 0.5; // Slightly slower for exploration
+        // Orbit Logic (Move the Group)
+        if (groupRef.current) {
+            angleRef.current += delta * speed * 0.5;
             const x = Math.cos(angleRef.current) * orbitRadius;
             const z = Math.sin(angleRef.current) * orbitRadius;
-            planetRef.current.position.set(x, 0, z);
-            planetRef.current.rotation.y += delta * 0.5;
+            groupRef.current.position.set(x, 0, z);
+        }
+
+        // Spin Logic (Rotate the Mesh)
+        if (meshRef.current) {
+            meshRef.current.rotation.y += delta * 0.5;
         }
     });
 
     return (
-        <mesh ref={planetRef} onClick={(e) => { e.stopPropagation(); onSelect(id); }}
+        <group ref={groupRef} onClick={(e) => { e.stopPropagation(); onSelect(isSelected ? null : id); }}
             onPointerOver={() => document.body.style.cursor = 'pointer'}
             onPointerOut={() => document.body.style.cursor = 'auto'}>
-            <sphereGeometry args={[size, 32, 32]} />
-            <meshStandardMaterial map={texture} />
-        </mesh>
+
+            <mesh ref={meshRef}>
+                <sphereGeometry args={[size, 32, 32]} />
+                <meshStandardMaterial map={texture} />
+            </mesh>
+
+            <AnimatePresence>
+                {isSelected && <InfoCard planetKey={id} onClose={() => onSelect(null)} radius={size} />}
+            </AnimatePresence>
+        </group>
     );
 };
 
@@ -129,44 +149,69 @@ const OrbitPath = ({ radius }) => {
 
 // --- UI Components ---
 
-const InfoCard = ({ planetKey, onClose }) => {
+const InfoCard = ({ planetKey, onClose, radius = 0 }) => {
     const data = planetData[planetKey];
     if (!data) return null;
 
+    // Position the card at the "surface" (radius) + a small offset
+    // Using [radius, 0, 0] places it to the right of the planet's center
+    const xOffset = radius;
+
     return (
-        <motion.div
-            initial={{ opacity: 0, x: 50, scale: 0.9 }}
-            animate={{ opacity: 1, x: 0, scale: 1 }}
-            exit={{ opacity: 0, x: 50, scale: 0.9 }}
-            className="absolute bottom-10 right-6 md:right-10 md:bottom-20 z-20 max-w-sm w-full"
-        >
-            <div className="bg-black/60 backdrop-blur-xl border border-white/20 p-6 rounded-2xl shadow-2xl relative overflow-hidden group">
-                {/* Decorative border gradient */}
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 via-purple-500 to-blue-500"></div>
-
-                <button onClick={onClose} className="absolute top-4 right-4 text-slate-400 hover:text-white transition-colors">
-                    <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 18L18 6M6 6l12 12" /></svg>
-                </button>
-
-                <div className="mb-2">
-                    <span className="text-amber-400 text-xs font-mono uppercase tracking-widest">{data.type}</span>
-                    <h2 className="text-3xl font-bold text-white font-outfit mt-1">{data.name}</h2>
+        <Html position={[xOffset, 0, 0]} center zIndexRange={[100, 0]} style={{ pointerEvents: 'none' }}>
+            <motion.div
+                initial={{ opacity: 0, scale: 0.8, x: -20 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                transition={{ duration: 0.3 }}
+                className="flex items-center"
+                style={{ pointerEvents: 'auto', minWidth: '350px' }} // Ensure clicks work on the card
+            >
+                {/* Connecting Line */}
+                <div className="relative flex items-center">
+                    {/* Circle at origin */}
+                    <div className="w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_rgba(34,211,238,0.8)]"></div>
+                    {/* Angled Line */}
+                    <div className="w-12 h-[2px] bg-gradient-to-r from-cyan-400 to-cyan-400/50"></div>
                 </div>
 
-                <p className="text-slate-300 text-sm leading-relaxed mb-6 border-b border-white/10 pb-4">
-                    {data.description}
-                </p>
+                {/* Card Container */}
+                <div className="relative ml-2 bg-black/80 backdrop-blur-xl border border-cyan-500/30 p-5 rounded-r-2xl rounded-bl-2xl shadow-[0_0_30px_rgba(0,0,0,0.5)] overflow-hidden">
+                    {/* Glossy overlay */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
 
-                <div className="grid grid-cols-1 gap-2">
-                    {data.facts.map((fact, i) => (
-                        <div key={i} className="flex items-center text-xs font-mono text-slate-400 bg-white/5 p-2 rounded">
-                            <span className="w-1.5 h-1.5 bg-blue-400 rounded-full mr-3"></span>
-                            {fact}
+                    {/* Top Accent */}
+                    <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 to-transparent"></div>
+
+                    <button onClick={(e) => { e.stopPropagation(); onClose(); }} className="absolute top-3 right-3 text-cyan-400/60 hover:text-cyan-400 transition-colors z-10">
+                        <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 18L18 6M6 6l12 12" /></svg>
+                    </button>
+
+                    <div className="relative z-10">
+                        <div className="mb-3">
+                            <span className="text-cyan-400 text-[10px] font-mono uppercase tracking-[0.2em]">{data.type}</span>
+                            <h2 className="text-2xl font-bold text-white font-outfit mt-1 tracking-wide drop-shadow-md">{data.name}</h2>
                         </div>
-                    ))}
+
+                        <p className="text-slate-300 text-xs leading-relaxed mb-4 border-b border-white/10 pb-3 font-light">
+                            {data.description}
+                        </p>
+
+                        <div className="space-y-1.5">
+                            {data.facts.map((fact, i) => (
+                                <div key={i} className="flex items-center text-[10px] font-mono text-cyan-200/80">
+                                    <span className="w-1 h-1 bg-cyan-400 rounded-full mr-2 shadow-[0_0_4px_cyan]"></span>
+                                    {fact}
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Corner Accent */}
+                    <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-cyan-500/30 rounded-br-2xl"></div>
                 </div>
-            </div>
-        </motion.div>
+            </motion.div>
+        </Html>
     );
 };
 
@@ -224,9 +269,7 @@ const SolarSystemExplorer = () => {
                 </button>
             </div>
 
-            <AnimatePresence>
-                {selectedPlanet && <InfoCard planetKey={selectedPlanet} onClose={() => setSelectedPlanet(null)} />}
-            </AnimatePresence>
+
 
             <div className="w-full h-full">
                 <Canvas camera={{ position: [0, 30, 40], fov: 45 }}>
@@ -243,7 +286,8 @@ const SolarSystemExplorer = () => {
                     />
 
                     <Suspense fallback={null}>
-                        <Sun onSelect={setSelectedPlanet} />
+
+                        <Sun onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'sun'} />
 
                         {/* Orbits Visuals - Expanded for 8 Planets */}
                         <OrbitPath radius={3.2} /> {/* Mercury */}
@@ -258,28 +302,28 @@ const SolarSystemExplorer = () => {
                         {/* Planets - Correct Order & Relative Scales */}
 
                         {/* 1. Mercury - Tiny, grayish, super close */}
-                        <Planet id="mercury" textureImg={mercuryImg} size={0.38} orbitRadius={3.2} speed={1.2} offset={Math.random() * 6} onSelect={setSelectedPlanet} />
+                        <Planet id="mercury" textureImg={mercuryImg} size={0.38} orbitRadius={3.2} speed={1.2} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'mercury'} />
 
                         {/* 2. Venus - Bright, close */}
-                        <Planet id="venus" textureImg={venusImg} size={0.95} orbitRadius={4.5} speed={0.9} offset={Math.random() * 6} onSelect={setSelectedPlanet} />
+                        <Planet id="venus" textureImg={venusImg} size={0.95} orbitRadius={4.5} speed={0.9} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'venus'} />
 
                         {/* 3. Earth - Our Blue Marble */}
-                        <Planet id="earth" textureImg={earthImg} size={1.0} orbitRadius={6.0} speed={0.7} offset={Math.random() * 6} onSelect={setSelectedPlanet} />
+                        <Planet id="earth" textureImg={earthImg} size={1.0} orbitRadius={6.0} speed={0.7} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'earth'} />
 
                         {/* 4. Mars - Red, smaller */}
-                        <Planet id="mars" textureImg={marsImg} size={0.53} orbitRadius={7.8} speed={0.6} offset={Math.random() * 6} onSelect={setSelectedPlanet} />
+                        <Planet id="mars" textureImg={marsImg} size={0.53} orbitRadius={7.8} speed={0.6} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'mars'} />
 
                         {/* 5. Jupiter - Huge, fast self-spin but slow orbit */}
-                        <Planet id="jupiter" textureImg={jupiterImg} size={3.0} orbitRadius={12} speed={0.3} offset={Math.random() * 6} onSelect={setSelectedPlanet} />
+                        <Planet id="jupiter" textureImg={jupiterImg} size={3.0} orbitRadius={12} speed={0.3} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'jupiter'} />
 
                         {/* 6. Saturn - Large, rings */}
-                        <Planet id="saturn" textureImg={saturnImg} size={2.5} orbitRadius={16} speed={0.2} offset={Math.random() * 6} onSelect={setSelectedPlanet} />
+                        <Planet id="saturn" textureImg={saturnImg} size={2.5} orbitRadius={16} speed={0.2} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'saturn'} />
 
                         {/* 7. Uranus - Cyan, far out */}
-                        <Planet id="uranus" textureImg={uranusImg} size={1.8} orbitRadius={20} speed={0.15} offset={Math.random() * 6} onSelect={setSelectedPlanet} />
+                        <Planet id="uranus" textureImg={uranusImg} size={1.8} orbitRadius={20} speed={0.15} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'uranus'} />
 
                         {/* 8. Neptune - Deep blue, furthest */}
-                        <Planet id="neptune" textureImg={neptuneImg} size={1.7} orbitRadius={24} speed={0.1} offset={Math.random() * 6} onSelect={setSelectedPlanet} />
+                        <Planet id="neptune" textureImg={neptuneImg} size={1.7} orbitRadius={24} speed={0.1} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'neptune'} />
 
                     </Suspense>
                 </Canvas>
