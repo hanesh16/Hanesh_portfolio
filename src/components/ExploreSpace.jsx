@@ -1,10 +1,68 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
+import { Sparkles, ArrowRight, Loader2 } from 'lucide-react';
+import ModelClient, { isUnexpected } from "@azure-rest/ai-inference";
+import { AzureKeyCredential } from "@azure/core-auth";
+
+const token = import.meta.env.VITE_GITHUB_TOKEN;
+const endpoint = "https://models.github.ai/inference";
+const modelName = "gpt-4o";
 
 const ExploreSpace = () => {
+    const [query, setQuery] = React.useState('');
+    const [response, setResponse] = React.useState(null);
+    const [isLoading, setIsLoading] = React.useState(false);
+
+    const [error, setError] = React.useState(null);
+
+    const handleSearch = async (e) => {
+        e.preventDefault();
+        if (!query.trim() || isLoading) return;
+
+        setIsLoading(true);
+        setResponse(null);
+        setError(null);
+
+        try {
+            if (!token) {
+                throw new Error("Missing GitHub Token");
+            }
+
+            const client = ModelClient(
+                endpoint,
+                new AzureKeyCredential(token),
+            );
+
+            const apiResponse = await client.path("/chat/completions").post({
+                body: {
+                    messages: [
+                        { role: "system", content: "You are the voice of the universe. Provide an exact, direct, and profound answer in a single short sentence or tagline. Avoid padding or pleasantries." },
+                        { role: "user", content: query }
+                    ],
+                    temperature: 0.7,
+                    max_tokens: 100,
+                    model: modelName
+                }
+            });
+
+            if (isUnexpected(apiResponse)) {
+                throw apiResponse.body.error || new Error("An unexpected error occurred.");
+            }
+
+            setResponse(apiResponse.body.choices[0].message.content);
+
+        } catch (err) {
+            console.error("AI Error:", err);
+            setError("The signal was lost in deep space. Please try again.");
+            setResponse(null);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
     return (
-        <section className="relative w-full h-screen flex flex-col items-center justify-center overflow-hidden"
+        <section className="relative w-full min-h-screen flex flex-col items-center justify-center overflow-hidden py-20"
             style={{ backgroundColor: 'transparent', fontFamily: '"Inter", sans-serif' }}>
 
 
@@ -30,28 +88,67 @@ const ExploreSpace = () => {
                 </div>
 
                 {/* Search Bar Visual */}
-                <div className="w-full max-w-xl mx-auto group">
-                    <div className="bg-[#1f1d21]/80 backdrop-blur-md border border-[#2d2b2f] rounded-full p-2 pl-6 flex items-center shadow-2xl transition-all duration-300 group-hover:border-[#3d3b3f] group-hover:bg-[#252327]/90">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" className="text-[#8d8d8a] mr-4">
-                            <path d="M11.5 21C16.7467 21 21 16.7467 21 11.5C21 6.25329 16.7467 2 11.5 2C6.25329 2 2 6.25329 2 11.5C2 16.7467 6.25329 21 11.5 21Z" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            <path d="M22 22L20 20" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                        </svg>
+                <form onSubmit={handleSearch} className="w-full max-w-xl mx-auto group relative">
+                    <div className={`bg-[#1f1d21]/80 backdrop-blur-md border ${isLoading ? 'border-blue-500/50' : 'border-[#2d2b2f]'} rounded-2xl p-2 pl-6 flex items-center shadow-2xl transition-all duration-300 group-hover:border-[#3d3b3f] group-hover:bg-[#252327]/90`}>
+                        <Sparkles className={`text-[#8d8d8a] mr-4 shrink-0 transition-opacity ${isLoading ? 'opacity-50' : 'opacity-100'}`} size={20} />
+
                         <input
                             type="text"
-                            disabled
+                            value={query}
+                            onChange={(e) => setQuery(e.target.value)}
                             placeholder="Explore deep space..."
                             className="bg-transparent border-none outline-none text-[#e8e8e6] text-lg w-full placeholder-[#5d5d5a] font-light py-2"
+                            disabled={isLoading}
                         />
-                        <button className="bg-[#3d3b3f] text-[#e8e8e6] p-2 rounded-full hover:bg-[#4d4b4f] transition-colors ml-2">
-                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                <path d="M5 12H19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                                <path d="M12 5L19 12L12 19" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                            </svg>
+                        <button
+                            type="submit"
+                            disabled={isLoading || !query.trim()}
+                            className={`bg-[#3d3b3f] text-[#e8e8e6] p-2 rounded-xl hover:bg-[#4d4b4f] transition-all ml-2 disabled:opacity-50 disabled:cursor-not-allowed`}
+                        >
+                            {isLoading ? (
+                                <Loader2 className="animate-spin text-white" size={20} />
+                            ) : (
+                                <ArrowRight size={20} />
+                            )}
                         </button>
                     </div>
+                </form>
+
+                {/* AI Response Area details */}
+                <div className="min-h-[8rem] mt-6 flex items-start justify-center w-full">
+                    {isLoading && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            className="text-[#8d8d8a] font-light flex items-center gap-2"
+                        >
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                            Establishing uplink...
+                        </motion.div>
+                    )}
+
+                    {!isLoading && error && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-red-400 text-lg font-light leading-relaxed max-w-xl"
+                        >
+                            "{error}"
+                        </motion.div>
+                    )}
+
+                    {!isLoading && response && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            className="text-[#e8e8e6] text-lg font-light leading-relaxed max-w-xl break-words"
+                        >
+                            "{response}"
+                        </motion.div>
+                    )}
                 </div>
 
-                <div className="mt-12 flex items-center justify-center gap-6 text-[#5d5d5a] text-sm">
+                <div className="mt-4 flex items-center justify-center gap-6 text-[#5d5d5a] text-sm">
                     <span>Powered by Stardust</span>
                     <span className="w-1 h-1 bg-[#5d5d5a] rounded-full"></span>
                     <span>Designed for Orbit</span>

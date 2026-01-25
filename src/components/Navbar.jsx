@@ -82,7 +82,7 @@ const Navbar = () => {
                                 <li key={item.name}>
                                     <Link
                                         activeClass="nav-reactor-active text-amber-400"
-                                        to={item.name.toLowerCase()}
+                                        to={item.id || item.name.toLowerCase()}
                                         spy={true}
                                         smooth="easeInOutQuart"
                                         duration={1000}
@@ -152,7 +152,7 @@ const Navbar = () => {
                         <Link
                             key={item.name}
                             activeClass="nav-reactor-active text-amber-400"
-                            to={item.name.toLowerCase()}
+                            to={item.id || item.name.toLowerCase()}
                             spy={true}
                             smooth="easeInOutQuart"
                             duration={1000}
