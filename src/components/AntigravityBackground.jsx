@@ -1,6 +1,6 @@
 import React, { useRef, useMemo, Suspense } from 'react';
-import { Canvas, useFrame, useThree, extend } from '@react-three/fiber';
-import { Points, PointMaterial, useTexture, shaderMaterial } from '@react-three/drei';
+import { Canvas, useFrame, useThree } from '@react-three/fiber';
+import { Points, PointMaterial, useTexture } from '@react-three/drei';
 import * as THREE from 'three';
 import * as random from 'maath/random/dist/maath-random.esm';
 import sunImg from '../assets/textures/8k_sun.jpg';
@@ -69,7 +69,7 @@ const Planet = ({ textureImg, size, orbitRadius, speed, offset }) => {
     );
 };
 
-const SolarSystem = ({ sunTexture }) => {
+const SolarSystem = () => {
     const { viewport } = useThree();
     const isMobile = viewport.width < 7; // Threshold for mobile layout
 
@@ -105,6 +105,7 @@ const ParticleGroup = ({ count, size, radius, sunTexture }) => {
     const ref = useRef();
 
     // Generate random points in different shapes for THIS group
+    /* eslint-disable react-hooks/purity -- Intentional: particles need random positions, computed once per count/radius change */
     const [sphere, galaxy, ring] = useMemo(() => {
         // 1. Cube/Sphere (Cloud) - Expanded random spread
         // Using inSphere gives a ball, let's flatten it slightly for better screen coverage
@@ -144,6 +145,7 @@ const ParticleGroup = ({ count, size, radius, sunTexture }) => {
 
         return [s, g, r];
     }, [count, radius]);
+    /* eslint-enable react-hooks/purity */
 
     useFrame((state) => {
         const { clock, pointer, viewport } = state;
@@ -253,24 +255,29 @@ const AntigravityBackground = () => {
     // Generate Sun Texture once (High Resolution for 4K)
     const sunTexture = useMemo(() => {
         const canvas = document.createElement('canvas');
-        canvas.width = 64; // Increased from 32 for sharper look
-        canvas.height = 64;
+        canvas.width = 128; // High resolution for 4K/Retina displays
+        canvas.height = 128;
         const context = canvas.getContext('2d');
-        const gradient = context.createRadialGradient(32, 32, 0, 32, 32, 32);
+        const gradient = context.createRadialGradient(64, 64, 0, 64, 64, 64);
         gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-        gradient.addColorStop(0.2, 'rgba(255, 215, 0, 1)');
-        gradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.8)');
+        gradient.addColorStop(0.15, 'rgba(255, 230, 100, 1)');
+        gradient.addColorStop(0.3, 'rgba(255, 200, 50, 0.9)');
+        gradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.7)');
         gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
         context.fillStyle = gradient;
-        context.fillRect(0, 0, 64, 64);
-        return new THREE.CanvasTexture(canvas);
+        context.fillRect(0, 0, 128, 128);
+        const texture = new THREE.CanvasTexture(canvas);
+        texture.generateMipmaps = true;
+        texture.minFilter = THREE.LinearMipmapLinearFilter;
+        texture.magFilter = THREE.LinearFilter;
+        return texture;
     }, []);
 
     return (
         <div className="fixed inset-0 z-[-1] bg-black">
             <Canvas
                 camera={{ position: [0, 0, 6], fov: 60 }}
-                dpr={[1, 2]} // Support High-DPI (Retina/4K) screens
+                dpr={[1, 2]} // Standard high-DPI support (prevents flickering on some devices)
                 gl={{
                     antialias: true,
                     alpha: false,
@@ -278,7 +285,7 @@ const AntigravityBackground = () => {
                     stencil: false,
                     depth: false
                 }}
-                performance={{ min: 0.5 }} // Adaptive quality if FPS drops
+                performance={{ min: 0.5 }}
                 eventSource={document.getElementById('root')}
             >
                 <ambientLight intensity={0.1} />
@@ -287,14 +294,14 @@ const AntigravityBackground = () => {
                     <SolarSystem sunTexture={sunTexture} />
                 </Suspense>
 
-                {/* 1. Small Background Stars (Dense, Wide) */}
-                <ParticleGroup count={1000} size={0.012} radius={12} sunTexture={sunTexture} />
+                {/* 1. Small Background Stars (Dense, Wide) - Increased for richer starfield */}
+                <ParticleGroup count={1500} size={0.015} radius={14} sunTexture={sunTexture} />
 
                 {/* 2. Medium Stars (Interactive, Mid-range) */}
-                <ParticleGroup count={300} size={0.025} radius={8} sunTexture={sunTexture} />
+                <ParticleGroup count={500} size={0.028} radius={10} sunTexture={sunTexture} />
 
                 {/* 3. Large Glowing Suns (Sparse, Close) */}
-                <ParticleGroup count={60} size={0.05} radius={5} sunTexture={sunTexture} />
+                <ParticleGroup count={80} size={0.055} radius={6} sunTexture={sunTexture} />
             </Canvas>
         </div>
     );

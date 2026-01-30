@@ -35,7 +35,7 @@ const Projects = () => {
     ];
 
     return (
-        <section id="projects" className="py-24 relative z-10">
+        <section id="projects" className="pt-24 pb-24 relative z-10">
             <div className="max-w-[1000px] mx-auto px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -79,6 +79,8 @@ const Projects = () => {
                                                 src={project.image}
                                                 alt={project.title}
                                                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-300 scale-100 group-hover:scale-105"
+                                                loading="lazy"
+                                                decoding="async"
                                             />
                                         </div>
                                     </a>

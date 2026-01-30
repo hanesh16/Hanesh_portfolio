@@ -1,6 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
 import musicFile from '../assets/Perplexity.mp3';
 
+// Pre-computed equalizer bar values at module level (computed once when module loads)
+const EQUALIZER_BARS = [1, 2, 3, 4, 5].map((i) => ({
+    id: i,
+    height: Math.random() * 40 + 20,
+    duration: 0.5 + Math.random() * 0.5,
+}));
+
 const AudioPlayer = () => {
     const [isPlaying, setIsPlaying] = useState(false);
     const audioRef = useRef(null);
@@ -26,7 +33,7 @@ const AudioPlayer = () => {
                     audioRef.current.volume = 0.5;
                     await audioRef.current.play();
                     setIsPlaying(true);
-                } catch (err) {
+                } catch {
                     console.log("Autoplay blocked. Waiting for ANY interaction.");
                     setIsPlaying(false);
 
@@ -72,13 +79,13 @@ const AudioPlayer = () => {
                 {/* Visual Equalizer / Glow */}
                 {isPlaying && (
                     <div className="absolute inset-0 flex items-center justify-center gap-[2px] opacity-40 group-hover:opacity-60">
-                        {[1, 2, 3, 4, 5].map((i) => (
+                        {EQUALIZER_BARS.map((bar) => (
                             <div
-                                key={i}
+                                key={bar.id}
                                 className="w-1 bg-amber-400 rounded-full animate-pulse"
                                 style={{
-                                    height: `${Math.random() * 40 + 20}%`,
-                                    animationDuration: `${0.5 + Math.random() * 0.5}s`
+                                    height: `${bar.height}%`,
+                                    animationDuration: `${bar.duration}s`
                                 }}
                             />
                         ))}
@@ -107,3 +114,4 @@ const AudioPlayer = () => {
 };
 
 export default AudioPlayer;
+

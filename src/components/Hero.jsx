@@ -70,7 +70,7 @@ const Hero = () => {
             setIndex((prev) => (prev + 1) % greetings.length);
         }, 2500); // Change every 2.5 seconds
         return () => clearInterval(interval);
-    }, []);
+    }, [greetings.length]);
 
     return (
         <section id="hero" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-12 md:pt-20">

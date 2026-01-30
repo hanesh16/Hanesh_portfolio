@@ -13,7 +13,7 @@ const About = () => {
     ];
 
     return (
-        <section id="about" className="py-20 text-slate-900">
+        <section id="about" className="pt-24 pb-20 text-slate-900">
             <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                 {/* Left: Text Content */}
                 <motion.div
@@ -63,8 +63,10 @@ const About = () => {
                         <div className="aspect-square bg-slate-900 border-2 border-amber-400/30 shadow-xl rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-300 rotate-3 group-hover:rotate-0">
                             <img
                                 src={polaroidImg}
-                                alt="Hanesh Koganti Profile"
+                                alt="Hanesh Koganti - Software Engineer"
                                 className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
+                                loading="lazy"
+                                decoding="async"
                             />
                             {/* Overlay */}
                             <div className="absolute inset-0 bg-amber-400/10 group-hover:bg-transparent transition-all duration-300"></div>

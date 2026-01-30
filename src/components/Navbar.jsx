@@ -36,6 +36,8 @@ const Navbar = () => {
                 animate={{ y: 0, x: "-50%" }}
                 transition={{ duration: 0.5 }}
                 className="hidden md:flex fixed top-6 left-1/2 z-50 origin-top"
+                role="navigation"
+                aria-label="Main navigation"
             >
                 <motion.div
                     layout

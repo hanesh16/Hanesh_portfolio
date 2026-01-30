@@ -24,7 +24,7 @@ const Education = () => {
     ];
 
     return (
-        <section id="education" className="py-20">
+        <section id="education" className="pt-24 pb-20">
             <div className="max-w-7xl mx-auto px-6">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

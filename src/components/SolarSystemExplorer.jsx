@@ -219,6 +219,18 @@ import { Lock, Unlock, MousePointer2 } from 'lucide-react';
 
 // ... (existing imports)
 
+// Pre-computed random planet offsets at module level (computed once when module loads)
+const PLANET_OFFSETS = {
+    mercury: Math.random() * 6,
+    venus: Math.random() * 6,
+    earth: Math.random() * 6,
+    mars: Math.random() * 6,
+    jupiter: Math.random() * 6,
+    saturn: Math.random() * 6,
+    uranus: Math.random() * 6,
+    neptune: Math.random() * 6,
+};
+
 const SolarSystemExplorer = () => {
     const [selectedPlanet, setSelectedPlanet] = useState(null);
     const [isInteractionEnabled, setIsInteractionEnabled] = useState(false);
@@ -272,9 +284,16 @@ const SolarSystemExplorer = () => {
 
 
             <div className="w-full h-full">
-                <Canvas camera={{ position: [0, 30, 40], fov: 45 }}>
-                    <ambientLight intensity={0.1} />
-                    <Stars radius={100} depth={50} count={5000} factor={4} saturation={0} fade speed={1} />
+                <Canvas
+                    camera={{ position: [0, 30, 40], fov: 45 }}
+                    dpr={[1, 2]} // Standard high-DPI support
+                    gl={{
+                        antialias: true,
+                        powerPreference: "high-performance"
+                    }}
+                >
+                    <ambientLight intensity={0.15} />
+                    <Stars radius={100} depth={60} count={8000} factor={5} saturation={0} fade speed={1.2} />
 
                     <OrbitControls
                         enablePan={false}
@@ -302,28 +321,28 @@ const SolarSystemExplorer = () => {
                         {/* Planets - Correct Order & Relative Scales */}
 
                         {/* 1. Mercury - Tiny, grayish, super close */}
-                        <Planet id="mercury" textureImg={mercuryImg} size={0.38} orbitRadius={3.2} speed={1.2} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'mercury'} />
+                        <Planet id="mercury" textureImg={mercuryImg} size={0.38} orbitRadius={3.2} speed={1.2} offset={PLANET_OFFSETS.mercury} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'mercury'} />
 
                         {/* 2. Venus - Bright, close */}
-                        <Planet id="venus" textureImg={venusImg} size={0.95} orbitRadius={4.5} speed={0.9} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'venus'} />
+                        <Planet id="venus" textureImg={venusImg} size={0.95} orbitRadius={4.5} speed={0.9} offset={PLANET_OFFSETS.venus} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'venus'} />
 
                         {/* 3. Earth - Our Blue Marble */}
-                        <Planet id="earth" textureImg={earthImg} size={1.0} orbitRadius={6.0} speed={0.7} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'earth'} />
+                        <Planet id="earth" textureImg={earthImg} size={1.0} orbitRadius={6.0} speed={0.7} offset={PLANET_OFFSETS.earth} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'earth'} />
 
                         {/* 4. Mars - Red, smaller */}
-                        <Planet id="mars" textureImg={marsImg} size={0.53} orbitRadius={7.8} speed={0.6} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'mars'} />
+                        <Planet id="mars" textureImg={marsImg} size={0.53} orbitRadius={7.8} speed={0.6} offset={PLANET_OFFSETS.mars} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'mars'} />
 
                         {/* 5. Jupiter - Huge, fast self-spin but slow orbit */}
-                        <Planet id="jupiter" textureImg={jupiterImg} size={3.0} orbitRadius={12} speed={0.3} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'jupiter'} />
+                        <Planet id="jupiter" textureImg={jupiterImg} size={3.0} orbitRadius={12} speed={0.3} offset={PLANET_OFFSETS.jupiter} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'jupiter'} />
 
                         {/* 6. Saturn - Large, rings */}
-                        <Planet id="saturn" textureImg={saturnImg} size={2.5} orbitRadius={16} speed={0.2} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'saturn'} />
+                        <Planet id="saturn" textureImg={saturnImg} size={2.5} orbitRadius={16} speed={0.2} offset={PLANET_OFFSETS.saturn} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'saturn'} />
 
                         {/* 7. Uranus - Cyan, far out */}
-                        <Planet id="uranus" textureImg={uranusImg} size={1.8} orbitRadius={20} speed={0.15} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'uranus'} />
+                        <Planet id="uranus" textureImg={uranusImg} size={1.8} orbitRadius={20} speed={0.15} offset={PLANET_OFFSETS.uranus} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'uranus'} />
 
                         {/* 8. Neptune - Deep blue, furthest */}
-                        <Planet id="neptune" textureImg={neptuneImg} size={1.7} orbitRadius={24} speed={0.1} offset={Math.random() * 6} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'neptune'} />
+                        <Planet id="neptune" textureImg={neptuneImg} size={1.7} orbitRadius={24} speed={0.1} offset={PLANET_OFFSETS.neptune} onSelect={setSelectedPlanet} isSelected={selectedPlanet === 'neptune'} />
 
                     </Suspense>
                 </Canvas>

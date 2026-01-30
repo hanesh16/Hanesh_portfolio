@@ -5,13 +5,60 @@
   --font-outfit: 'Outfit', sans-serif;
 }
 
+/* Global Performance & Quality Optimizations */
+* {
+  /* Enable GPU acceleration for smoother animations */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
 html {
   scroll-behavior: smooth;
+  /* Smoother scrolling on mobile */
+  -webkit-overflow-scrolling: touch;
 }
 
 body {
   @apply font-sans text-slate-200;
   background-color: #050510;
+  /* High-quality image rendering */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+}
+
+/* Canvas elements - GPU acceleration */
+canvas {
+  /* Force GPU rendering without causing repaints */
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* Smooth transitions for media */
+img,
+video {
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+}
+
+/* === Navigation Anchor Alignment === */
+/* Ensures sections scroll to the correct position below the fixed navbar */
+section[id] {
+  scroll-margin-top: 100px;
+  /* Match navbar offset for smooth scroll alignment */
+}
+
+/* Hero section needs less margin since it's the top */
+#hero {
+  scroll-margin-top: 0;
+}
+
+/* Mobile adjustments - bottom navbar, so less top margin needed */
+@media (max-width: 767px) {
+  section[id] {
+    scroll-margin-top: 80px;
+  }
 }
 
 .glass-panel {
