@@ -1,317 +1,221 @@
-import React, { useRef, useMemo, Suspense } from 'react';
-import { Canvas, useFrame, useThree } from '@react-three/fiber';
-import { Points, PointMaterial, useTexture } from '@react-three/drei';
+import React, { useRef, useMemo } from 'react';
+import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import * as THREE from 'three';
-import * as random from 'maath/random/dist/maath-random.esm';
 import sunImg from '../assets/textures/8k_sun.jpg';
-
+import mercuryImg from '../assets/textures/8k_mercury.jpg';
 import venusImg from '../assets/textures/Venus.jpg';
+import earthImg from '../assets/textures/8k_earth_daymap.jpg';
 import marsImg from '../assets/textures/Mars.jpg';
-import jupiterImg from '../assets/textures/Jupiter.jpg';
-import saturnImg from '../assets/textures/Saturn.jpg';
 
-
-
-
-const OrbitRing = ({ radius }) => {
-    return (
-        <mesh rotation={[-Math.PI / 2, 0, 0]}>
-            <ringGeometry args={[radius - 0.05, radius + 0.05, 128]} />
-            <meshBasicMaterial color="#ffffff" opacity={0.05} transparent side={THREE.DoubleSide} />
-        </mesh>
-    );
-};
-
+// Sun component
 const Sun = () => {
-    const texture = useTexture(sunImg);
-    const sunRef = useRef();
+  const sunRef = useRef();
+  const sunTexture = useLoader(THREE.TextureLoader, sunImg);
 
-    useFrame((state, delta) => {
-        if (sunRef.current) {
-            sunRef.current.rotation.y += delta * 0.05; // Slow rotation
-        }
-    });
+  useFrame((state) => {
+    if (sunRef.current) {
+      sunRef.current.rotation.y = state.clock.getElapsedTime() * 0.005;
+    }
+  });
 
-    return (
-        <mesh ref={sunRef}>
-            <sphereGeometry args={[1.5, 64, 64]} />
-            <meshBasicMaterial map={texture} color="#cccccc" />
-        </mesh>
-    );
+  return (
+    <mesh ref={sunRef}>
+      <sphereGeometry args={[1.2, 64, 64]} />
+      <meshBasicMaterial map={sunTexture} toneMapped={false} />
+      <pointLight intensity={2} color="#ffaa00" distance={100} decay={2} />
+    </mesh>
+  );
 };
 
-const Planet = ({ textureImg, size, orbitRadius, speed, offset }) => {
-    const texture = useTexture(textureImg);
-    const planetRef = useRef();
-    const angleRef = useRef(offset); // Start at random angle
+// Planet component
+const Planet = ({ 
+  texture, 
+  size, 
+  orbitRadius, 
+  orbitSpeed, 
+  rotationSpeed,
+  initialAngle = 0,
+  hasRings = false
+}) => {
+  const planetRef = useRef();
+  const orbitRef = useRef();
+  const planetTexture = useLoader(THREE.TextureLoader, texture);
+  
+  useFrame((state) => {
+    const time = state.clock.getElapsedTime();
+    
+    // Orbit around sun
+    if (orbitRef.current) {
+      const angle = initialAngle + time * orbitSpeed;
+      orbitRef.current.position.x = Math.cos(angle) * orbitRadius;
+      orbitRef.current.position.z = Math.sin(angle) * orbitRadius;
+    }
+    
+    // Self rotation
+    if (planetRef.current) {
+      planetRef.current.rotation.y += rotationSpeed;
+    }
+  });
 
-    useFrame((state, delta) => {
-        if (planetRef.current) {
-            // Update Orbit Angle
-            angleRef.current += delta * speed;
-
-            // Orbit around local origin [0, 0, 0] (Sun's position)
-            const x = Math.cos(angleRef.current) * orbitRadius;
-            const z = Math.sin(angleRef.current) * orbitRadius;
-
-            planetRef.current.position.set(x, 0, z); // Keep Y same as Sun
-
-            // Self-Rotation
-            planetRef.current.rotation.y += delta * 0.2;
-        }
-    });
-
-    return (
-        <mesh ref={planetRef}>
-            <sphereGeometry args={[size, 32, 32]} />
-            <meshStandardMaterial map={texture} />
-        </mesh>
-    );
+  return (
+    <group ref={orbitRef}>
+      <mesh ref={planetRef}>
+        <sphereGeometry args={[size, 32, 32]} />
+        <meshStandardMaterial 
+          map={planetTexture}
+          roughness={0.8}
+          metalness={0.1}
+        />
+      </mesh>
+      
+      {/* Orbit ring visualization */}
+      <mesh rotation={[Math.PI / 2, 0, 0]}>
+        <ringGeometry args={[orbitRadius - 0.02, orbitRadius + 0.02, 128]} />
+        <meshBasicMaterial 
+          color="#ffffff" 
+          transparent 
+          opacity={0.03} 
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+    </group>
+  );
 };
 
+// Solar System
 const SolarSystem = () => {
-    const { viewport } = useThree();
-    const isMobile = viewport.width < 7; // Threshold for mobile layout
+  const systemRef = useRef();
 
-    // Responsive Position:
-    // Desktop: Right side [10, 1.5, -12]
-    // Mobile: Centered, Higher, Further back [0, 2.5, -18]
-    const position = isMobile ? [0, 4.5, -20] : [10, 0, -12];
+  useFrame((state) => {
+    if (systemRef.current) {
+      // Slowly rotate entire system
+      systemRef.current.rotation.y = state.clock.getElapsedTime() * 0.02;
+    }
+  });
 
-    return (
-        <group position={position} rotation={[0.4, 0, 0.2]}> {/* Tilted Axis */}
-            <pointLight intensity={1.5} color="#ffaa00" distance={50} decay={2} /> {/* Sun Light at center of group */}
-            <Sun />
-
-            {/* Orbit Rings */}
-            <OrbitRing radius={2.8} />
-            <OrbitRing radius={3.8} />
-            <OrbitRing radius={5.5} />
-            <OrbitRing radius={7.5} />
-
-            {/* Venus: Small, close, fast */}
-            <Planet textureImg={venusImg} size={0.3} orbitRadius={2.8} speed={0.5} offset={0} />
-            {/* Mars: Small, red, moderate */}
-            <Planet textureImg={marsImg} size={0.25} orbitRadius={3.8} speed={0.3} offset={2} />
-            {/* Jupiter: Huge, far, slow */}
-            <Planet textureImg={jupiterImg} size={0.8} orbitRadius={5.5} speed={0.15} offset={4} />
-            {/* Saturn: Large, very far, very slow */}
-            <Planet textureImg={saturnImg} size={0.7} orbitRadius={7.5} speed={0.1} offset={1} />
-        </group>
-    );
+  return (
+    <group ref={systemRef} position={[8, 0, -8]}>
+      {/* Sun */}
+      <Sun />
+      
+      {/* Mercury */}
+      <Planet
+        texture={mercuryImg}
+        size={0.15}
+        orbitRadius={2}
+        orbitSpeed={0.8}
+        rotationSpeed={0.01}
+        initialAngle={0}
+      />
+      
+      {/* Venus */}
+      <Planet
+        texture={venusImg}
+        size={0.25}
+        orbitRadius={3}
+        orbitSpeed={0.6}
+        rotationSpeed={0.008}
+        initialAngle={Math.PI / 3}
+      />
+      
+      {/* Earth */}
+      <Planet
+        texture={earthImg}
+        size={0.26}
+        orbitRadius={4.2}
+        orbitSpeed={0.5}
+        rotationSpeed={0.01}
+        initialAngle={Math.PI}
+      />
+      
+      {/* Mars */}
+      <Planet
+        texture={marsImg}
+        size={0.2}
+        orbitRadius={5.5}
+        orbitSpeed={0.4}
+        rotationSpeed={0.009}
+        initialAngle={Math.PI * 1.5}
+      />
+    </group>
+  );
 };
 
-const ParticleGroup = ({ count, size, radius, sunTexture }) => {
-    const ref = useRef();
+// Distant stars
+const Starfield = () => {
+  const starsRef = useRef();
+  const starCount = 2000;
 
-    // Generate random points in different shapes for THIS group
-    /* eslint-disable react-hooks/purity -- Intentional: particles need random positions, computed once per count/radius change */
-    const [sphere, galaxy, ring] = useMemo(() => {
-        // 1. Cube/Sphere (Cloud) - Expanded random spread
-        // Using inSphere gives a ball, let's flatten it slightly for better screen coverage
-        const s = new Float32Array(count * 3);
-        const randomSphere = random.inSphere(new Float32Array(count * 3), { radius: radius });
-        for (let i = 0; i < count * 3; i += 3) {
-            s[i] = randomSphere[i] * 1.5; // Wider X
-            s[i + 1] = randomSphere[i + 1] * 1.2; // Taller Y
-            s[i + 2] = randomSphere[i + 2];
-        }
+  const positions = useMemo(() => {
+    const pos = new Float32Array(starCount * 3);
+    for (let i = 0; i < starCount; i++) {
+      const i3 = i * 3;
+      const radius = 30 + Math.random() * 50;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      
+      pos[i3] = radius * Math.sin(phi) * Math.cos(theta);
+      pos[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+      pos[i3 + 2] = radius * Math.cos(phi);
+    }
+    return pos;
+  }, []);
 
-        // 2. Galaxy (Spiral)
-        const g = new Float32Array(count * 3);
-        const spiralRadius = radius * 0.8;
-        for (let i = 0; i < count; i++) {
-            const i3 = i * 3;
-            const angle = Math.random() * Math.PI * 2 * 3; // 3 turns
-            const r = Math.random() * spiralRadius;
-            const spiralOffset = r * 0.5;
-            g[i3] = Math.cos(angle + spiralOffset) * r;
-            g[i3 + 1] = (Math.random() - 0.5) * (radius * 0.2); // More vertical spread
-            g[i3 + 2] = Math.sin(angle + spiralOffset) * r;
-        }
+  useFrame((state) => {
+    if (starsRef.current) {
+      starsRef.current.rotation.y = state.clock.getElapsedTime() * 0.002;
+    }
+  });
 
-        // 3. Ring (Saturn-like)
-        const r = new Float32Array(count * 3);
-        const innerRadius = radius * 0.4;
-        const outerRadius = radius * 1.0;
-        for (let i = 0; i < count; i++) {
-            const i3 = i * 3;
-            const theta = Math.random() * Math.PI * 2;
-            const rad = Math.sqrt(Math.random() * (outerRadius ** 2 - innerRadius ** 2) + innerRadius ** 2);
-            r[i3] = Math.cos(theta) * rad;
-            r[i3 + 1] = (Math.random() - 0.5) * 0.5; // Flat but visible
-            r[i3 + 2] = Math.sin(theta) * rad;
-        }
+  return (
+    <points ref={starsRef}>
+      <bufferGeometry>
+        <bufferAttribute
+          attach="attributes-position"
+          count={starCount}
+          array={positions}
+          itemSize={3}
+        />
+      </bufferGeometry>
+      <pointsMaterial
+        size={0.04}
+        color="#ffffff"
+        transparent
+        opacity={0.5}
+        sizeAttenuation
+        blending={THREE.AdditiveBlending}
+      />
+    </points>
+  );
+};
 
-        return [s, g, r];
-    }, [count, radius]);
-    /* eslint-enable react-hooks/purity */
-
-    useFrame((state) => {
-        const { clock, pointer, viewport } = state;
-        const refState = ref.current;
-        if (!refState) return;
-
-        const t = clock.elapsedTime;
-        const positions = refState.geometry.attributes.position.array;
-
-        // Interaction
-        const mx = (pointer.x * viewport.width) / 2;
-        const my = (pointer.y * viewport.height) / 2;
-        const repulsionRadius = 1.0; // Larger interaction radius
-        const repulsionForce = 0.8;
-
-        // Morphing Logic
-        const cycleDuration = 10;
-        const totalCycle = cycleDuration * 3;
-        const timeInCycle = t % totalCycle;
-
-        let startShape, endShape, progress;
-
-        if (timeInCycle < cycleDuration) {
-            startShape = sphere;
-            endShape = galaxy;
-            progress = timeInCycle / cycleDuration;
-        } else if (timeInCycle < cycleDuration * 2) {
-            startShape = galaxy;
-            endShape = ring;
-            progress = (timeInCycle - cycleDuration) / cycleDuration;
-        } else {
-            startShape = ring;
-            endShape = sphere;
-            progress = (timeInCycle - cycleDuration * 2) / cycleDuration;
-        }
-
-        const ease = (x) => x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-        const smoothProgress = ease(progress);
-
-        for (let i = 0; i < count; i++) {
-            const i3 = i * 3;
-
-            // Interpolate
-            const sx = startShape[i3];
-            const sy = startShape[i3 + 1];
-            const sz = startShape[i3 + 2];
-
-            const ex = endShape[i3];
-            const ey = endShape[i3 + 1];
-            const ez = endShape[i3 + 2];
-
-            const tx = sx + (ex - sx) * smoothProgress;
-            const ty = sy + (ey - sy) * smoothProgress;
-            const tz = sz + (ez - sz) * smoothProgress;
-
-            // Rotate
-            const rotSpeed = t * 0.05;
-            const rx = tx * Math.cos(rotSpeed) - tz * Math.sin(rotSpeed);
-            const rz = tx * Math.sin(rotSpeed) + tz * Math.cos(rotSpeed);
-            const ry = ty;
-
-            // Tilt
-            const tilt = 0.3;
-            const fx = rx;
-            const fy = ry * Math.cos(tilt) - rz * Math.sin(tilt);
-            const fz = ry * Math.sin(tilt) + rz * Math.cos(tilt);
-
-            // Interaction
-            const dx = mx - fx;
-            const dy = my - fy;
-            const distSq = dx * dx + dy * dy;
-            const dist = Math.sqrt(distSq);
-
-            positions[i3] = fx;
-            positions[i3 + 1] = fy;
-            positions[i3 + 2] = fz;
-
-            // Use simple repulsion
-            if (dist < repulsionRadius) {
-                const f = (repulsionRadius - dist) / repulsionRadius;
-                const a = Math.atan2(dy, dx);
-                positions[i3] -= Math.cos(a) * f * repulsionForce;
-                positions[i3 + 1] -= Math.sin(a) * f * repulsionForce;
-            }
-        }
-
-        refState.geometry.attributes.position.needsUpdate = true;
-    });
-
-    return (
-        <Points ref={ref} positions={sphere} stride={3} frustumCulled={false}>
-            <PointMaterial
-                transparent
-                map={sunTexture}
-                color="#ffffff"
-                size={size}
-                sizeAttenuation={true}
-                depthWrite={false}
-                blending={THREE.AdditiveBlending}
-                opacity={0.8}
-            />
-        </Points>
-    );
+// Scene
+const Scene = () => {
+  return (
+    <>
+      <ambientLight intensity={0.1} />
+      <Starfield />
+      <SolarSystem />
+    </>
+  );
 };
 
 const AntigravityBackground = () => {
-    // Generate Sun Texture once (High Resolution for 4K)
-    const sunTexture = useMemo(() => {
-        const canvas = document.createElement('canvas');
-        canvas.width = 128; // High resolution for 4K/Retina displays
-        canvas.height = 128;
-        const context = canvas.getContext('2d');
-        const gradient = context.createRadialGradient(64, 64, 0, 64, 64, 64);
-        gradient.addColorStop(0, 'rgba(255, 255, 255, 1)');
-        gradient.addColorStop(0.15, 'rgba(255, 230, 100, 1)');
-        gradient.addColorStop(0.3, 'rgba(255, 200, 50, 0.9)');
-        gradient.addColorStop(0.5, 'rgba(255, 140, 0, 0.7)');
-        gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
-        context.fillStyle = gradient;
-        context.fillRect(0, 0, 128, 128);
-        const texture = new THREE.CanvasTexture(canvas);
-        texture.generateMipmaps = true;
-        texture.minFilter = THREE.LinearMipmapLinearFilter;
-        texture.magFilter = THREE.LinearFilter;
-        return texture;
-    }, []);
-
-    return (
-        <div className="fixed inset-0 z-[-1] bg-black">
-            <Canvas
-                camera={{ position: [0, 0, 6], fov: 60 }}
-                dpr={[1, 2]} // Standard high-DPI support (prevents flickering on some devices)
-                gl={{
-                    antialias: true,
-                    alpha: false,
-                    powerPreference: "high-performance",
-                    stencil: false,
-                    depth: false
-                }}
-                performance={{ min: 0.5 }}
-                eventSource={document.getElementById('root')}
-            >
-                <ambientLight intensity={0.1} />
-
-                <Suspense fallback={null}>
-                    <SolarSystem sunTexture={sunTexture} />
-                </Suspense>
-
-                {/* 1. Small Background Stars (Dense, Wide) - Increased for richer starfield */}
-                <ParticleGroup count={1500} size={0.015} radius={14} sunTexture={sunTexture} />
-
-                {/* 2. Medium Stars (Interactive, Mid-range) */}
-                <ParticleGroup count={500} size={0.028} radius={10} sunTexture={sunTexture} />
-
-                {/* 3. Large Glowing Suns (Sparse, Close) */}
-                <ParticleGroup count={80} size={0.055} radius={6} sunTexture={sunTexture} />
-            </Canvas>
-        </div>
-    );
+  return (
+    <div className="fixed inset-0 z-[-1]" style={{ background: '#000000' }}>
+      <Canvas
+        camera={{ position: [0, 2, 12], fov: 60 }}
+        dpr={[1, 1.5]}
+        gl={{ 
+          antialias: true, 
+          alpha: true,
+          powerPreference: 'high-performance',
+        }}
+      >
+        <Scene />
+      </Canvas>
+    </div>
+  );
 };
-
-// Preload textures to ensure they are available immediately
-useTexture.preload(sunImg);
-useTexture.preload(venusImg);
-useTexture.preload(marsImg);
-useTexture.preload(jupiterImg);
-useTexture.preload(saturnImg);
 
 export default AntigravityBackground;

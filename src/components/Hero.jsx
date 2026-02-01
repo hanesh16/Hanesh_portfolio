@@ -75,19 +75,6 @@ const Hero = () => {
       >
         <div className="max-w-3xl">
           
-          {/* Status Badge */}
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.5 }}
-            className="flex items-center gap-2 mb-6"
-          >
-            <span className="px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500/90 text-xs font-mono flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80 animate-pulse" />
-              Available for work
-            </span>
-          </motion.div>
-
           {/* Main Heading */}
           <div className="space-y-2 mb-6">
             <motion.p

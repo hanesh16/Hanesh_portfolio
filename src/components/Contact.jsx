@@ -64,30 +64,6 @@ const Contact = () => {
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
         </motion.div>
 
-        {/* Content */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
-          viewport={{ once: true }}
-          className="text-center mb-12"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            transition={{ duration: 0.5, type: "spring" }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 mb-6"
-          >
-            <span className="w-2 h-2 rounded-full bg-amber-500/80 animate-pulse" />
-            <span className="text-sm font-mono text-amber-500/80">Open to opportunities</span>
-          </motion.div>
-          
-          <p className="text-slate-500 max-w-2xl mx-auto">
-            Have a project in mind or want to collaborate? Send a message and I'll get back to you.
-          </p>
-        </motion.div>
-
         <div className="grid lg:grid-cols-5 gap-12">
           {/* Contact Info */}
           <motion.div
