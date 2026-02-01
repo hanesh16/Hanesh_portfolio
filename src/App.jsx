@@ -7,8 +7,11 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
 import SpaceLoader from './components/SpaceLoader';
 import AudioPlayer from './components/AudioPlayer';
+import CursorTrail from './components/CursorTrail';
+import ScrollProgress from './components/ScrollProgress';
 
 // Lazy load only the heavy bottom sections
 const ExploreSpace = lazy(() => import('./components/ExploreSpace'));
@@ -26,11 +29,17 @@ function App() {
   }, []);
 
   return (
-    <div className="relative min-h-screen font-sans overflow-x-hidden selection:bg-cosmic-amber/30 selection:text-cosmic-amber-light">
+    <div className="relative min-h-screen font-sans text-slate-200 overflow-x-hidden selection:bg-amber-400/30 selection:text-amber-200">
+      {/* Cursor Trail Effect - Desktop Only */}
+      <CursorTrail />
+      
+      {/* Scroll Progress Bar */}
+      <ScrollProgress />
+      
       {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-cosmic-amber focus:text-slate-900 focus:rounded-lg focus:font-semibold"
+        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:px-4 focus:py-2 focus:bg-amber-400 focus:text-slate-900 focus:rounded-md focus:font-semibold"
       >
         Skip to main content
       </a>
@@ -52,6 +61,8 @@ function App() {
           <SolarSystemExplorer />
         </Suspense>
       </main>
+      
+      <Footer />
     </div>
   );
 }

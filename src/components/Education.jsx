@@ -1,92 +1,176 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap, Award } from 'lucide-react';
-import TiltCard from './TiltCard';
+import { GraduationCap, Calendar, MapPin, Award, BookOpen } from 'lucide-react';
+
+const EducationCard = ({ edu, index }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 30 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.6, delay: index * 0.2 }}
+    viewport={{ once: true }}
+    className="group relative"
+  >
+    <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500/30 to-rose-500/30 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+    <div className="relative p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 hover:border-pink-400/30 transition-all duration-300 h-full">
+      {/* Header */}
+      <div className="flex items-start justify-between mb-6">
+        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 border border-pink-400/30 flex items-center justify-center">
+          <GraduationCap size={28} className="text-pink-400" />
+        </div>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
+          <Calendar size={14} className="text-pink-400" />
+          <span className="text-sm text-slate-300 font-mono">{edu.period}</span>
+        </div>
+      </div>
+
+      {/* Institution */}
+      <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-pink-400 transition-colors">
+        {edu.institution}
+      </h3>
+      <div className="flex items-center gap-2 text-slate-500 text-sm mb-4">
+        <MapPin size={14} />
+        <span>{edu.location}</span>
+      </div>
+
+      {/* Degree */}
+      <p className="text-lg text-slate-300 font-medium mb-4">
+        {edu.degree}
+      </p>
+
+      {/* Highlights */}
+      {edu.highlights && (
+        <div className="space-y-2 mb-6">
+          {edu.highlights.map((highlight, idx) => (
+            <div key={idx} className="flex items-start gap-2">
+              <Award size={14} className="text-pink-400 mt-1 flex-shrink-0" />
+              <span className="text-sm text-slate-400">{highlight}</span>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Relevant Courses */}
+      {edu.courses && (
+        <div className="pt-4 border-t border-white/5">
+          <div className="flex items-center gap-2 mb-3">
+            <BookOpen size={14} className="text-pink-400" />
+            <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">Key Coursework</span>
+          </div>
+          <div className="flex flex-wrap gap-2">
+            {edu.courses.map((course) => (
+              <span
+                key={course}
+                className="px-3 py-1 text-xs font-mono rounded-full bg-pink-400/10 text-pink-400/80 border border-pink-400/20"
+              >
+                {course}
+              </span>
+            ))}
+          </div>
+        </div>
+      )}
+    </div>
+  </motion.div>
+);
+
+const CertificationCard = ({ cert, index }) => (
+  <motion.div
+    initial={{ opacity: 0, scale: 0.95 }}
+    whileInView={{ opacity: 1, scale: 1 }}
+    transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
+    viewport={{ once: true }}
+    className="group p-4 rounded-xl bg-white/5 border border-white/10 hover:border-amber-400/30 transition-all duration-300 flex items-center gap-4"
+  >
+    <div className="w-10 h-10 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center flex-shrink-0">
+      <Award size={20} className="text-amber-400" />
+    </div>
+    <div className="flex-1 min-w-0">
+      <h4 className="text-white font-medium truncate group-hover:text-amber-400 transition-colors">
+        {cert.name}
+      </h4>
+      <p className="text-sm text-slate-500">{cert.issuer}</p>
+    </div>
+  </motion.div>
+);
 
 const Education = () => {
-    const education = [
-        {
-            school: "Portland State University",
-            degree: "Masters of Science in Computer Science",
-            period: "Sept 2022 - Mar. 2024",
-            coursework: "Algorithm Design Analysis, Software Engineering, Full Stack Web Development, Large Language Models, Operating System Foundations, Code Reading & Review, Inter Networking Protocols, Machine Learning, Artificial Intelligence, DataBase Management Systems, Virtual Reality."
-        },
-        {
-            school: "SRM University, AP",
-            degree: "B.Tech Computer Science and Engineering",
-            period: "Jul 2018 - May. 2022",
-            coursework: "Computer Organization and Architecture, Object Oriented Programming, Formal Languages and Automata Theory, Computer Networks, Introduction to DataScience, Big Data Analytics, Information Retrieval."
-        }
-    ];
+  const educations = [
+    {
+      institution: "Portland State University",
+      location: "Portland, OR",
+      degree: "Master of Science in Computer Science",
+      period: "2021 - 2023",
+      highlights: [
+        "GPA: 3.67 / 4.00",
+        "Awarded International Achievement Scholarship for academic excellence"
+      ],
+      courses: ["Machine Learning", "Cloud Computing", "Web Development", "Algorithms"]
+    },
+    {
+      institution: "Gokaraju Rangaraju Institute",
+      location: "Hyderabad, India",
+      degree: "Bachelor of Technology in Information Technology",
+      period: "2015 - 2019",
+      highlights: [
+        "Active member of Institute of Electrical and Electronics Engineers (IEEE)"
+      ],
+      courses: ["Data Structures", "Operating Systems", "Database Management"]
+    }
+  ];
 
-    const certifications = [
-        "Google Cloud Arcade Facilitator Program 2025 (Cohort 1) — Issued by Google Cloud"
-    ];
+  const certifications = [
+    { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services" },
+    { name: "Azure AI Fundamentals", issuer: "Microsoft" },
+  ];
 
-    return (
-        <section id="education" className="pt-24 pb-20">
-            <div className="max-w-7xl mx-auto px-6">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className="flex items-center gap-3 mb-12"
-                >
-                    <div className="p-2 rounded-lg bg-cosmic-violet/10 border border-cosmic-violet/20">
-                        <GraduationCap className="text-cosmic-violet" size={24} />
-                    </div>
-                    <h2 className="text-3xl md:text-4xl font-bold font-outfit bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">Training Academy</h2>
-                    <div className="h-[1px] bg-gradient-to-r from-cosmic-amber/50 to-transparent flex-grow ml-4 max-w-xs"></div>
-                </motion.div>
+  return (
+    <section id="education" className="section-full relative">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-12"
+        >
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-pink-400/50 to-transparent" />
+          <div className="flex items-center gap-3">
+            <span className="text-pink-400 font-mono text-sm">04</span>
+            <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white glitch-text" data-text="Education Archive">
+              Education <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">Archive</span>
+            </h2>
+          </div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-pink-400/50 to-transparent" />
+        </motion.div>
 
-                <div className="grid md:grid-cols-2 gap-8 mb-12">
-                    {education.map((edu, index) => (
-                        <div key={index} className="h-full">
-                            <TiltCard index={index} className="h-full" variant="scifi">
-                                <div className="h-full flex flex-col">
-                                    <div className="mb-4">
-                                        <div className="flex justify-between items-start mb-2 gap-4">
-                                            <h3 className="text-xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">{edu.school}</h3>
-                                            <span className="text-xs font-mono text-cosmic-cyan bg-cosmic-cyan/10 px-3 py-1 rounded-full border border-cosmic-cyan/20 whitespace-nowrap">{edu.period}</span>
-                                        </div>
-                                        <p className="text-cosmic-amber font-medium">{edu.degree}</p>
-                                    </div>
+        {/* Education Grid */}
+        <div className="grid md:grid-cols-2 gap-8 mb-12">
+          {educations.map((edu, index) => (
+            <EducationCard key={index} edu={edu} index={index} />
+          ))}
+        </div>
 
-                                    <div className="mt-auto">
-                                        <h4 className="text-sm font-semibold text-slate-300 mb-2 uppercase tracking-wider flex items-center gap-2">
-                                            <span className="w-1.5 h-1.5 bg-cosmic-violet rounded-full shadow-[0_0_6px_rgba(139,92,246,0.8)]"></span>
-                                            Coursework
-                                        </h4>
-                                        <p className="text-slate-400 text-sm leading-relaxed">
-                                            {edu.coursework}
-                                        </p>
-                                    </div>
-                                </div>
-                            </TiltCard>
-                        </div>
-                    ))}
-                </div>
-
-                <TiltCard className="border-l-4 border-cosmic-amber" variant="scifi">
-                    <div className="flex items-center gap-3 mb-4">
-                        <div className="p-2 rounded-lg bg-cosmic-amber/10">
-                            <Award className="text-cosmic-amber" size={20} />
-                        </div>
-                        <h3 className="text-lg font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">Certifications</h3>
-                    </div>
-                    <ul className="space-y-3">
-                        {certifications.map((cert, index) => (
-                            <li key={index} className="text-slate-300 flex items-start group">
-                                <span className="text-cosmic-violet mr-3 group-hover:text-cosmic-cyan transition-colors">✦</span>
-                                <span className="group-hover:text-slate-200 transition-colors">{cert}</span>
-                            </li>
-                        ))}
-                    </ul>
-                </TiltCard>
-            </div>
-        </section>
-    );
+        {/* Certifications */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="pt-8 border-t border-white/10"
+        >
+          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
+            <Award className="text-amber-400" size={24} />
+            Certifications
+          </h3>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {certifications.map((cert, index) => (
+              <CertificationCard key={index} cert={cert} index={index} />
+            ))}
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
 };
 
 export default Education;

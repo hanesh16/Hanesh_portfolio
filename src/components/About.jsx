@@ -1,91 +1,198 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import TiltCard from './TiltCard';
-import polaroidImg from '../assets/polaroid_placeholder.png';
+import { Rocket, Code2, Database, Cloud, Terminal, Cpu } from 'lucide-react';
+
+const SkillBadge = ({ icon: Icon, label, color }) => (
+  <motion.div
+    whileHover={{ scale: 1.05, y: -2 }}
+    className={`flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 ${color} hover:border-current transition-all duration-300 cursor-default`}
+  >
+    <Icon size={16} />
+    <span className="text-sm font-medium">{label}</span>
+  </motion.div>
+);
+
+const TechStack = () => {
+  const skills = [
+    { icon: Code2, label: "React", color: "text-cyan-400 hover:shadow-cyan-400/20" },
+    { icon: Terminal, label: "Python", color: "text-amber-400 hover:shadow-amber-400/20" },
+    { icon: Cloud, label: "AWS", color: "text-orange-400 hover:shadow-orange-400/20" },
+    { icon: Database, label: "PostgreSQL", color: "text-blue-400 hover:shadow-blue-400/20" },
+    { icon: Cpu, label: "Docker", color: "text-sky-400 hover:shadow-sky-400/20" },
+    { icon: Rocket, label: "GraphQL", color: "text-pink-400 hover:shadow-pink-400/20" },
+  ];
+
+  return (
+    <div className="flex flex-wrap gap-3">
+      {skills.map((skill) => (
+        <SkillBadge key={skill.label} {...skill} />
+      ))}
+    </div>
+  );
+};
 
 const About = () => {
-    // Skills data
-    const skills = [
-        "Python", "Java", "C#", "SQL",
-        "React", "Node.js", "TypeScript", "AWS/Azure/GCP",
-        "Docker", "Kubernetes", "PostgreSQL", "MongoDB",
-        "PyTorch", "TensorFlow", "Flask", "Django"
-    ];
+  return (
+    <section id="about" className="section-full relative">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* Section Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+          viewport={{ once: true }}
+          className="flex items-center gap-4 mb-12"
+        >
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
+          <div className="flex items-center gap-3">
+            <span className="text-amber-400 font-mono text-sm">01</span>
+            <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white glitch-text" data-text="About Me">
+              About <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">Me</span>
+            </h2>
+          </div>
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
+        </motion.div>
 
-    return (
-        <section id="about" className="pt-24 pb-20">
-            <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
-                {/* Left: Text Content */}
-                <motion.div
-                    initial={{ opacity: 0, x: -50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className="w-full"
-                >
-                    <TiltCard className="h-full" variant="scifi">
-                        <div className="relative z-10">
-                            <div className="flex items-center gap-3 mb-6">
-                                <span className="text-cosmic-amber font-bold text-lg font-mono">01.</span>
-                                <h2 className="text-3xl md:text-4xl font-bold font-outfit bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">About Me</h2>
-                                <div className="h-[1px] bg-gradient-to-r from-cosmic-amber/50 to-transparent flex-grow ml-4"></div>
-                            </div>
+        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Left - Text Content */}
+          <motion.div
+            initial={{ opacity: 0, x: -40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="space-y-6"
+          >
+            {/* Headline */}
+            <h3 className="text-3xl md:text-4xl font-bold font-outfit text-white leading-tight">
+              Building the <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">future</span> with code
+            </h3>
 
-                            <p className="text-slate-300 text-lg leading-relaxed mb-6">
-                                I'm a Master's graduate in Computer Science from Portland State University with over a year of industry experience. I love solving complex backend challenges and building scalable systems.
-                            </p>
-                            <p className="text-slate-300 text-lg leading-relaxed mb-8">
-                                My expertise spans across full-stack development, cloud computing (AWS, Azure, GCP), and AI/ML. I'm passionate about automation, optimizing performance, and creating intuitive digital experiences.
-                            </p>
-
-                            <p className="mb-4 text-slate-200 font-semibold flex items-center gap-2">
-                                <span className="w-2 h-2 bg-cosmic-violet rounded-full shadow-[0_0_8px_rgba(139,92,246,0.8)]"></span>
-                                Tech Arsenal:
-                            </p>
-                            <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
-                                {skills.map((skill) => (
-                                    <li key={skill} className="flex items-center text-slate-400 text-sm font-mono group">
-                                        <span className="text-cosmic-amber mr-2 group-hover:translate-x-1 transition-transform">▹</span>
-                                        <span className="group-hover:text-slate-200 transition-colors">{skill}</span>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </TiltCard>
-                </motion.div>
-
-                {/* Right: Image/Visual */}
-                <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.5 }}
-                    viewport={{ once: true }}
-                    className="relative group"
-                >
-                    <div className="relative z-10 w-full max-w-sm mx-auto md:ml-auto">
-                        {/* Profile Image */}
-                        <div className="aspect-square bg-slate-900 border-2 border-cosmic-amber/30 shadow-xl rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-500 rotate-3 group-hover:rotate-0 group-hover:border-cosmic-amber/50 group-hover:shadow-[0_0_40px_rgba(251,191,36,0.2)]">
-                            <img
-                                src={polaroidImg}
-                                alt="Hanesh Koganti - Software Engineer"
-                                className="w-full h-full object-cover transform hover:scale-105 transition-transform duration-500"
-                                loading="lazy"
-                                decoding="async"
-                            />
-                            {/* Overlay */}
-                            <div className="absolute inset-0 bg-gradient-to-t from-cosmic-violet/20 via-cosmic-amber/10 to-transparent group-hover:bg-transparent transition-all duration-300"></div>
-                        </div>
-                        {/* Border effect */}
-                        <div className="absolute top-5 left-5 w-full h-full border-4 border-cosmic-violet/20 rounded-2xl -z-10 group-hover:top-3 group-hover:left-3 group-hover:border-cosmic-violet/30 transition-all duration-300"></div>
-                        
-                        {/* Floating decorative elements */}
-                        <div className="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-cosmic-cyan/40 rounded-tr-lg"></div>
-                        <div className="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-cosmic-amber/40 rounded-bl-lg"></div>
-                    </div>
-                </motion.div>
+            {/* Description */}
+            <div className="space-y-4 text-slate-400 leading-relaxed">
+              <p>
+                I'm a passionate Full Stack Developer with expertise in modern web technologies and cloud infrastructure. 
+                My journey in tech has been driven by a fascination with creating seamless digital experiences.
+              </p>
+              <p>
+                Currently at Comcast, I develop and maintain backend services that handle millions of requests, 
+                while exploring the frontiers of AI and machine learning. I believe in writing clean, scalable code 
+                that makes a real impact.
+              </p>
             </div>
-        </section>
-    );
+
+            {/* Tech Stack */}
+            <div className="pt-4">
+              <p className="text-sm font-mono text-slate-500 uppercase tracking-wider mb-4">Tech Stack</p>
+              <TechStack />
+            </div>
+
+            {/* Stats */}
+            <div className="grid grid-cols-3 gap-6 pt-6">
+              {[
+                { value: "2+", label: "Years Experience" },
+                { value: "10+", label: "Projects Built" },
+                { value: "5+", label: "Technologies" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 + index * 0.1 }}
+                  viewport={{ once: true }}
+                  className="text-center"
+                >
+                  <div className="text-3xl md:text-4xl font-bold text-amber-400">{stat.value}</div>
+                  <div className="text-xs text-slate-500 font-mono mt-1">{stat.label}</div>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
+
+          {/* Right - Visual */}
+          <motion.div
+            initial={{ opacity: 0, x: 40 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="relative"
+          >
+            {/* Decorative elements */}
+            <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/10 to-cyan-500/10 rounded-3xl blur-2xl" />
+            
+            {/* Main card */}
+            <div className="relative p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
+              {/* Grid pattern */}
+              <div className="absolute inset-0 opacity-5 code-grid" />
+
+              {/* Content */}
+              <div className="relative space-y-6">
+                {/* Terminal header */}
+                <div className="flex items-center gap-2 pb-4 border-b border-white/10">
+                  <div className="w-3 h-3 rounded-full bg-rose-500" />
+                  <div className="w-3 h-3 rounded-full bg-amber-400" />
+                  <div className="w-3 h-3 rounded-full bg-green-500" />
+                  <span className="ml-4 text-xs font-mono text-slate-500">~/about/developer.json</span>
+                </div>
+
+                {/* Code-like content */}
+                <div className="font-mono text-sm space-y-3">
+                  <div className="text-slate-500">
+                    <span className="text-purple-400">const</span>{' '}
+                    <span className="text-cyan-400">developer</span> = {'{'}
+                  </div>
+                  <div className="pl-4 text-slate-400">
+                    <span className="text-amber-400">name</span>:{' '}
+                    <span className="text-green-400">Sai Hanesh Koganti</span>,
+                  </div>
+                  <div className="pl-4 text-slate-400">
+                    <span className="text-amber-400">role</span>:{' '}
+                    <span className="text-green-400">Full Stack Developer</span>,
+                  </div>
+                  <div className="pl-4 text-slate-400">
+                    <span className="text-amber-400">location</span>:{' '}
+                    <span className="text-green-400">Sunnyvale, WA</span>,
+                  </div>
+                  <div className="pl-4 text-slate-400">
+                    <span className="text-amber-400">passion</span>:{' '}
+                    <span className="text-green-400">[Building, Learning, Creating]</span>,
+                  </div>
+                  <div className="pl-4 text-slate-400">
+                    <span className="text-amber-400">available</span>:{' '}
+                    <span className="text-orange-400">true</span>,
+                  </div>
+                  <div className="text-slate-500">{'}'};</div>
+                </div>
+
+                {/* Animated cursor */}
+                <motion.div
+                  animate={{ opacity: [1, 0] }}
+                  transition={{ duration: 0.8, repeat: Infinity }}
+                  className="w-3 h-5 bg-amber-400"
+                />
+              </div>
+            </div>
+
+            {/* Floating badges */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -top-4 -right-4 px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-sm font-mono"
+            >
+              &lt;Developer /&gt;
+            </motion.div>
+
+            <motion.div
+              animate={{ y: [0, 10, 0] }}
+              transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
+              className="absolute -bottom-4 -left-4 px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 text-sm font-mono"
+            >
+              npm start career
+            </motion.div>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default About;
