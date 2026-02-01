@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { ExternalLink, Github, Sparkles, ArrowUpRight } from 'lucide-react';
+import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 
 const ProjectCard = ({ project, index }) => {
   const isEven = index % 2 === 0;
@@ -15,22 +15,20 @@ const ProjectCard = ({ project, index }) => {
     >
       {/* Image */}
       <div className={`relative group ${isEven ? '' : 'lg:col-start-2'}`}>
-        {/* Animated gradient border */}
-        <div className="absolute -inset-[2px] bg-gradient-to-r from-amber-500 via-violet-500 to-cyan-500 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm" />
-        <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/20 to-cyan-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-700" />
+        <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-700" />
         
-        <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10 group-hover:border-amber-400/30 transition-all duration-500">
+        <div className="relative aspect-video rounded-xl overflow-hidden border border-white/5 group-hover:border-amber-500/20 transition-all duration-500">
           <img
             src={project.image}
             alt={project.title}
             className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 group-hover:grayscale-0"
-            style={{ filter: 'grayscale(20%)' }}
+            style={{ filter: 'grayscale(30%)' }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
           
           {/* Corner decorations */}
-          <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-amber-400/0 group-hover:border-amber-400/60 transition-all duration-300" />
-          <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-amber-400/0 group-hover:border-amber-400/60 transition-all duration-300" />
+          <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-amber-500/0 group-hover:border-amber-500/40 transition-all duration-300" />
+          <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-amber-500/0 group-hover:border-amber-500/40 transition-all duration-300" />
           
           {/* Hover overlay */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
@@ -39,7 +37,7 @@ const ProjectCard = ({ project, index }) => {
                 href={project.links.github}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                className="p-3 rounded-full bg-black/50 backdrop-blur-md border border-amber-400/30 text-amber-400 hover:bg-amber-400 hover:text-black transition-all"
+                className="p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white hover:bg-amber-500/80 hover:text-black transition-all"
               >
                 <Github size={20} />
               </motion.a>
@@ -47,7 +45,7 @@ const ProjectCard = ({ project, index }) => {
                 href={project.links.external}
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.95 }}
-                className="p-3 rounded-full bg-black/50 backdrop-blur-md border border-cyan-400/30 text-cyan-400 hover:bg-cyan-400 hover:text-black transition-all"
+                className="p-3 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white hover:bg-slate-600 hover:text-white transition-all"
               >
                 <ExternalLink size={20} />
               </motion.a>
@@ -58,56 +56,48 @@ const ProjectCard = ({ project, index }) => {
 
       {/* Content */}
       <div className={`space-y-4 ${isEven ? '' : 'lg:col-start-1 lg:row-start-1'}`}>
-        <div className="flex items-center gap-3">
-          <Sparkles size={16} className="text-amber-400" />
-          <span className="text-xs font-mono text-amber-400 uppercase tracking-widest">Featured Project</span>
+        <div className="flex items-center gap-2">
+          <span className="text-xs font-mono text-amber-500/70 uppercase tracking-widest">Featured Project</span>
         </div>
         
-        <h3 className="text-3xl md:text-4xl font-bold text-white hover:text-amber-400 transition-colors glitch-text" data-text={project.title}>
+        <h3 className="text-3xl md:text-4xl font-bold text-white/90 hover:text-amber-500/90 transition-colors">
           {project.title}
         </h3>
         
-        <p className="text-slate-400 leading-relaxed">
+        <p className="text-slate-500 leading-relaxed">
           {project.description}
         </p>
 
         {/* Tech stack */}
         <div className="flex flex-wrap gap-2 pt-2">
-          {project.tags.map((tag, idx) => (
-            <motion.span
+          {project.tags.map((tag) => (
+            <span
               key={tag}
-              initial={{ opacity: 0, scale: 0.8 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.1 * idx }}
-              viewport={{ once: true }}
-              whileHover={{ scale: 1.05, y: -2 }}
-              className="px-4 py-1.5 text-xs font-mono rounded-full bg-white/5 text-slate-300 border border-white/10 hover:border-amber-400/30 hover:text-amber-400 hover:bg-amber-400/5 transition-all cursor-default"
+              className="px-4 py-1.5 text-xs font-mono rounded-full bg-white/5 text-slate-400 border border-white/5 hover:border-amber-500/20 hover:text-slate-300 transition-all cursor-default"
             >
               {tag}
-            </motion.span>
+            </span>
           ))}
         </div>
 
         {/* Links */}
         <div className="flex gap-4 pt-4">
-          <motion.a
+          <a
             href={project.links.github}
-            whileHover={{ x: 4 }}
-            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group/link"
+            className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors group/link"
           >
             <Github size={18} />
             <span className="text-sm font-mono">Source</span>
             <ArrowUpRight size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity" />
-          </motion.a>
-          <motion.a
+          </a>
+          <a
             href={project.links.external}
-            whileHover={{ x: 4 }}
-            className="flex items-center gap-2 text-slate-400 hover:text-cyan-400 transition-colors group/link"
+            className="flex items-center gap-2 text-slate-500 hover:text-slate-300 transition-colors group/link"
           >
             <ExternalLink size={18} />
             <span className="text-sm font-mono">Live Demo</span>
             <ArrowUpRight size={14} className="opacity-0 group-hover/link:opacity-100 transition-opacity" />
-          </motion.a>
+          </a>
         </div>
       </div>
     </motion.div>
@@ -157,14 +147,14 @@ const Projects = () => {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-16"
         >
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
           <div className="flex items-center gap-3">
-            <span className="text-purple-400 font-mono text-sm">03</span>
-            <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white glitch-text" data-text="Featured Projects">
-              Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-400">Projects</span>
+            <span className="text-amber-500/70 font-mono text-sm">03</span>
+            <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white/90">
+              Projects
             </h2>
           </div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-purple-400/50 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
         </motion.div>
 
         {/* Projects Grid */}

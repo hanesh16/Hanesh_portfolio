@@ -10,21 +10,21 @@ const EducationCard = ({ edu, index }) => (
     viewport={{ once: true }}
     className="group relative"
   >
-    <div className="absolute -inset-0.5 bg-gradient-to-r from-pink-500/30 to-rose-500/30 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
-    <div className="relative p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 hover:border-pink-400/30 transition-all duration-300 h-full">
+    <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
+    <div className="relative p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/5 hover:border-amber-500/20 transition-all duration-300 h-full">
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
-        <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-pink-500/20 to-rose-500/20 border border-pink-400/30 flex items-center justify-center">
-          <GraduationCap size={28} className="text-pink-400" />
+        <div className="w-14 h-14 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+          <GraduationCap size={28} className="text-amber-500/80" />
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10">
-          <Calendar size={14} className="text-pink-400" />
-          <span className="text-sm text-slate-300 font-mono">{edu.period}</span>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/5">
+          <Calendar size={14} className="text-amber-500/70" />
+          <span className="text-sm text-slate-400 font-mono">{edu.period}</span>
         </div>
       </div>
 
       {/* Institution */}
-      <h3 className="text-2xl font-bold text-white mb-1 group-hover:text-pink-400 transition-colors">
+      <h3 className="text-2xl font-bold text-white/90 mb-1 group-hover:text-amber-500/90 transition-colors">
         {edu.institution}
       </h3>
       <div className="flex items-center gap-2 text-slate-500 text-sm mb-4">
@@ -33,7 +33,7 @@ const EducationCard = ({ edu, index }) => (
       </div>
 
       {/* Degree */}
-      <p className="text-lg text-slate-300 font-medium mb-4">
+      <p className="text-lg text-slate-400 font-medium mb-4">
         {edu.degree}
       </p>
 
@@ -42,8 +42,8 @@ const EducationCard = ({ edu, index }) => (
         <div className="space-y-2 mb-6">
           {edu.highlights.map((highlight, idx) => (
             <div key={idx} className="flex items-start gap-2">
-              <Award size={14} className="text-pink-400 mt-1 flex-shrink-0" />
-              <span className="text-sm text-slate-400">{highlight}</span>
+              <Award size={14} className="text-amber-500/70 mt-1 flex-shrink-0" />
+              <span className="text-sm text-slate-500">{highlight}</span>
             </div>
           ))}
         </div>
@@ -53,14 +53,14 @@ const EducationCard = ({ edu, index }) => (
       {edu.courses && (
         <div className="pt-4 border-t border-white/5">
           <div className="flex items-center gap-2 mb-3">
-            <BookOpen size={14} className="text-pink-400" />
-            <span className="text-xs font-mono text-slate-500 uppercase tracking-widest">Key Coursework</span>
+            <BookOpen size={14} className="text-amber-500/70" />
+            <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">Key Coursework</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {edu.courses.map((course) => (
               <span
                 key={course}
-                className="px-3 py-1 text-xs font-mono rounded-full bg-pink-400/10 text-pink-400/80 border border-pink-400/20"
+                className="px-3 py-1 text-xs font-mono rounded-full bg-amber-500/5 text-slate-400 border border-amber-500/10"
               >
                 {course}
               </span>
@@ -78,13 +78,13 @@ const CertificationCard = ({ cert, index }) => (
     whileInView={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
     viewport={{ once: true }}
-    className="group p-4 rounded-xl bg-white/5 border border-white/10 hover:border-amber-400/30 transition-all duration-300 flex items-center gap-4"
+    className="group p-4 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/20 transition-all duration-300 flex items-center gap-4"
   >
-    <div className="w-10 h-10 rounded-lg bg-amber-400/10 border border-amber-400/30 flex items-center justify-center flex-shrink-0">
-      <Award size={20} className="text-amber-400" />
+    <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
+      <Award size={20} className="text-amber-500/80" />
     </div>
     <div className="flex-1 min-w-0">
-      <h4 className="text-white font-medium truncate group-hover:text-amber-400 transition-colors">
+      <h4 className="text-white/90 font-medium truncate group-hover:text-amber-500/90 transition-colors">
         {cert.name}
       </h4>
       <p className="text-sm text-slate-500">{cert.issuer}</p>
@@ -101,19 +101,19 @@ const Education = () => {
       period: "2021 - 2023",
       highlights: [
         "GPA: 3.67 / 4.00",
-        "Awarded International Achievement Scholarship for academic excellence"
+        "International Achievement Scholarship"
       ],
       courses: ["Machine Learning", "Cloud Computing", "Web Development", "Algorithms"]
     },
     {
-      institution: "Gokaraju Rangaraju Institute",
-      location: "Hyderabad, India",
-      degree: "Bachelor of Technology in Information Technology",
+      institution: "SRM University",
+      location: "Chennai, India",
+      degree: "Bachelor of Technology in Computer Science",
       period: "2015 - 2019",
       highlights: [
-        "Active member of Institute of Electrical and Electronics Engineers (IEEE)"
+        "Active member of IEEE"
       ],
-      courses: ["Data Structures", "Operating Systems", "Database Management"]
+      courses: ["Data Structures", "Operating Systems", "Database Management", "Computer Networks"]
     }
   ];
 
@@ -133,14 +133,14 @@ const Education = () => {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-12"
         >
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-pink-400/50 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
           <div className="flex items-center gap-3">
-            <span className="text-pink-400 font-mono text-sm">04</span>
-            <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white glitch-text" data-text="Education Archive">
-              Education <span className="text-transparent bg-clip-text bg-gradient-to-r from-pink-400 to-rose-400">Archive</span>
+            <span className="text-amber-500/70 font-mono text-sm">04</span>
+            <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white/90">
+              Education
             </h2>
           </div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-pink-400/50 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
         </motion.div>
 
         {/* Education Grid */}
@@ -156,10 +156,10 @@ const Education = () => {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
           viewport={{ once: true }}
-          className="pt-8 border-t border-white/10"
+          className="pt-8 border-t border-white/5"
         >
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-3">
-            <Award className="text-amber-400" size={24} />
+          <h3 className="text-xl font-bold text-white/90 mb-6 flex items-center gap-3">
+            <Award className="text-amber-500/80" size={24} />
             Certifications
           </h3>
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4">

@@ -30,10 +30,10 @@ const Footer = () => {
             viewport={{ once: true }}
             className="text-center md:text-left"
           >
-            <h3 className="text-2xl font-bold text-white font-outfit">
-              Sai <span className="text-amber-400">Hanesh</span>
+            <h3 className="text-2xl font-bold text-white/90 font-outfit">
+              Hanesh <span className="text-amber-500/80">Koganti</span>
             </h3>
-            <p className="text-sm text-slate-500 font-mono mt-1">Full Stack Developer</p>
+            <p className="text-sm text-slate-600 font-mono mt-1">Full Stack Developer</p>
           </motion.div>
 
           {/* Social Links */}
@@ -50,7 +50,7 @@ const Footer = () => {
                 href={href}
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-slate-400 hover:text-amber-400 hover:border-amber-400/30 transition-all duration-300"
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/5 flex items-center justify-center text-slate-500 hover:text-amber-500/80 hover:border-amber-500/20 transition-all duration-300"
                 aria-label={label}
               >
                 <Icon size={18} />
@@ -67,7 +67,7 @@ const Footer = () => {
             viewport={{ once: true }}
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.95 }}
-            className="w-10 h-10 rounded-full bg-amber-400/10 border border-amber-400/30 flex items-center justify-center text-amber-400 hover:bg-amber-400 hover:text-black transition-all duration-300"
+            className="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-500/80 hover:bg-amber-500/20 transition-all duration-300"
             aria-label="Back to top"
           >
             <ArrowUp size={18} />
@@ -75,7 +75,7 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-8" />
+        <div className="h-px bg-gradient-to-r from-transparent via-white/5 to-transparent my-8" />
 
         {/* Copyright */}
         <motion.div
@@ -83,12 +83,12 @@ const Footer = () => {
           whileInView={{ opacity: 1 }}
           transition={{ delay: 0.3 }}
           viewport={{ once: true }}
-          className="flex flex-col md:flex-row items-center justify-center gap-2 text-sm text-slate-500"
+          className="flex flex-col md:flex-row items-center justify-center gap-2 text-sm text-slate-600"
         >
-          <span>&copy; {currentYear} Sai Hanesh Koganti.</span>
+          <span>&copy; {currentYear} Hanesh Koganti.</span>
           <span className="hidden md:inline">|</span>
           <span className="flex items-center gap-1">
-            Crafted with <Heart size={14} className="text-rose-500 fill-rose-500" /> using React & Three.js
+            Crafted with <Heart size={14} className="text-slate-600" /> using React & Three.js
           </span>
         </motion.div>
       </div>

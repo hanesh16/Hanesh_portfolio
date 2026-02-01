@@ -5,7 +5,7 @@ import { Rocket, Code2, Database, Cloud, Terminal, Cpu } from 'lucide-react';
 const SkillBadge = ({ icon: Icon, label, color }) => (
   <motion.div
     whileHover={{ scale: 1.05, y: -2 }}
-    className={`flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/10 ${color} hover:border-current transition-all duration-300 cursor-default`}
+    className={`flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/5 ${color} hover:border-current transition-all duration-300 cursor-default`}
   >
     <Icon size={16} />
     <span className="text-sm font-medium">{label}</span>
@@ -14,12 +14,12 @@ const SkillBadge = ({ icon: Icon, label, color }) => (
 
 const TechStack = () => {
   const skills = [
-    { icon: Code2, label: "React", color: "text-cyan-400 hover:shadow-cyan-400/20" },
-    { icon: Terminal, label: "Python", color: "text-amber-400 hover:shadow-amber-400/20" },
-    { icon: Cloud, label: "AWS", color: "text-orange-400 hover:shadow-orange-400/20" },
-    { icon: Database, label: "PostgreSQL", color: "text-blue-400 hover:shadow-blue-400/20" },
-    { icon: Cpu, label: "Docker", color: "text-sky-400 hover:shadow-sky-400/20" },
-    { icon: Rocket, label: "GraphQL", color: "text-pink-400 hover:shadow-pink-400/20" },
+    { icon: Code2, label: "React", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
+    { icon: Terminal, label: "Python", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
+    { icon: Cloud, label: "AWS", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
+    { icon: Database, label: "PostgreSQL", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
+    { icon: Cpu, label: "Docker", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
+    { icon: Rocket, label: "GraphQL", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
   ];
 
   return (
@@ -43,14 +43,14 @@ const About = () => {
           viewport={{ once: true }}
           className="flex items-center gap-4 mb-12"
         >
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
           <div className="flex items-center gap-3">
-            <span className="text-amber-400 font-mono text-sm">01</span>
-            <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white glitch-text" data-text="About Me">
-              About <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">Me</span>
+            <span className="text-amber-500/70 font-mono text-sm">01</span>
+            <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white/90">
+              About Me
             </h2>
           </div>
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-400/50 to-transparent" />
+          <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
         </motion.div>
 
         <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -63,14 +63,14 @@ const About = () => {
             className="space-y-6"
           >
             {/* Headline */}
-            <h3 className="text-3xl md:text-4xl font-bold font-outfit text-white leading-tight">
-              Building the <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-orange-400">future</span> with code
-            </h3>
+            <h2 className="text-3xl md:text-4xl font-bold font-outfit text-white/90 leading-tight">
+              Building the <span className="text-amber-500/80">future</span> with code
+            </h2>
 
             {/* Description */}
-            <div className="space-y-4 text-slate-400 leading-relaxed">
+            <div className="space-y-4 text-slate-500 leading-relaxed">
               <p>
-                I'm a passionate Full Stack Developer with expertise in modern web technologies and cloud infrastructure. 
+                I'm Hanesh Koganti, a passionate Full Stack Developer with expertise in modern web technologies and cloud infrastructure. 
                 My journey in tech has been driven by a fascination with creating seamless digital experiences.
               </p>
               <p>
@@ -101,7 +101,7 @@ const About = () => {
                   viewport={{ once: true }}
                   className="text-center"
                 >
-                  <div className="text-3xl md:text-4xl font-bold text-amber-400">{stat.value}</div>
+                  <div className="text-3xl md:text-4xl font-bold text-amber-500/80">{stat.value}</div>
                   <div className="text-xs text-slate-500 font-mono mt-1">{stat.label}</div>
                 </motion.div>
               ))}
@@ -117,57 +117,57 @@ const About = () => {
             className="relative"
           >
             {/* Decorative elements */}
-            <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/10 to-cyan-500/10 rounded-3xl blur-2xl" />
+            <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/5 to-orange-500/5 rounded-3xl blur-2xl" />
             
             {/* Main card */}
-            <div className="relative p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/10 overflow-hidden">
+            <div className="relative p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/5 overflow-hidden">
               {/* Grid pattern */}
               <div className="absolute inset-0 opacity-5 code-grid" />
 
               {/* Content */}
               <div className="relative space-y-6">
                 {/* Terminal header */}
-                <div className="flex items-center gap-2 pb-4 border-b border-white/10">
-                  <div className="w-3 h-3 rounded-full bg-rose-500" />
-                  <div className="w-3 h-3 rounded-full bg-amber-400" />
-                  <div className="w-3 h-3 rounded-full bg-green-500" />
-                  <span className="ml-4 text-xs font-mono text-slate-500">~/about/developer.json</span>
+                <div className="flex items-center gap-2 pb-4 border-b border-white/5">
+                  <div className="w-3 h-3 rounded-full bg-rose-500/70" />
+                  <div className="w-3 h-3 rounded-full bg-amber-500/70" />
+                  <div className="w-3 h-3 rounded-full bg-green-500/70" />
+                  <span className="ml-4 text-xs font-mono text-slate-600">~/about/developer.json</span>
                 </div>
 
                 {/* Code-like content */}
                 <div className="font-mono text-sm space-y-3">
-                  <div className="text-slate-500">
-                    <span className="text-purple-400">const</span>{' '}
-                    <span className="text-cyan-400">developer</span> = {'{'}
+                  <div className="text-slate-600">
+                    <span className="text-violet-400/80">const</span>{' '}
+                    <span className="text-cyan-400/80">developer</span> = {'{'}
                   </div>
-                  <div className="pl-4 text-slate-400">
-                    <span className="text-amber-400">name</span>:{' '}
-                    <span className="text-green-400">Sai Hanesh Koganti</span>,
+                  <div className="pl-4 text-slate-500">
+                    <span className="text-amber-500/80">name</span>:{' '}
+                    <span className="text-green-400/80">Hanesh Koganti</span>,
                   </div>
-                  <div className="pl-4 text-slate-400">
-                    <span className="text-amber-400">role</span>:{' '}
-                    <span className="text-green-400">Full Stack Developer</span>,
+                  <div className="pl-4 text-slate-500">
+                    <span className="text-amber-500/80">role</span>:{' '}
+                    <span className="text-green-400/80">Full Stack Developer</span>,
                   </div>
-                  <div className="pl-4 text-slate-400">
-                    <span className="text-amber-400">location</span>:{' '}
-                    <span className="text-green-400">Sunnyvale, WA</span>,
+                  <div className="pl-4 text-slate-500">
+                    <span className="text-amber-500/80">location</span>:{' '}
+                    <span className="text-green-400/80">Sunnyvale, WA</span>,
                   </div>
-                  <div className="pl-4 text-slate-400">
-                    <span className="text-amber-400">passion</span>:{' '}
-                    <span className="text-green-400">[Building, Learning, Creating]</span>,
+                  <div className="pl-4 text-slate-500">
+                    <span className="text-amber-500/80">passion</span>:{' '}
+                    <span className="text-green-400/80">[Building, Learning, Creating]</span>,
                   </div>
-                  <div className="pl-4 text-slate-400">
-                    <span className="text-amber-400">available</span>:{' '}
-                    <span className="text-orange-400">true</span>,
+                  <div className="pl-4 text-slate-500">
+                    <span className="text-amber-500/80">available</span>:{' '}
+                    <span className="text-orange-400/80">true</span>,
                   </div>
-                  <div className="text-slate-500">{'}'};</div>
+                  <div className="text-slate-600">{'}'};</div>
                 </div>
 
                 {/* Animated cursor */}
                 <motion.div
                   animate={{ opacity: [1, 0] }}
                   transition={{ duration: 0.8, repeat: Infinity }}
-                  className="w-3 h-5 bg-amber-400"
+                  className="w-3 h-5 bg-amber-500/60"
                 />
               </div>
             </div>
@@ -176,7 +176,7 @@ const About = () => {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -top-4 -right-4 px-4 py-2 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-400 text-sm font-mono"
+              className="absolute -top-4 -right-4 px-4 py-2 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-500/80 text-sm font-mono"
             >
               &lt;Developer /&gt;
             </motion.div>
@@ -184,7 +184,7 @@ const About = () => {
             <motion.div
               animate={{ y: [0, 10, 0] }}
               transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
-              className="absolute -bottom-4 -left-4 px-4 py-2 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-400 text-sm font-mono"
+              className="absolute -bottom-4 -left-4 px-4 py-2 rounded-full bg-slate-700/30 border border-slate-600/30 text-slate-400 text-sm font-mono"
             >
               npm start career
             </motion.div>

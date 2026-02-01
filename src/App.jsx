@@ -7,10 +7,8 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
-import Footer from './components/Footer';
 import SpaceLoader from './components/SpaceLoader';
 import AudioPlayer from './components/AudioPlayer';
-import CursorTrail from './components/CursorTrail';
 import ScrollProgress from './components/ScrollProgress';
 
 // Lazy load only the heavy bottom sections
@@ -30,9 +28,6 @@ function App() {
 
   return (
     <div className="relative min-h-screen font-sans text-slate-200 overflow-x-hidden selection:bg-amber-400/30 selection:text-amber-200">
-      {/* Cursor Trail Effect - Desktop Only */}
-      <CursorTrail />
-      
       {/* Scroll Progress Bar */}
       <ScrollProgress />
       
@@ -61,8 +56,6 @@ function App() {
           <SolarSystemExplorer />
         </Suspense>
       </main>
-      
-      <Footer />
     </div>
   );
 }
