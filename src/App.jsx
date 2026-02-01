@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useEffect } from 'react';
+import React, { Suspense, lazy, useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import AntigravityBackground from './components/AntigravityBackground';
 import Hero from './components/Hero';
@@ -7,25 +7,59 @@ import Experience from './components/Experience';
 import Projects from './components/Projects';
 import Education from './components/Education';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
 import SpaceLoader from './components/SpaceLoader';
 import AudioPlayer from './components/AudioPlayer';
 import ScrollProgress from './components/ScrollProgress';
+import SpaceNavigator from './components/SpaceNavigator';
 
-// Lazy load only the heavy bottom sections
+// Lazy load the explorer sections
 const ExploreSpace = lazy(() => import('./components/ExploreSpace'));
 const SolarSystemExplorer = lazy(() => import('./components/SolarSystemExplorer'));
 
 function App() {
-  // Preload bottom sections after initial render
+  const [mode, setMode] = useState('portfolio');
+
+  const handleModeChange = (newMode) => {
+    setMode(newMode);
+    // Scroll to top when switching modes
+    window.scrollTo({ top: 0, behavior: 'instant' });
+  };
+
+  // Preload explorer components
   useEffect(() => {
-    // Preload after a short delay to not block initial render
     const timer = setTimeout(() => {
       import('./components/ExploreSpace');
       import('./components/SolarSystemExplorer');
-    }, 1000);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
+  // Standalone Explore Mode
+  if (mode === 'explore') {
+    return (
+      <div className="relative min-h-screen bg-[#020205] overflow-hidden">
+        <Suspense fallback={<SpaceLoader />}>
+          <ExploreSpace />
+        </Suspense>
+        <SpaceNavigator currentMode={mode} onModeChange={handleModeChange} />
+      </div>
+    );
+  }
+
+  // Standalone Solar System Mode
+  if (mode === 'solar') {
+    return (
+      <div className="relative min-h-screen bg-black overflow-hidden">
+        <Suspense fallback={<SpaceLoader />}>
+          <SolarSystemExplorer />
+        </Suspense>
+        <SpaceNavigator currentMode={mode} onModeChange={handleModeChange} />
+      </div>
+    );
+  }
+
+  // Main Portfolio Mode
   return (
     <div className="relative min-h-screen font-sans text-slate-200 overflow-x-hidden selection:bg-amber-400/30 selection:text-amber-200">
       {/* Scroll Progress Bar */}
@@ -50,12 +84,12 @@ function App() {
         <Projects />
         <Education />
         <Contact />
-
-        <Suspense fallback={<SpaceLoader />}>
-          <ExploreSpace />
-          <SolarSystemExplorer />
-        </Suspense>
       </main>
+
+      <Footer />
+      
+      {/* Space Navigator - switches between modes */}
+      <SpaceNavigator currentMode={mode} onModeChange={handleModeChange} />
     </div>
   );
 }
