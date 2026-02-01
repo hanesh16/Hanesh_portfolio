@@ -66,16 +66,25 @@ const TiltCard = ({ children, className = "", index = 0, variant = "default" }) 
                     clipPath: isTechShape
                         ? "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)" // Aggressive Tech Shape
                         : "polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px)",
-                    backgroundColor: "rgba(0, 0, 0, 0.4)", // More transparent black
-                    backdropFilter: "blur(12px)",
-                    border: "1px solid rgba(255, 255, 255, 0.1)",
-                    boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-                    backgroundImage: `
-                        radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
-                        radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
-                        radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 3px)
+                    background: `
+                        radial-gradient(ellipse at top right, rgba(251, 191, 36, 0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at bottom left, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
+                        rgba(0, 0, 0, 0.5)
                     `,
-                    backgroundSize: "550px 550px, 350px 350px, 250px 250px",
+                    backdropFilter: "blur(16px)",
+                    WebkitBackdropFilter: "blur(16px)",
+                    border: "1px solid rgba(255, 255, 255, 0.1)",
+                    boxShadow: `
+                        0 4px 30px rgba(0, 0, 0, 0.4),
+                        0 0 30px rgba(251, 191, 36, 0.05),
+                        0 0 60px rgba(139, 92, 246, 0.03)
+                    `,
+                    backgroundImage: `
+                        radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
+                        radial-gradient(white, rgba(255, 255, 255, .1) 1px, transparent 2px),
+                        radial-gradient(white, rgba(255, 255, 255, .05) 1px, transparent 2px)
+                    `,
+                    backgroundSize: "500px 500px, 350px 350px, 250px 250px",
                     backgroundPosition: "0 0, 40px 60px, 130px 270px"
                 } : {}}
             >
@@ -83,8 +92,9 @@ const TiltCard = ({ children, className = "", index = 0, variant = "default" }) 
                 {isSciFi && (
                     <>
                         <div className="absolute top-10 right-10 w-1 h-1 bg-white rounded-full animate-pulse z-0" style={{ boxShadow: "0 0 10px 2px rgba(255, 255, 255, 0.6)" }}></div>
-                        <div className="absolute bottom-20 left-10 w-[2px] h-[2px] bg-sky-200 rounded-full animate-pulse z-0" style={{ animationDelay: "1s", boxShadow: "0 0 8px 1px rgba(186, 230, 253, 0.6)" }}></div>
-                        <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-amber-100 rounded-full animate-pulse z-0" style={{ animationDelay: "2s", boxShadow: "0 0 8px 1px rgba(254, 243, 199, 0.4)", opacity: 0.6 }}></div>
+                        <div className="absolute bottom-20 left-10 w-[2px] h-[2px] bg-cosmic-cyan rounded-full animate-pulse z-0" style={{ animationDelay: "1s", boxShadow: "0 0 8px 1px rgba(34, 211, 238, 0.6)" }}></div>
+                        <div className="absolute top-1/2 left-1/2 w-1 h-1 bg-cosmic-violet rounded-full animate-pulse z-0" style={{ animationDelay: "2s", boxShadow: "0 0 8px 1px rgba(139, 92, 246, 0.4)", opacity: 0.6 }}></div>
+                        <div className="absolute top-1/3 right-1/4 w-[1px] h-[1px] bg-cosmic-amber rounded-full animate-pulse z-0" style={{ animationDelay: "0.5s", boxShadow: "0 0 6px 1px rgba(251, 191, 36, 0.5)" }}></div>
                     </>
                 )}
 
@@ -93,11 +103,21 @@ const TiltCard = ({ children, className = "", index = 0, variant = "default" }) 
                     <div className="absolute inset-0 pointer-events-none border border-white/5" style={{ clipPath: "polygon(40px 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%, 0 40px)" }}></div>
                 )}
 
+                {/* Hover Glow Effect */}
+                <div 
+                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none z-0"
+                    style={{
+                        background: `
+                            radial-gradient(ellipse at top right, rgba(251, 191, 36, 0.1) 0%, transparent 50%),
+                            radial-gradient(ellipse at bottom left, rgba(139, 92, 246, 0.08) 0%, transparent 50%)
+                        `
+                    }}
+                ></div>
 
                 {/* Glare Effect */}
                 <motion.div
                     style={{
-                        background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.15) 0%, transparent 60%)`
+                        background: `radial-gradient(circle at ${glareX} ${glareY}, rgba(255,255,255,0.12) 0%, transparent 60%)`
                     }}
                     className="absolute inset-0 pointer-events-none z-10 opacity-0 group-hover:opacity-100 transition-opacity duration-300 mix-blend-overlay"
                 />

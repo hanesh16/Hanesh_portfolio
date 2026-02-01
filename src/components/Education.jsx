@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { GraduationCap } from 'lucide-react';
+import { GraduationCap, Award } from 'lucide-react';
 import TiltCard from './TiltCard';
 
 const Education = () => {
@@ -31,11 +31,13 @@ const Education = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                     viewport={{ once: true }}
-                    className="flex items-center gap-2 mb-12"
+                    className="flex items-center gap-3 mb-12"
                 >
-                    <GraduationCap className="text-amber-400" size={24} />
-                    <h2 className="text-3xl md:text-4xl font-bold font-outfit text-slate-100">Training Academy</h2>
-                    <div className="h-[1px] bg-slate-700 flex-grow ml-4 max-w-xs"></div>
+                    <div className="p-2 rounded-lg bg-cosmic-violet/10 border border-cosmic-violet/20">
+                        <GraduationCap className="text-cosmic-violet" size={24} />
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold font-outfit bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">Training Academy</h2>
+                    <div className="h-[1px] bg-gradient-to-r from-cosmic-amber/50 to-transparent flex-grow ml-4 max-w-xs"></div>
                 </motion.div>
 
                 <div className="grid md:grid-cols-2 gap-8 mb-12">
@@ -44,15 +46,18 @@ const Education = () => {
                             <TiltCard index={index} className="h-full" variant="scifi">
                                 <div className="h-full flex flex-col">
                                     <div className="mb-4">
-                                        <div className="flex justify-between items-start mb-2">
-                                            <h3 className="text-xl font-bold text-slate-100">{edu.school}</h3>
-                                            <span className="text-xs font-mono text-slate-400 bg-white/5 px-2 py-1 rounded border border-white/10 whitespace-nowrap ml-2">{edu.period}</span>
+                                        <div className="flex justify-between items-start mb-2 gap-4">
+                                            <h3 className="text-xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">{edu.school}</h3>
+                                            <span className="text-xs font-mono text-cosmic-cyan bg-cosmic-cyan/10 px-3 py-1 rounded-full border border-cosmic-cyan/20 whitespace-nowrap">{edu.period}</span>
                                         </div>
-                                        <p className="text-amber-400 font-medium">{edu.degree}</p>
+                                        <p className="text-cosmic-amber font-medium">{edu.degree}</p>
                                     </div>
 
                                     <div className="mt-auto">
-                                        <h4 className="text-sm font-semibold text-slate-300 mb-2 uppercase tracking-wider">Coursework</h4>
+                                        <h4 className="text-sm font-semibold text-slate-300 mb-2 uppercase tracking-wider flex items-center gap-2">
+                                            <span className="w-1.5 h-1.5 bg-cosmic-violet rounded-full shadow-[0_0_6px_rgba(139,92,246,0.8)]"></span>
+                                            Coursework
+                                        </h4>
                                         <p className="text-slate-400 text-sm leading-relaxed">
                                             {edu.coursework}
                                         </p>
@@ -63,13 +68,18 @@ const Education = () => {
                     ))}
                 </div>
 
-                <TiltCard className="border-l-4 border-amber-400" variant="scifi">
-                    <h3 className="text-lg font-bold text-slate-100 mb-2">Certifications</h3>
-                    <ul className="space-y-2">
+                <TiltCard className="border-l-4 border-cosmic-amber" variant="scifi">
+                    <div className="flex items-center gap-3 mb-4">
+                        <div className="p-2 rounded-lg bg-cosmic-amber/10">
+                            <Award className="text-cosmic-amber" size={20} />
+                        </div>
+                        <h3 className="text-lg font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">Certifications</h3>
+                    </div>
+                    <ul className="space-y-3">
                         {certifications.map((cert, index) => (
-                            <li key={index} className="text-slate-300 flex items-center">
-                                <span className="text-amber-400 mr-2">✦</span>
-                                {cert}
+                            <li key={index} className="text-slate-300 flex items-start group">
+                                <span className="text-cosmic-violet mr-3 group-hover:text-cosmic-cyan transition-colors">✦</span>
+                                <span className="group-hover:text-slate-200 transition-colors">{cert}</span>
                             </li>
                         ))}
                     </ul>

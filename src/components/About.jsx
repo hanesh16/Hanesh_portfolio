@@ -13,7 +13,7 @@ const About = () => {
     ];
 
     return (
-        <section id="about" className="pt-24 pb-20 text-slate-900">
+        <section id="about" className="pt-24 pb-20">
             <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
                 {/* Left: Text Content */}
                 <motion.div
@@ -25,10 +25,10 @@ const About = () => {
                 >
                     <TiltCard className="h-full" variant="scifi">
                         <div className="relative z-10">
-                            <div className="flex items-center gap-2 mb-6">
-                                <span className="text-amber-400 font-bold text-lg">01.</span>
-                                <h2 className="text-3xl md:text-4xl font-bold font-outfit text-slate-100">About Me</h2>
-                                <div className="h-[1px] bg-slate-700 flex-grow ml-4"></div>
+                            <div className="flex items-center gap-3 mb-6">
+                                <span className="text-cosmic-amber font-bold text-lg font-mono">01.</span>
+                                <h2 className="text-3xl md:text-4xl font-bold font-outfit bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">About Me</h2>
+                                <div className="h-[1px] bg-gradient-to-r from-cosmic-amber/50 to-transparent flex-grow ml-4"></div>
                             </div>
 
                             <p className="text-slate-300 text-lg leading-relaxed mb-6">
@@ -38,11 +38,15 @@ const About = () => {
                                 My expertise spans across full-stack development, cloud computing (AWS, Azure, GCP), and AI/ML. I'm passionate about automation, optimizing performance, and creating intuitive digital experiences.
                             </p>
 
-                            <p className="mb-4 text-slate-200 font-semibold">Tech Arsenal:</p>
+                            <p className="mb-4 text-slate-200 font-semibold flex items-center gap-2">
+                                <span className="w-2 h-2 bg-cosmic-violet rounded-full shadow-[0_0_8px_rgba(139,92,246,0.8)]"></span>
+                                Tech Arsenal:
+                            </p>
                             <ul className="grid grid-cols-2 gap-x-4 gap-y-2">
                                 {skills.map((skill) => (
-                                    <li key={skill} className="flex items-center text-slate-400 text-sm font-mono">
-                                        <span className="text-amber-400 mr-2">▹</span> {skill}
+                                    <li key={skill} className="flex items-center text-slate-400 text-sm font-mono group">
+                                        <span className="text-cosmic-amber mr-2 group-hover:translate-x-1 transition-transform">▹</span>
+                                        <span className="group-hover:text-slate-200 transition-colors">{skill}</span>
                                     </li>
                                 ))}
                             </ul>
@@ -59,8 +63,8 @@ const About = () => {
                     className="relative group"
                 >
                     <div className="relative z-10 w-full max-w-sm mx-auto md:ml-auto">
-                        {/* Profile Image (Moved from Hero) */}
-                        <div className="aspect-square bg-slate-900 border-2 border-amber-400/30 shadow-xl rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-300 rotate-3 group-hover:rotate-0">
+                        {/* Profile Image */}
+                        <div className="aspect-square bg-slate-900 border-2 border-cosmic-amber/30 shadow-xl rounded-2xl overflow-hidden relative grayscale hover:grayscale-0 transition-all duration-500 rotate-3 group-hover:rotate-0 group-hover:border-cosmic-amber/50 group-hover:shadow-[0_0_40px_rgba(251,191,36,0.2)]">
                             <img
                                 src={polaroidImg}
                                 alt="Hanesh Koganti - Software Engineer"
@@ -69,10 +73,14 @@ const About = () => {
                                 decoding="async"
                             />
                             {/* Overlay */}
-                            <div className="absolute inset-0 bg-amber-400/10 group-hover:bg-transparent transition-all duration-300"></div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-cosmic-violet/20 via-cosmic-amber/10 to-transparent group-hover:bg-transparent transition-all duration-300"></div>
                         </div>
                         {/* Border effect */}
-                        <div className="absolute top-5 left-5 w-full h-full border-4 border-amber-400/20 rounded-2xl -z-10 group-hover:top-3 group-hover:left-3 transition-all duration-300"></div>
+                        <div className="absolute top-5 left-5 w-full h-full border-4 border-cosmic-violet/20 rounded-2xl -z-10 group-hover:top-3 group-hover:left-3 group-hover:border-cosmic-violet/30 transition-all duration-300"></div>
+                        
+                        {/* Floating decorative elements */}
+                        <div className="absolute -top-4 -right-4 w-8 h-8 border-t-2 border-r-2 border-cosmic-cyan/40 rounded-tr-lg"></div>
+                        <div className="absolute -bottom-4 -left-4 w-8 h-8 border-b-2 border-l-2 border-cosmic-amber/40 rounded-bl-lg"></div>
                     </div>
                 </motion.div>
             </div>

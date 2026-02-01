@@ -27,14 +27,19 @@ const Experience = () => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.5 }}
                     viewport={{ once: true }}
-                    className="flex items-center gap-2 mb-12"
+                    className="flex items-center gap-3 mb-12"
                 >
-                    <Briefcase className="text-amber-400" size={24} />
-                    <h2 className="text-3xl md:text-4xl font-bold font-outfit text-slate-100">Mission Log</h2>
-                    <div className="h-[1px] bg-slate-700 flex-grow ml-4 max-w-xs"></div>
+                    <div className="p-2 rounded-lg bg-cosmic-amber/10 border border-cosmic-amber/20">
+                        <Briefcase className="text-cosmic-amber" size={24} />
+                    </div>
+                    <h2 className="text-3xl md:text-4xl font-bold font-outfit bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">Mission Log</h2>
+                    <div className="h-[1px] bg-gradient-to-r from-cosmic-violet/50 to-transparent flex-grow ml-4 max-w-xs"></div>
                 </motion.div>
 
-                <div className="relative border-l-2 border-slate-800 ml-3 md:ml-6 space-y-12">
+                <div className="relative ml-3 md:ml-6 space-y-12">
+                    {/* Enhanced Timeline Line */}
+                    <div className="absolute left-0 top-0 bottom-0 w-[2px] bg-gradient-to-b from-cosmic-amber/50 via-cosmic-violet/30 to-transparent"></div>
+                    
                     {experiences.map((exp, index) => (
                         <motion.div
                             key={index}
@@ -44,26 +49,28 @@ const Experience = () => {
                             viewport={{ once: true }}
                             className="relative pl-8 md:pl-12"
                         >
-                            {/* Timeline Dot */}
-                            <div className="absolute left-[-9px] top-0 w-4 h-4 rounded-full bg-slate-900 border-2 border-amber-400"></div>
-                            <div className="absolute left-[-5px] top-[4px] w-2 h-2 rounded-full bg-amber-400 animate-pulse"></div>
+                            {/* Timeline Dot with glow */}
+                            <div className="absolute left-[-5px] top-0 w-3 h-3 rounded-full bg-slate-900 border-2 border-cosmic-amber shadow-[0_0_10px_rgba(251,191,36,0.5)]"></div>
+                            <div className="absolute left-[-3px] top-[2px] w-1.5 h-1.5 rounded-full bg-cosmic-amber animate-pulse"></div>
 
                             <TiltCard index={index} variant="scifi">
                                 <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
                                     <div>
-                                        <h3 className="text-xl md:text-2xl font-bold text-slate-100">{exp.role}</h3>
-                                        <p className="text-amber-400 font-medium text-lg">{exp.company}</p>
+                                        <h3 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">{exp.role}</h3>
+                                        <p className="text-cosmic-amber font-medium text-lg">{exp.company}</p>
                                     </div>
-                                    <div className="text-slate-400 font-mono text-sm bg-white/5 px-3 py-1 rounded-full border border-white/10 w-fit">
-                                        {exp.period} | {exp.location}
+                                    <div className="text-slate-400 font-mono text-sm bg-white/5 px-4 py-2 rounded-full border border-white/10 w-fit backdrop-blur-sm">
+                                        <span className="text-cosmic-violet">{exp.period}</span>
+                                        <span className="mx-2 text-slate-600">|</span>
+                                        <span>{exp.location}</span>
                                     </div>
                                 </div>
 
-                                <ul className="space-y-2">
+                                <ul className="space-y-3">
                                     {exp.points.map((point, idx) => (
-                                        <li key={idx} className="flex items-start text-slate-300 text-sm md:text-base leading-relaxed">
-                                            <span className="text-amber-400 mr-2 mt-1.5">▹</span>
-                                            {point}
+                                        <li key={idx} className="flex items-start text-slate-300 text-sm md:text-base leading-relaxed group">
+                                            <span className="text-cosmic-violet mr-3 mt-1.5 group-hover:text-cosmic-cyan transition-colors">▹</span>
+                                            <span className="group-hover:text-slate-200 transition-colors">{point}</span>
                                         </li>
                                     ))}
                                 </ul>

@@ -15,17 +15,20 @@ const Navbar = () => {
     }, []);
 
     const navStyle = {
-        background: "rgba(0, 0, 0, 0.4)", // Pitch dark transparent
-        backdropFilter: "blur(12px)",
-        border: "1px solid rgba(255, 255, 255, 0.1)",
-        boxShadow: "0 4px 30px rgba(0, 0, 0, 0.1)",
-        backgroundImage: `
-            radial-gradient(white, rgba(255, 255, 255, .2) 2px, transparent 3px),
-            radial-gradient(white, rgba(255, 255, 255, .15) 1px, transparent 2px),
-            radial-gradient(white, rgba(255, 255, 255, .1) 2px, transparent 3px)
+        background: `
+            radial-gradient(ellipse at top, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+            radial-gradient(ellipse at bottom, rgba(251, 191, 36, 0.05) 0%, transparent 50%),
+            rgba(0, 0, 0, 0.6)
         `,
-        backgroundSize: "550px 550px, 350px 350px, 250px 250px",
-        backgroundPosition: "0 0, 40px 60px, 130px 270px"
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+        border: "1px solid rgba(255, 255, 255, 0.08)",
+        boxShadow: `
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            0 0 30px rgba(251, 191, 36, 0.08),
+            0 0 60px rgba(139, 92, 246, 0.05),
+            inset 0 1px 0 rgba(255, 255, 255, 0.05)
+        `,
     };
 
     return (
@@ -57,16 +60,18 @@ const Navbar = () => {
                             smooth={true}
                             duration={800}
                             offset={-100}
-                            className="pl-4 pr-2 font-bold font-outfit text-white cursor-pointer select-none whitespace-nowrap text-xl relative group block drop-shadow-lg"
+                            className="pl-4 pr-2 font-bold font-outfit text-white cursor-pointer select-none whitespace-nowrap text-xl relative group block"
                         >
-                            HK
-                            <span className="text-amber-400 inline-block relative">
+                            <span className="bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">
+                                HK
+                            </span>
+                            <span className="text-cosmic-amber inline-block relative">
                                 .
-                                <span className="absolute -top-1 -right-1 w-2 h-2 bg-amber-400 rounded-full animate-ping opacity-75"></span>
+                                <span className="absolute -top-1 -right-1 w-2 h-2 bg-cosmic-amber rounded-full animate-ping opacity-75 shadow-[0_0_10px_rgba(251,191,36,0.8)]"></span>
                             </span>
                         </Link>
 
-                        <div className={`h-6 w-[1px] bg-slate-600 mx-2 transition-opacity duration-300 ${scrolled ? 'opacity-100' : 'opacity-0'}`}></div>
+                        <div className={`h-6 w-[1px] bg-gradient-to-b from-transparent via-slate-600 to-transparent mx-2 transition-opacity duration-300 ${scrolled ? 'opacity-100' : 'opacity-0'}`}></div>
 
                         <motion.ul
                             className="flex items-center justify-between flex-1"
@@ -83,15 +88,15 @@ const Navbar = () => {
                             ].map((item) => (
                                 <li key={item.name}>
                                     <Link
-                                        activeClass="nav-reactor-active text-amber-400"
+                                        activeClass="nav-reactor-active"
                                         to={item.id || item.name.toLowerCase()}
                                         spy={true}
                                         smooth="easeInOutQuart"
                                         duration={1000}
                                         offset={-100}
-                                        className={`nav-item flex items-center gap-2 rounded-full text-sm font-semibold text-white transition-all duration-300 cursor-pointer hover:bg-white/5 hover:text-amber-300 whitespace-nowrap drop-shadow-md ${scrolled ? 'px-3 py-2' : 'px-4 py-2 text-base'}`}
+                                        className={`nav-item flex items-center gap-2 rounded-full text-sm font-semibold text-slate-200 transition-all duration-300 cursor-pointer hover:bg-white/5 whitespace-nowrap ${scrolled ? 'px-3 py-2' : 'px-4 py-2 text-base'}`}
                                     >
-                                        {item.icon}
+                                        <span className="text-cosmic-amber/80">{item.icon}</span>
                                         <span className="hidden md:inline">{item.name}</span>
                                     </Link>
                                 </li>
@@ -115,23 +120,26 @@ const Navbar = () => {
                         smooth={true}
                         duration={800}
                         offset={-100}
-                        className="relative z-10 font-bold font-outfit text-white text-xl cursor-pointer drop-shadow-lg"
+                        className="relative z-10 font-bold font-outfit text-xl cursor-pointer"
                     >
-                        HK<span className="text-amber-400">.</span>
+                        <span className="bg-gradient-to-r from-slate-100 to-slate-300 bg-clip-text text-transparent">
+                            HK
+                        </span>
+                        <span className="text-cosmic-amber">.</span>
                     </Link>
 
-                    <div className="h-5 w-[1px] bg-white/20 relative z-10"></div>
+                    <div className="h-5 w-[1px] bg-gradient-to-b from-transparent via-white/20 to-transparent relative z-10"></div>
 
                     <Link
-                        activeClass="text-amber-400"
+                        activeClass="text-cosmic-amber drop-shadow-[0_0_8px_rgba(251,191,36,0.6)]"
                         to="about"
                         spy={true}
                         smooth="easeInOutQuart"
                         duration={1000}
                         offset={-100}
-                        className="relative z-10 nav-item flex items-center gap-2 text-sm font-semibold text-white hover:text-amber-300 cursor-pointer drop-shadow-md"
+                        className="relative z-10 nav-item flex items-center gap-2 text-sm font-semibold text-slate-200 hover:text-cosmic-amber transition-colors cursor-pointer"
                     >
-                        <User size={16} />
+                        <User size={16} className="text-cosmic-amber/80" />
                         <span>About</span>
                     </Link>
                 </div>
@@ -153,13 +161,13 @@ const Navbar = () => {
                     ].map((item) => (
                         <Link
                             key={item.name}
-                            activeClass="nav-reactor-active text-amber-400"
+                            activeClass="nav-reactor-active"
                             to={item.id || item.name.toLowerCase()}
                             spy={true}
                             smooth="easeInOutQuart"
                             duration={1000}
                             offset={-100}
-                            className="relative z-10 nav-item p-3 rounded-full text-white hover:text-amber-300 transition-all duration-300 cursor-pointer drop-shadow-md"
+                            className="relative z-10 nav-item p-3 rounded-full text-slate-300 hover:text-cosmic-amber transition-all duration-300 cursor-pointer"
                         >
                             {item.icon}
                         </Link>
