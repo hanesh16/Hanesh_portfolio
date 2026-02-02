@@ -1,11 +1,36 @@
-import React, { useRef, useMemo } from 'react';
-import { Canvas, useFrame, useLoader } from '@react-three/fiber';
+import React, { useRef, useMemo, useEffect, useState } from 'react';
+import { Canvas, useFrame, useLoader, useThree } from '@react-three/fiber';
 import * as THREE from 'three';
 import sunImg from '../assets/textures/8k_sun.jpg';
 import mercuryImg from '../assets/textures/8k_mercury.jpg';
 import venusImg from '../assets/textures/Venus.jpg';
 import earthImg from '../assets/textures/8k_earth_daymap.jpg';
 import marsImg from '../assets/textures/Mars.jpg';
+
+// Responsive camera controller
+const CameraController = () => {
+  const { camera } = useThree();
+  
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < 768;
+      if (mobile) {
+        camera.position.set(0, 1, 18);
+        camera.fov = 75;
+      } else {
+        camera.position.set(0, 2, 12);
+        camera.fov = 60;
+      }
+      camera.updateProjectionMatrix();
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [camera]);
+
+  return null;
+};
 
 // Sun component
 const Sun = () => {
@@ -35,7 +60,6 @@ const Planet = ({
   orbitSpeed, 
   rotationSpeed,
   initialAngle = 0,
-  hasRings = false
 }) => {
   const planetRef = useRef();
   const orbitRef = useRef();
@@ -44,14 +68,12 @@ const Planet = ({
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
     
-    // Orbit around sun
     if (orbitRef.current) {
       const angle = initialAngle + time * orbitSpeed;
       orbitRef.current.position.x = Math.cos(angle) * orbitRadius;
       orbitRef.current.position.z = Math.sin(angle) * orbitRadius;
     }
     
-    // Self rotation
     if (planetRef.current) {
       planetRef.current.rotation.y += rotationSpeed;
     }
@@ -68,7 +90,6 @@ const Planet = ({
         />
       </mesh>
       
-      {/* Orbit ring visualization */}
       <mesh rotation={[Math.PI / 2, 0, 0]}>
         <ringGeometry args={[orbitRadius - 0.02, orbitRadius + 0.02, 128]} />
         <meshBasicMaterial 
@@ -82,23 +103,45 @@ const Planet = ({
   );
 };
 
-// Solar System
+// Solar System with responsive positioning
 const SolarSystem = () => {
   const systemRef = useRef();
+  const [position, setPosition] = useState([8, 0, -8]);
+  const [scale, setScale] = useState(1);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width < 640) {
+        setPosition([3, 0, -6]);
+        setScale(0.6);
+      } else if (width < 768) {
+        setPosition([5, 0, -7]);
+        setScale(0.75);
+      } else if (width < 1024) {
+        setPosition([6, 0, -8]);
+        setScale(0.85);
+      } else {
+        setPosition([8, 0, -8]);
+        setScale(1);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   useFrame((state) => {
     if (systemRef.current) {
-      // Slowly rotate entire system
-      systemRef.current.rotation.y = state.clock.getElapsedTime() * 0.02;
+      systemRef.current.rotation.y = state.clock.getElapsedTime() * 0.01;
     }
   });
 
   return (
-    <group ref={systemRef} position={[8, 0, -8]}>
-      {/* Sun */}
+    <group ref={systemRef} position={position} scale={scale}>
       <Sun />
       
-      {/* Mercury */}
       <Planet
         texture={mercuryImg}
         size={0.15}
@@ -108,7 +151,6 @@ const SolarSystem = () => {
         initialAngle={0}
       />
       
-      {/* Venus */}
       <Planet
         texture={venusImg}
         size={0.25}
@@ -118,7 +160,6 @@ const SolarSystem = () => {
         initialAngle={Math.PI / 3}
       />
       
-      {/* Earth */}
       <Planet
         texture={earthImg}
         size={0.26}
@@ -128,7 +169,6 @@ const SolarSystem = () => {
         initialAngle={Math.PI}
       />
       
-      {/* Mars */}
       <Planet
         texture={marsImg}
         size={0.2}
@@ -193,6 +233,7 @@ const Starfield = () => {
 const Scene = () => {
   return (
     <>
+      <CameraController />
       <ambientLight intensity={0.1} />
       <Starfield />
       <SolarSystem />
@@ -204,7 +245,6 @@ const AntigravityBackground = () => {
   return (
     <div className="fixed inset-0 z-[-1]" style={{ background: '#000000' }}>
       <Canvas
-        camera={{ position: [0, 2, 12], fov: 60 }}
         dpr={[1, 1.5]}
         gl={{ 
           antialias: true, 
