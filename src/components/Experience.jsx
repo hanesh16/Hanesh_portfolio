@@ -12,11 +12,11 @@ const ExperienceCard = ({ exp, index }) => (
   >
     {/* Timeline line */}
     <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-amber-500/30 via-amber-500/10 to-transparent" />
-    
+
     {/* Timeline dot */}
     <motion.div
       className="absolute left-[-5px] top-2 w-2.5 h-2.5 rounded-full bg-amber-500/60"
-      animate={{ 
+      animate={{
         boxShadow: ['0 0 0 0 rgba(245,158,11,0.2)', '0 0 0 8px rgba(245,158,11,0)', '0 0 0 0 rgba(245,158,11,0)']
       }}
       transition={{ duration: 2, repeat: Infinity }}
@@ -34,15 +34,15 @@ const ExperienceCard = ({ exp, index }) => (
             </h3>
             <div className="flex items-center gap-2 mt-1">
               <span className="text-amber-500/80 font-semibold">{exp.company}</span>
-              <a 
-                href="#" 
+              <a
+                href="#"
                 className="text-slate-600 hover:text-slate-400 transition-colors"
               >
                 <ExternalLink size={14} />
               </a>
             </div>
           </div>
-          
+
           <div className="flex flex-col items-start md:items-end gap-1">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/5">
               <Calendar size={14} className="text-amber-500/70" />
@@ -80,7 +80,7 @@ const ExperienceCard = ({ exp, index }) => (
         {/* Tech stack */}
         <div className="mt-6 pt-6 border-t border-white/5">
           <div className="flex flex-wrap gap-2">
-            {["Python", "Flask", "AWS", "Docker", "PostgreSQL"].map((tech) => (
+            {["Python", "Flask", "SQL", "Docker", "Linux", "CI/CD"].map((tech) => (
               <span
                 key={tech}
                 className="px-3 py-1 text-xs font-mono rounded-full bg-amber-500/5 text-slate-400 border border-amber-500/10"
@@ -99,7 +99,7 @@ const Experience = () => {
   const experiences = [
     {
       company: "Comcast",
-      location: "Sunnyvale, WA",
+      location: "Sunnyvale, CA",
       role: "Software Development Engineer",
       period: "Oct 2023 - Present",
       points: [

@@ -98,28 +98,27 @@ const Education = () => {
       institution: "Portland State University",
       location: "Portland, OR",
       degree: "Master of Science in Computer Science",
-      period: "2021 - 2023",
+      period: "Sep 2022 - Mar 2024",
       highlights: [
         "GPA: 3.67 / 4.00",
         "International Achievement Scholarship"
       ],
-      courses: ["Machine Learning", "Cloud Computing", "Web Development", "Algorithms"]
+      courses: ["Algorithm Design Analysis", "Software Engineering", "Full Stack Web Development", "Large Language Models", "Machine Learning", "AI"]
     },
     {
       institution: "SRM University",
-      location: "Chennai, India",
-      degree: "Bachelor of Technology in Computer Science",
-      period: "2015 - 2019",
+      location: "AP, India",
+      degree: "B.Tech Computer Science and Engineering",
+      period: "Jul 2018 - May 2022",
       highlights: [
         "Active member of IEEE"
       ],
-      courses: ["Data Structures", "Operating Systems", "Database Management", "Computer Networks"]
+      courses: ["Computer Organization", "Object Oriented Programming", "Data Science", "Big Data Analytics", "Computer Networks"]
     }
   ];
 
   const certifications = [
-    { name: "AWS Certified Cloud Practitioner", issuer: "Amazon Web Services" },
-    { name: "Azure AI Fundamentals", issuer: "Microsoft" },
+    { name: "Google Cloud Arcade Facilitator Program 2025 (Cohort 1)", issuer: "Google Cloud" },
   ];
 
   return (

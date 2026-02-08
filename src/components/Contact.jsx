@@ -39,7 +39,7 @@ const Contact = () => {
 
   const socialLinks = [
     { icon: Github, href: "https://github.com/hanesh16", label: "GitHub" },
-    { icon: Linkedin, href: "https://linkedin.com/in/saihanesh", label: "LinkedIn" },
+    { icon: Linkedin, href: "https://linkedin.com/in/hk6", label: "LinkedIn" },
     { icon: Twitter, href: "#", label: "Twitter" },
   ];
 
@@ -74,22 +74,22 @@ const Contact = () => {
             className="lg:col-span-2 space-y-4"
           >
             <ContactLink
-              href="mailto:hanesh0531@gmail.com"
+              href="mailto:haneshk16@gmail.com"
               icon={Mail}
               label="Email"
-              value="hanesh0531@gmail.com"
+              value="haneshk16@gmail.com"
             />
             <ContactLink
               href="#"
               icon={Phone}
               label="Phone"
-              value="+1 (971) 998-7190"
+              value="602-451-3727"
             />
             <ContactLink
               href="#"
               icon={MapPin}
               label="Location"
-              value="Sunnyvale, WA"
+              value="Sunnyvale, CA"
             />
 
             {/* Social Links */}
@@ -166,11 +166,10 @@ const Contact = () => {
                   disabled={isSubmitting || isSubmitted}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 ${
-                    isSubmitted
-                      ? 'bg-green-500/20 text-green-400/80 border border-green-500/30'
-                      : 'bg-amber-500/90 text-black hover:bg-amber-500'
-                  }`}
+                  className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 ${isSubmitted
+                    ? 'bg-green-500/20 text-green-400/80 border border-green-500/30'
+                    : 'bg-amber-500/90 text-black hover:bg-amber-500'
+                    }`}
                 >
                   {isSubmitting ? (
                     <>

@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { motion } from 'framer-motion';
 import musicFile from '../assets/Perplexity.mp3';
 
 // Pre-computed equalizer bar values at module level (computed once when module loads)
@@ -64,48 +65,59 @@ const AudioPlayer = () => {
     }, []);
 
     return (
-        <div className="fixed top-6 right-6 md:top-auto md:right-auto md:bottom-6 md:left-6 z-50 flex items-center gap-3">
+        <div className="fixed top-4 right-4 md:top-auto md:right-auto md:bottom-6 md:left-6 z-40 flex items-center gap-3">
             <audio
                 ref={audioRef}
                 src={musicFile}
                 loop
             />
 
-            <button
+            <motion.button
                 onClick={togglePlay}
-                className="group relative w-12 h-12 flex items-center justify-center rounded-full bg-white/5 backdrop-blur-xl border border-white/20 shadow-[0_4px_12px_rgba(0,0,0,0.1)] hover:bg-white/10 hover:border-amber-400/50 hover:shadow-[0_0_15px_rgba(251,191,36,0.2)] transition-all duration-300 overflow-hidden"
+                whileHover={{ scale: 1.1 }}
+                whileTap={{ scale: 0.95 }}
+                className="group relative flex items-center justify-center w-9 h-9 md:w-10 md:h-10"
                 aria-label={isPlaying ? "Pause Music" : "Play Music"}
             >
-                {/* Visual Equalizer / Glow */}
+                {/* Orbital ring animation - same as HK button */}
+                <motion.div
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-0 rounded-full border border-dashed border-amber-500/30"
+                />
+
+                {/* Inner glow on hover */}
+                <div className="absolute inset-1 rounded-full bg-gradient-to-br from-amber-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+
+                {/* Background circle */}
+                <div className="absolute inset-0.5 rounded-full bg-black/60 backdrop-blur-xl border border-white/10 group-hover:border-amber-500/30 transition-colors" />
+
+                {/* Playing indicator pulse */}
                 {isPlaying && (
-                    <div className="absolute inset-0 flex items-center justify-center gap-[2px] opacity-40 group-hover:opacity-60">
-                        {EQUALIZER_BARS.map((bar) => (
-                            <div
-                                key={bar.id}
-                                className="w-1 bg-amber-400 rounded-full animate-pulse"
-                                style={{
-                                    height: `${bar.height}%`,
-                                    animationDuration: `${bar.duration}s`
-                                }}
-                            />
-                        ))}
-                    </div>
+                    <motion.div
+                        className="absolute -top-0.5 -right-0.5 w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-amber-500/80"
+                        animate={{
+                            scale: [1, 1.3, 1],
+                            opacity: [1, 0.6, 1]
+                        }}
+                        transition={{ duration: 1.5, repeat: Infinity }}
+                    />
                 )}
 
                 {/* Icon */}
                 <div className="relative z-10 text-slate-200 group-hover:text-amber-400 transition-colors">
                     {isPlaying ? (
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <rect x="6" y="4" width="4" height="16" />
                             <rect x="14" y="4" width="4" height="16" />
                         </svg>
                     ) : (
-                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                             <polygon points="5 3 19 12 5 21 5 3" />
                         </svg>
                     )}
                 </div>
-            </button>
+            </motion.button>
             <span className={`hidden md:block text-xs font-mono tracking-widest transition-all duration-500 ${isPlaying ? 'text-amber-400/80 opacity-100' : 'text-slate-500 opacity-0 translate-x-[-10px]'}`}>
                 AUDIO ON
             </span>

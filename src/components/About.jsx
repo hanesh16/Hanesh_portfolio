@@ -70,12 +70,12 @@ const About = () => {
             {/* Description */}
             <div className="space-y-4 text-slate-500 leading-relaxed">
               <p>
-                I'm Hanesh Koganti, a passionate Full Stack Developer with expertise in modern web technologies and cloud infrastructure. 
+                I'm Hanesh Koganti, a passionate Full Stack Developer with expertise in modern web technologies and cloud infrastructure.
                 My journey in tech has been driven by a fascination with creating seamless digital experiences.
               </p>
               <p>
-                Currently at Comcast, I develop and maintain backend services that handle millions of requests, 
-                while exploring the frontiers of AI and machine learning. I believe in writing clean, scalable code 
+                Currently at Comcast, I develop and maintain backend services that handle millions of requests,
+                while exploring the frontiers of AI and machine learning. I believe in writing clean, scalable code
                 that makes a real impact.
               </p>
             </div>
@@ -118,7 +118,7 @@ const About = () => {
           >
             {/* Decorative elements */}
             <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/5 to-orange-500/5 rounded-3xl blur-2xl" />
-            
+
             {/* Main card */}
             <div className="relative p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/5 overflow-hidden">
               {/* Grid pattern */}
@@ -150,7 +150,7 @@ const About = () => {
                   </div>
                   <div className="pl-4 text-slate-500">
                     <span className="text-amber-500/80">location</span>:{' '}
-                    <span className="text-green-400/80">Sunnyvale, WA</span>,
+                    <span className="text-green-400/80">Sunnyvale, CA</span>,
                   </div>
                   <div className="pl-4 text-slate-500">
                     <span className="text-amber-500/80">passion</span>:{' '}

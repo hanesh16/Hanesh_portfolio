@@ -12,34 +12,34 @@
   --cosmic-amber-light: #fcd34d;
   --cosmic-amber-dark: #f59e0b;
   --cosmic-amber-glow: rgba(251, 191, 36, 0.5);
-  
+
   /* Secondary - Nebula Violet */
   --cosmic-violet: #8b5cf6;
   --cosmic-violet-light: #a78bfa;
   --cosmic-violet-dark: #7c3aed;
   --cosmic-violet-glow: rgba(139, 92, 246, 0.4);
-  
+
   /* Tertiary - Electric Cyan */
   --cosmic-cyan: #22d3ee;
   --cosmic-cyan-light: #67e8f9;
   --cosmic-cyan-dark: #06b6d4;
   --cosmic-cyan-glow: rgba(34, 211, 238, 0.4);
-  
+
   /* Accent - Rose/Pink for variety */
   --cosmic-rose: #f472b6;
   --cosmic-rose-glow: rgba(244, 114, 182, 0.4);
-  
+
   /* Background - Deep Space */
   --space-bg: #050510;
   --space-bg-lighter: #0a0a1a;
   --space-void: #020208;
-  
+
   /* Text Colors */
   --text-primary: #f8fafc;
   --text-secondary: #e2e8f0;
   --text-muted: #94a3b8;
   --text-dim: #64748b;
-  
+
   /* Glass Effects */
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
@@ -107,7 +107,7 @@ section[id] {
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid var(--glass-border);
-  box-shadow: 
+  box-shadow:
     0 8px 32px rgba(0, 0, 0, 0.4),
     inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
@@ -124,7 +124,7 @@ section[id] {
 .glass-card:hover {
   background: rgba(255, 255, 255, 0.08);
   border-color: var(--glass-border-hover);
-  box-shadow: 
+  box-shadow:
     0 8px 40px rgba(0, 0, 0, 0.4),
     0 0 30px rgba(251, 191, 36, 0.1);
   transform: translateY(-2px);
@@ -132,9 +132,12 @@ section[id] {
 
 /* ===== LIQUID BACKGROUND ANIMATION ===== */
 @keyframes floatBG {
-  0%, 100% {
+
+  0%,
+  100% {
     background-position: 0% 50%;
   }
+
   50% {
     background-position: 100% 50%;
   }
@@ -148,7 +151,7 @@ section[id] {
 /* ===== ENHANCED HOLOGRAPHIC GLASS ===== */
 .holo-glass {
   @apply relative overflow-hidden transition-all duration-500;
-  background: 
+  background:
     radial-gradient(ellipse at top, rgba(139, 92, 246, 0.03) 0%, transparent 50%),
     radial-gradient(ellipse at bottom, rgba(251, 191, 36, 0.03) 0%, transparent 50%),
     rgba(255, 255, 255, 0.02);
@@ -189,7 +192,7 @@ section[id] {
 }
 
 .holo-glass:hover {
-  background: 
+  background:
     radial-gradient(ellipse at top, rgba(139, 92, 246, 0.06) 0%, transparent 50%),
     radial-gradient(ellipse at bottom, rgba(251, 191, 36, 0.06) 0%, transparent 50%),
     rgba(255, 255, 255, 0.04);
@@ -202,14 +205,12 @@ section[id] {
 
 /* ===== COSMIC GRADIENT TEXT ===== */
 .cosmic-gradient {
-  background: linear-gradient(
-    135deg,
-    var(--cosmic-amber-light) 0%,
-    var(--cosmic-amber) 25%,
-    var(--cosmic-violet-light) 50%,
-    var(--cosmic-amber) 75%,
-    var(--cosmic-amber-light) 100%
-  );
+  background: linear-gradient(135deg,
+      var(--cosmic-amber-light) 0%,
+      var(--cosmic-amber) 25%,
+      var(--cosmic-violet-light) 50%,
+      var(--cosmic-amber) 75%,
+      var(--cosmic-amber-light) 100%);
   background-size: 200% auto;
   -webkit-background-clip: text;
   background-clip: text;
@@ -221,6 +222,7 @@ section[id] {
   0% {
     background-position: 0% 50%;
   }
+
   100% {
     background-position: 200% 50%;
   }
@@ -228,21 +230,21 @@ section[id] {
 
 /* ===== ENHANCED GLOW EFFECTS ===== */
 .glow-text {
-  text-shadow: 
+  text-shadow:
     0 0 10px var(--cosmic-amber-glow),
     0 0 20px rgba(251, 191, 36, 0.3),
     0 0 40px rgba(251, 191, 36, 0.2);
 }
 
 .glow-text-violet {
-  text-shadow: 
+  text-shadow:
     0 0 10px var(--cosmic-violet-glow),
     0 0 20px rgba(139, 92, 246, 0.3),
     0 0 40px rgba(139, 92, 246, 0.2);
 }
 
 .glow-text-cyan {
-  text-shadow: 
+  text-shadow:
     0 0 10px var(--cosmic-cyan-glow),
     0 0 20px rgba(34, 211, 238, 0.3),
     0 0 40px rgba(34, 211, 238, 0.2);
@@ -255,7 +257,7 @@ section[id] {
 
 .card-glow:hover {
   border-color: rgba(251, 191, 36, 0.4);
-  box-shadow: 
+  box-shadow:
     0 10px 40px -10px rgba(251, 191, 36, 0.25),
     0 10px 40px -10px rgba(139, 92, 246, 0.15);
   transform: translateY(-5px);
@@ -263,7 +265,7 @@ section[id] {
 
 .card-glow-violet:hover {
   border-color: rgba(139, 92, 246, 0.4);
-  box-shadow: 
+  box-shadow:
     0 10px 40px -10px rgba(139, 92, 246, 0.25),
     0 10px 40px -10px rgba(34, 211, 238, 0.15);
 }
@@ -274,7 +276,7 @@ section[id] {
   background: linear-gradient(135deg, rgba(251, 191, 36, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
   border: 2px solid var(--cosmic-amber);
   color: var(--cosmic-amber);
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(251, 191, 36, 0.2),
     inset 0 0 20px rgba(251, 191, 36, 0.05);
 }
@@ -282,7 +284,7 @@ section[id] {
 .launch-btn:hover {
   background: linear-gradient(135deg, var(--cosmic-amber) 0%, var(--cosmic-amber-dark) 100%);
   color: var(--space-bg);
-  box-shadow: 
+  box-shadow:
     0 0 30px rgba(251, 191, 36, 0.5),
     0 0 60px rgba(251, 191, 36, 0.3),
     inset 0 0 20px rgba(255, 255, 255, 0.2);
@@ -301,7 +303,7 @@ section[id] {
 
 /* ===== NAVBAR SPACE THEME ===== */
 .star-dust-bg {
-  background: 
+  background:
     radial-gradient(ellipse at top, rgba(139, 92, 246, 0.05) 0%, transparent 50%),
     radial-gradient(ellipse at bottom, rgba(251, 191, 36, 0.03) 0%, transparent 50%),
     rgba(0, 0, 0, 0.4);
@@ -315,11 +317,11 @@ section[id] {
 }
 
 .nav-reactor-active {
-  background: linear-gradient(135deg, 
-    rgba(251, 191, 36, 0.15) 0%, 
-    rgba(139, 92, 246, 0.1) 100%);
+  background: linear-gradient(135deg,
+      rgba(251, 191, 36, 0.15) 0%,
+      rgba(139, 92, 246, 0.1) 100%);
   border: 1px solid rgba(251, 191, 36, 0.4);
-  box-shadow: 
+  box-shadow:
     0 0 15px rgba(251, 191, 36, 0.3),
     inset 0 0 10px rgba(251, 191, 36, 0.1);
   text-shadow: 0 0 10px rgba(251, 191, 36, 0.8);
@@ -338,7 +340,7 @@ section[id] {
 
 /* ===== TERMINAL ENHANCEMENTS ===== */
 .terminal-glow {
-  box-shadow: 
+  box-shadow:
     0 0 30px rgba(34, 211, 238, 0.2),
     0 0 60px rgba(34, 211, 238, 0.1),
     inset 0 0 30px rgba(34, 211, 238, 0.03);
@@ -351,18 +353,23 @@ section[id] {
 
 /* ===== FLOATING PARTICLES BACKGROUND ===== */
 @keyframes float {
-  0%, 100% {
+
+  0%,
+  100% {
     transform: translateY(0) translateX(0);
     opacity: 0.3;
   }
+
   25% {
     transform: translateY(-20px) translateX(10px);
     opacity: 0.6;
   }
+
   50% {
     transform: translateY(-10px) translateX(-10px);
     opacity: 0.4;
   }
+
   75% {
     transform: translateY(-30px) translateX(5px);
     opacity: 0.5;
@@ -375,9 +382,12 @@ section[id] {
 
 /* ===== PULSE GLOW ANIMATION ===== */
 @keyframes pulseGlow {
-  0%, 100% {
+
+  0%,
+  100% {
     box-shadow: 0 0 20px rgba(251, 191, 36, 0.3);
   }
+
   50% {
     box-shadow: 0 0 40px rgba(251, 191, 36, 0.5), 0 0 60px rgba(139, 92, 246, 0.3);
   }
@@ -392,6 +402,7 @@ section[id] {
   0% {
     transform: translateY(-100%);
   }
+
   100% {
     transform: translateY(100%);
   }
@@ -401,11 +412,9 @@ section[id] {
   content: '';
   position: absolute;
   inset: 0;
-  background: linear-gradient(
-    to bottom,
-    transparent 50%,
-    rgba(34, 211, 238, 0.03) 50%
-  );
+  background: linear-gradient(to bottom,
+      transparent 50%,
+      rgba(34, 211, 238, 0.03) 50%);
   background-size: 100% 4px;
   pointer-events: none;
 }
@@ -431,10 +440,14 @@ section[id] {
 
 /* ===== Terminal Cursor Blink Animation ===== */
 @keyframes cursorBlink {
-  0%, 49% {
+
+  0%,
+  49% {
     opacity: 1;
   }
-  50%, 100% {
+
+  50%,
+  100% {
     opacity: 0;
   }
 }
@@ -449,18 +462,17 @@ section[id] {
   0% {
     background-position: -200% 0;
   }
+
   100% {
     background-position: 200% 0;
   }
 }
 
 .shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.1) 50%,
-    transparent 100%
-  );
+  background: linear-gradient(90deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.1) 50%,
+      transparent 100%);
   background-size: 200% 100%;
   animation: shimmer 3s infinite;
 }
@@ -470,6 +482,7 @@ section[id] {
   from {
     transform: rotate(0deg) translateX(10px) rotate(0deg);
   }
+
   to {
     transform: rotate(360deg) translateX(10px) rotate(-360deg);
   }
@@ -526,30 +539,93 @@ section[id] {
 }
 
 @keyframes glitch {
-  0% { transform: translate(0); }
-  20% { transform: translate(-2px, 2px); }
-  40% { transform: translate(-2px, -2px); }
-  60% { transform: translate(2px, 2px); }
-  80% { transform: translate(2px, -2px); }
-  100% { transform: translate(0); }
+  0% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+
+  100% {
+    transform: translate(0);
+  }
 }
 
 @keyframes glitch-1 {
-  0% { clip-path: inset(40% 0 61% 0); transform: translate(-2px); }
-  20% { clip-path: inset(92% 0 1% 0); transform: translate(2px); }
-  40% { clip-path: inset(43% 0 1% 0); transform: translate(-2px); }
-  60% { clip-path: inset(25% 0 58% 0); transform: translate(2px); }
-  80% { clip-path: inset(54% 0 7% 0); transform: translate(-2px); }
-  100% { clip-path: inset(58% 0 43% 0); transform: translate(2px); }
+  0% {
+    clip-path: inset(40% 0 61% 0);
+    transform: translate(-2px);
+  }
+
+  20% {
+    clip-path: inset(92% 0 1% 0);
+    transform: translate(2px);
+  }
+
+  40% {
+    clip-path: inset(43% 0 1% 0);
+    transform: translate(-2px);
+  }
+
+  60% {
+    clip-path: inset(25% 0 58% 0);
+    transform: translate(2px);
+  }
+
+  80% {
+    clip-path: inset(54% 0 7% 0);
+    transform: translate(-2px);
+  }
+
+  100% {
+    clip-path: inset(58% 0 43% 0);
+    transform: translate(2px);
+  }
 }
 
 @keyframes glitch-2 {
-  0% { clip-path: inset(65% 0 25% 0); transform: translate(2px); }
-  20% { clip-path: inset(15% 0 4% 0); transform: translate(-2px); }
-  40% { clip-path: inset(85% 0 5% 0); transform: translate(2px); }
-  60% { clip-path: inset(5% 0 75% 0); transform: translate(-2px); }
-  80% { clip-path: inset(35% 0 45% 0); transform: translate(2px); }
-  100% { clip-path: inset(95% 0 2% 0); transform: translate(-2px); }
+  0% {
+    clip-path: inset(65% 0 25% 0);
+    transform: translate(2px);
+  }
+
+  20% {
+    clip-path: inset(15% 0 4% 0);
+    transform: translate(-2px);
+  }
+
+  40% {
+    clip-path: inset(85% 0 5% 0);
+    transform: translate(2px);
+  }
+
+  60% {
+    clip-path: inset(5% 0 75% 0);
+    transform: translate(-2px);
+  }
+
+  80% {
+    clip-path: inset(35% 0 45% 0);
+    transform: translate(2px);
+  }
+
+  100% {
+    clip-path: inset(95% 0 2% 0);
+    transform: translate(-2px);
+  }
 }
 
 /* ===== NOISE TEXTURE OVERLAY ===== */
@@ -567,7 +643,7 @@ section[id] {
 .digital-grid {
   position: fixed;
   inset: 0;
-  background-image: 
+  background-image:
     linear-gradient(rgba(251, 191, 36, 0.03) 1px, transparent 1px),
     linear-gradient(90deg, rgba(251, 191, 36, 0.03) 1px, transparent 1px);
   background-size: 50px 50px;
@@ -599,7 +675,7 @@ section[id] {
 
 /* ===== CODE GRID ===== */
 .code-grid {
-  background-image: 
+  background-image:
     linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
   background-size: 30px 30px;

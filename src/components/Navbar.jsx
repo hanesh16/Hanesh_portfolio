@@ -6,7 +6,7 @@ import { User, Briefcase, FolderGit2, GraduationCap, Mail } from 'lucide-react';
 // Memoized nav item
 const NavItem = memo(({ item, isActive, onClick }) => {
   const Icon = item.icon;
-  
+
   return (
     <Link
       to={item.id}
@@ -23,8 +23,8 @@ const NavItem = memo(({ item, isActive, onClick }) => {
         className={`
           flex items-center gap-2 px-4 py-2 rounded-full
           transition-colors duration-200
-          ${isActive 
-            ? 'text-amber-500/90' 
+          ${isActive
+            ? 'text-amber-500/90'
             : 'text-slate-500 hover:text-slate-300'
           }
         `}
@@ -34,15 +34,15 @@ const NavItem = memo(({ item, isActive, onClick }) => {
             layoutId="navActiveIndicator"
             className="absolute inset-0 rounded-full bg-amber-500/10 border border-amber-500/20"
             initial={false}
-            transition={{ 
-              type: "spring", 
-              stiffness: 400, 
+            transition={{
+              type: "spring",
+              stiffness: 400,
               damping: 30,
               mass: 0.8
             }}
           />
         )}
-        
+
         <span className="relative z-10 flex items-center gap-2">
           <Icon size={16} className={isActive ? 'text-amber-500/80' : 'group-hover:text-amber-500/70 transition-colors'} />
           <span className="text-sm font-medium">{item.label}</span>
@@ -55,7 +55,7 @@ const NavItem = memo(({ item, isActive, onClick }) => {
 // Memoized mobile nav item
 const MobileNavItem = memo(({ item, isActive, onClick }) => {
   const Icon = item.icon;
-  
+
   return (
     <Link
       to={item.id}
@@ -71,8 +71,8 @@ const MobileNavItem = memo(({ item, isActive, onClick }) => {
         className={`
           flex items-center justify-center w-11 h-11 rounded-xl
           transition-colors duration-200
-          ${isActive 
-            ? 'text-amber-500/90' 
+          ${isActive
+            ? 'text-amber-500/90'
             : 'text-slate-600 hover:text-slate-400'
           }
         `}
@@ -82,10 +82,10 @@ const MobileNavItem = memo(({ item, isActive, onClick }) => {
             layoutId="mobileNavActiveIndicator"
             className="absolute inset-0 rounded-xl bg-amber-500/10 border border-amber-500/20"
             initial={false}
-            transition={{ 
-              type: "spring", 
-              stiffness: 500, 
-              damping: 35 
+            transition={{
+              type: "spring",
+              stiffness: 500,
+              damping: 35
             }}
           />
         )}
@@ -100,19 +100,19 @@ const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   const { scrollY } = useScroll();
-  const smoothScrollY = useSpring(scrollY, { 
-    stiffness: 100, 
+  const smoothScrollY = useSpring(scrollY, {
+    stiffness: 100,
     damping: 30,
-    restDelta: 0.001 
+    restDelta: 0.001
   });
 
   useEffect(() => {
     let rafId;
     let lastScrollY = 0;
-    
+
     const handleScroll = () => {
       if (rafId) return;
-      
+
       rafId = requestAnimationFrame(() => {
         const currentScrollY = window.scrollY;
         if (Math.abs(currentScrollY - lastScrollY) > 5) {
@@ -132,10 +132,10 @@ const Navbar = () => {
 
   useEffect(() => {
     scrollSpy.update();
-    
-    Events.scrollEvent.register('begin', () => {});
-    Events.scrollEvent.register('end', () => {});
-    
+
+    Events.scrollEvent.register('begin', () => { });
+    Events.scrollEvent.register('end', () => { });
+
     return () => {
       Events.scrollEvent.remove('begin');
       Events.scrollEvent.remove('end');
@@ -188,7 +188,7 @@ const Navbar = () => {
           }}
         >
           {/* Glow effect */}
-          <div 
+          <div
             className="absolute inset-0 opacity-0 hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-full"
             style={{
               background: 'radial-gradient(ellipse at center, rgba(251, 191, 36, 0.05) 0%, transparent 70%)',
@@ -218,14 +218,14 @@ const Navbar = () => {
                 className="absolute inset-0 rounded-full border border-dashed border-amber-500/20"
                 style={{ willChange: 'transform' }}
               />
-              
+
               <div className="absolute inset-1 rounded-full bg-gradient-to-br from-amber-500/10 to-orange-500/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-              
+
               <span className="relative font-bold font-outfit text-lg text-white/90 group-hover:text-amber-500/90 transition-colors">
                 HK
-                <motion.span 
+                <motion.span
                   className="absolute -top-0.5 -right-1 w-1.5 h-1.5 rounded-full bg-amber-500/60"
-                  animate={{ 
+                  animate={{
                     scale: [1, 1.2, 1],
                     opacity: [1, 0.7, 1]
                   }}
@@ -257,7 +257,7 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5 }}
-        className="flex md:hidden fixed top-0 left-0 right-0 z-50 px-4 py-3 pointer-events-none"
+        className="flex md:hidden fixed top-0 left-0 right-0 z-50 px-4 py-4 pointer-events-none"
         style={{
           background: 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%)',
         }}
@@ -286,15 +286,6 @@ const Navbar = () => {
             </motion.div>
           </Link>
 
-          <motion.div 
-            key={activeSection}
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.2 }}
-            className="text-xs font-mono text-amber-500/80 uppercase tracking-wider"
-          >
-            {activeSection === 'hero' ? 'Home' : activeSection}
-          </motion.div>
         </div>
       </motion.nav>
 
@@ -303,7 +294,7 @@ const Navbar = () => {
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="flex md:hidden fixed bottom-6 left-1/2 -translate-x-1/2 z-50"
+        className="flex md:hidden fixed bottom-6 left-4 z-50"
       >
         <div
           className="flex items-center gap-1 px-2 py-2 rounded-2xl"

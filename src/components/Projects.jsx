@@ -4,7 +4,7 @@ import { ExternalLink, Github, ArrowUpRight } from 'lucide-react';
 
 const ProjectCard = ({ project, index }) => {
   const isEven = index % 2 === 0;
-  
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 40 }}
@@ -16,7 +16,7 @@ const ProjectCard = ({ project, index }) => {
       {/* Image */}
       <div className={`relative group ${isEven ? '' : 'lg:col-start-2'}`}>
         <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-700" />
-        
+
         <div className="relative aspect-video rounded-xl overflow-hidden border border-white/5 group-hover:border-amber-500/20 transition-all duration-500">
           <img
             src={project.image}
@@ -25,11 +25,11 @@ const ProjectCard = ({ project, index }) => {
             style={{ filter: 'grayscale(30%)' }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-          
+
           {/* Corner decorations */}
           <div className="absolute top-4 left-4 w-8 h-8 border-t-2 border-l-2 border-amber-500/0 group-hover:border-amber-500/40 transition-all duration-300" />
           <div className="absolute bottom-4 right-4 w-8 h-8 border-b-2 border-r-2 border-amber-500/0 group-hover:border-amber-500/40 transition-all duration-300" />
-          
+
           {/* Hover overlay */}
           <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
             <div className="flex gap-4">
@@ -59,11 +59,11 @@ const ProjectCard = ({ project, index }) => {
         <div className="flex items-center gap-2">
           <span className="text-xs font-mono text-amber-500/70 uppercase tracking-widest">Featured Project</span>
         </div>
-        
+
         <h3 className="text-3xl md:text-4xl font-bold text-white/90 hover:text-amber-500/90 transition-colors">
           {project.title}
         </h3>
-        
+
         <p className="text-slate-500 leading-relaxed">
           {project.description}
         </p>
@@ -130,7 +130,7 @@ const Projects = () => {
     {
       title: "PSU Events",
       description: "Developed a Django system for event and venue management with user role-based access and CRUD functionality for efficient administration.",
-      tags: ["Django", "Python", "PostgreSQL", "Redis"],
+      tags: ["Django", "Python", "HTML", "CSS", "JS", "Git"],
       links: { github: "https://github.com/hanesh16", external: "#" },
       image: "https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop"
     }
