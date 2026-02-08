@@ -83,7 +83,7 @@ const ExperienceCard = ({ exp, index }) => (
             {["Python", "Flask", "SQL", "Docker", "Linux", "CI/CD"].map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1 text-xs font-mono rounded-full bg-amber-500/5 text-slate-400 border border-amber-500/10"
+                className="shimmer-badge px-3 py-1 text-xs font-mono rounded-full bg-amber-500/5 text-slate-400 border border-amber-500/10 hover:border-amber-500/30 transition-all"
               >
                 {tech}
               </span>

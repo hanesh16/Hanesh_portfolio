@@ -5,7 +5,7 @@ import { Rocket, Code2, Database, Cloud, Terminal, Cpu } from 'lucide-react';
 const SkillBadge = ({ icon: Icon, label, color }) => (
   <motion.div
     whileHover={{ scale: 1.05, y: -2 }}
-    className={`flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/5 ${color} hover:border-current transition-all duration-300 cursor-default`}
+    className={`shimmer-badge flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 border border-white/5 ${color} hover:border-current transition-all duration-300 cursor-default`}
   >
     <Icon size={16} />
     <span className="text-sm font-medium">{label}</span>
@@ -101,7 +101,7 @@ const About = () => {
                   viewport={{ once: true }}
                   className="text-center"
                 >
-                  <div className="text-3xl md:text-4xl font-bold text-amber-500/80">{stat.value}</div>
+                  <div className="text-3xl md:text-4xl font-bold text-amber-500/80 stat-glow">{stat.value}</div>
                   <div className="text-xs text-slate-500 font-mono mt-1">{stat.label}</div>
                 </motion.div>
               ))}

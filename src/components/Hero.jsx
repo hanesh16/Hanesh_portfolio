@@ -15,7 +15,7 @@ const Typewriter = ({ text, delay = 0, speed = 50 }) => {
 
   useEffect(() => {
     if (!started) return;
-    
+
     let index = 0;
     const timer = setInterval(() => {
       if (index <= text.length) {
@@ -39,13 +39,13 @@ const BlinkingCursor = () => (
   <span className="inline-block w-2 h-5 ml-1 bg-amber-500/80 animate-pulse" />
 );
 
-// Tech Badge
+// Tech Badge with shimmer effect
 const TechBadge = ({ icon: Icon, label, delay }) => (
   <motion.div
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay, duration: 0.4 }}
-    className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-400 text-sm"
+    className="shimmer-badge flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-400 text-sm hover:border-amber-500/30 hover:text-slate-300 transition-all duration-300"
   >
     <Icon size={14} className="text-amber-500/80" />
     <span className="font-mono text-xs">{label}</span>
@@ -63,18 +63,18 @@ const Hero = () => {
   const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0]);
 
   return (
-    <section 
+    <section
       ref={containerRef}
-      id="hero" 
+      id="hero"
       className="relative min-h-screen flex items-center overflow-hidden"
     >
       {/* Content - Left Aligned */}
-      <motion.div 
+      <motion.div
         style={{ y, opacity }}
         className="relative z-10 w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-20"
       >
         <div className="max-w-3xl">
-          
+
           {/* Main Heading */}
           <div className="space-y-2 mb-6">
             <motion.p
@@ -85,7 +85,7 @@ const Hero = () => {
             >
               <Typewriter text="Hi, I'm" delay={200} speed={40} />
             </motion.p>
-            
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -94,14 +94,14 @@ const Hero = () => {
             >
               Hanesh
             </motion.h1>
-            
+
             <motion.h1
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.5, duration: 0.6 }}
               className="text-5xl sm:text-6xl lg:text-7xl font-bold font-outfit leading-[1.1]"
             >
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-500/90 via-orange-500/80 to-amber-500/70">
+              <span className="animated-gradient-text">
                 Koganti
               </span>
               <BlinkingCursor />
@@ -116,10 +116,10 @@ const Hero = () => {
             className="mb-6"
           >
             <p className="text-lg sm:text-xl text-slate-500 font-light">
-              <Typewriter 
-                text="Full Stack Developer | Cloud Architect | AI Enthusiast" 
-                delay={900} 
-                speed={30} 
+              <Typewriter
+                text="Full Stack Developer | Cloud Architect | AI Enthusiast"
+                delay={900}
+                speed={30}
               />
             </p>
           </motion.div>
@@ -131,7 +131,7 @@ const Hero = () => {
             transition={{ delay: 1.2, duration: 0.5 }}
             className="text-slate-500 text-base sm:text-lg max-w-xl leading-relaxed mb-8"
           >
-            Building scalable applications that push the boundaries of what's possible. 
+            Building scalable applications that push the boundaries of what's possible.
             Currently crafting digital experiences at Comcast.
           </motion.p>
 
@@ -158,7 +158,7 @@ const Hero = () => {
               <motion.button
                 whileHover={{ scale: 1.02, x: 4 }}
                 whileTap={{ scale: 0.98 }}
-                className="group flex items-center gap-2 px-6 py-3 bg-amber-500/90 text-black font-semibold rounded-lg hover:bg-amber-500 transition-colors"
+                className="premium-button group flex items-center gap-2"
               >
                 View Projects
                 <ChevronRight size={18} className="group-hover:translate-x-1 transition-transform" />
@@ -169,7 +169,7 @@ const Hero = () => {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                className="px-6 py-3 border border-white/10 text-slate-300 font-medium rounded-lg hover:bg-white/5 hover:border-amber-500/30 hover:text-white transition-all"
+                className="glow-border px-6 py-3 border border-white/10 text-slate-300 font-medium rounded-lg hover:bg-white/5 hover:border-amber-500/30 hover:text-white transition-all"
               >
                 Get in Touch
               </motion.button>
@@ -194,7 +194,7 @@ const Hero = () => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 1.9 + index * 0.1 }}
               >
-                <div className="text-2xl sm:text-3xl font-bold text-white/80">{stat.value}</div>
+                <div className="text-2xl sm:text-3xl font-bold text-white/80 stat-glow">{stat.value}</div>
                 <div className="text-xs text-slate-500 font-mono mt-1">{stat.label}</div>
               </motion.div>
             ))}

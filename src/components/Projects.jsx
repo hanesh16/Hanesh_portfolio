@@ -17,7 +17,7 @@ const ProjectCard = ({ project, index }) => {
       <div className={`relative group ${isEven ? '' : 'lg:col-start-2'}`}>
         <div className="absolute -inset-4 bg-gradient-to-r from-amber-500/10 to-orange-500/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-60 transition-opacity duration-700" />
 
-        <div className="relative aspect-video rounded-xl overflow-hidden border border-white/5 group-hover:border-amber-500/20 transition-all duration-500">
+        <div className="relative aspect-video rounded-xl overflow-hidden border border-white/5 group-hover:border-amber-500/30 transition-all duration-500 glow-border">
           <img
             src={project.image}
             alt={project.title}
@@ -68,12 +68,12 @@ const ProjectCard = ({ project, index }) => {
           {project.description}
         </p>
 
-        {/* Tech stack */}
+        {/* Tech stack with shimmer */}
         <div className="flex flex-wrap gap-2 pt-2">
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="px-4 py-1.5 text-xs font-mono rounded-full bg-white/5 text-slate-400 border border-white/5 hover:border-amber-500/20 hover:text-slate-300 transition-all cursor-default"
+              className="shimmer-badge px-4 py-1.5 text-xs font-mono rounded-full bg-white/5 text-slate-400 border border-white/5 hover:border-amber-500/30 hover:text-slate-300 transition-all cursor-default"
             >
               {tag}
             </span>

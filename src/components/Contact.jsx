@@ -130,7 +130,7 @@ const Contact = () => {
                       required
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/30 focus:bg-white/5 transition-all"
+                      className="focus-glow w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 transition-all"
                       placeholder="John Doe"
                     />
                   </div>
@@ -141,7 +141,7 @@ const Contact = () => {
                       required
                       value={formState.email}
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/30 focus:bg-white/5 transition-all"
+                      className="focus-glow w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 transition-all"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -155,7 +155,7 @@ const Contact = () => {
                     rows={5}
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    className="w-full px-4 py-3 rounded-xl bg-white/5 border border-white/5 text-white placeholder-slate-600 focus:outline-none focus:border-amber-500/30 focus:bg-white/5 transition-all resize-none"
+                    className="focus-glow w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 transition-all resize-none"
                     placeholder="Tell me about your project..."
                   />
                 </div>
@@ -166,9 +166,9 @@ const Contact = () => {
                   disabled={isSubmitting || isSubmitted}
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
-                  className={`w-full py-4 rounded-xl font-medium flex items-center justify-center gap-2 transition-all duration-300 ${isSubmitted
+                  className={`w-full py-4 rounded-xl font-semibold flex items-center justify-center gap-2 transition-all duration-300 ${isSubmitted
                     ? 'bg-green-500/20 text-green-400/80 border border-green-500/30'
-                    : 'bg-amber-500/90 text-black hover:bg-amber-500'
+                    : 'premium-button'
                     }`}
                 >
                   {isSubmitting ? (
