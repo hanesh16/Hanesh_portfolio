@@ -67,20 +67,20 @@ const MobileNavItem = memo(({ item, isActive, onClick }) => {
       className="relative cursor-pointer"
     >
       <motion.div
-        whileTap={{ scale: 0.9 }}
+        whileTap={{ scale: 0.85 }}
         className={`
-          flex items-center justify-center w-11 h-11 rounded-xl
-          transition-colors duration-200
+          flex flex-col items-center justify-center w-14 h-12 rounded-2xl
+          transition-all duration-300
           ${isActive
-            ? 'text-amber-500/90'
-            : 'text-slate-600 hover:text-slate-400'
+            ? 'text-amber-400'
+            : 'text-slate-500'
           }
         `}
       >
         {isActive && (
           <motion.div
             layoutId="mobileNavActiveIndicator"
-            className="absolute inset-0 rounded-xl bg-amber-500/10 border border-amber-500/20"
+            className="absolute inset-0 rounded-2xl bg-amber-500/10 border border-amber-500/15"
             initial={false}
             transition={{
               type: "spring",
@@ -89,7 +89,16 @@ const MobileNavItem = memo(({ item, isActive, onClick }) => {
             }}
           />
         )}
-        <Icon size={20} className="relative z-10" />
+        <Icon size={20} className="relative z-10" strokeWidth={isActive ? 2.5 : 1.5} />
+        {isActive && (
+          <motion.span
+            initial={{ opacity: 0, y: 2 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="relative z-10 text-[9px] font-semibold tracking-wide mt-0.5 uppercase"
+          >
+            {item.label.slice(0, 5)}
+          </motion.span>
+        )}
       </motion.div>
     </Link>
   );
@@ -294,18 +303,26 @@ const Navbar = () => {
         initial={{ y: 100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="flex md:hidden fixed bottom-6 left-4 z-50"
+        className="flex md:hidden fixed bottom-5 left-1/2 -translate-x-1/2 z-50"
       >
         <div
-          className="flex items-center gap-1 px-2 py-2 rounded-2xl"
+          className="relative flex items-center gap-1 px-3 py-2 rounded-[20px]"
           style={{
-            background: 'rgba(0, 0, 0, 0.7)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
-            border: '1px solid rgba(255, 255, 255, 0.05)',
-            boxShadow: '0 4px 30px rgba(0, 0, 0, 0.5), 0 0 20px rgba(251, 191, 36, 0.05)',
+            background: 'rgba(0, 0, 0, 0.75)',
+            backdropFilter: 'blur(24px)',
+            WebkitBackdropFilter: 'blur(24px)',
+            border: '1px solid rgba(255, 255, 255, 0.06)',
+            boxShadow: '0 8px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(251, 191, 36, 0.04), inset 0 1px 0 rgba(255,255,255,0.04)',
           }}
         >
+          {/* Top glow line */}
+          <div
+            className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-px rounded-full"
+            style={{
+              background: 'linear-gradient(90deg, transparent, rgba(251, 191, 36, 0.3), transparent)',
+            }}
+          />
+
           {navItems.map((item) => (
             <MobileNavItem
               key={item.id}

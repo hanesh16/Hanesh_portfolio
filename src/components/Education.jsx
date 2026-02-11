@@ -11,29 +11,30 @@ const EducationCard = ({ edu, index }) => (
     className="group relative"
   >
     <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
-    <div className="relative p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/5 hover:border-amber-500/20 transition-all duration-300 h-full">
+    <div className="relative p-4 sm:p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/5 hover:border-amber-500/20 transition-all duration-300 h-full">
       {/* Header */}
-      <div className="flex items-start justify-between mb-6">
-        <div className="w-14 h-14 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
-          <GraduationCap size={28} className="text-amber-500/80" />
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-4 sm:mb-6">
+        <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center">
+          <GraduationCap size={24} className="text-amber-500/80 sm:hidden" />
+          <GraduationCap size={28} className="text-amber-500/80 hidden sm:block" />
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/5">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/5 self-start">
           <Calendar size={14} className="text-amber-500/70" />
-          <span className="text-sm text-slate-400 font-mono">{edu.period}</span>
+          <span className="text-xs sm:text-sm text-slate-400 font-mono">{edu.period}</span>
         </div>
       </div>
 
       {/* Institution */}
-      <h3 className="text-2xl font-bold text-white/90 mb-1 group-hover:text-amber-500/90 transition-colors">
+      <h3 className="text-xl sm:text-2xl font-bold text-white/90 mb-1 group-hover:text-amber-500/90 transition-colors">
         {edu.institution}
       </h3>
-      <div className="flex items-center gap-2 text-slate-500 text-sm mb-4">
+      <div className="flex items-center gap-2 text-slate-400 text-sm mb-4">
         <MapPin size={14} />
         <span>{edu.location}</span>
       </div>
 
       {/* Degree */}
-      <p className="text-lg text-slate-400 font-medium mb-4">
+      <p className="text-base sm:text-lg text-slate-400 font-medium mb-4">
         {edu.degree}
       </p>
 
@@ -43,7 +44,7 @@ const EducationCard = ({ edu, index }) => (
           {edu.highlights.map((highlight, idx) => (
             <div key={idx} className="flex items-start gap-2">
               <Award size={14} className="text-amber-500/70 mt-1 flex-shrink-0" />
-              <span className="text-sm text-slate-500">{highlight}</span>
+              <span className="text-sm text-slate-400">{highlight}</span>
             </div>
           ))}
         </div>
@@ -60,7 +61,7 @@ const EducationCard = ({ edu, index }) => (
             {edu.courses.map((course) => (
               <span
                 key={course}
-                className="px-3 py-1 text-xs font-mono rounded-full bg-amber-500/5 text-slate-400 border border-amber-500/10"
+                className="px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-mono rounded-full bg-amber-500/5 text-slate-400 border border-amber-500/10"
               >
                 {course}
               </span>
@@ -78,16 +79,17 @@ const CertificationCard = ({ cert, index }) => (
     whileInView={{ opacity: 1, scale: 1 }}
     transition={{ duration: 0.4, delay: 0.4 + index * 0.1 }}
     viewport={{ once: true }}
-    className="group p-4 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/20 transition-all duration-300 flex items-center gap-4"
+    className="group p-3 sm:p-4 rounded-xl bg-white/5 border border-white/5 hover:border-amber-500/20 transition-all duration-300 flex items-center gap-3 sm:gap-4"
   >
-    <div className="w-10 h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
-      <Award size={20} className="text-amber-500/80" />
+    <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center flex-shrink-0">
+      <Award size={18} className="text-amber-500/80 sm:hidden" />
+      <Award size={20} className="text-amber-500/80 hidden sm:block" />
     </div>
     <div className="flex-1 min-w-0">
-      <h4 className="text-white/90 font-medium truncate group-hover:text-amber-500/90 transition-colors">
+      <h4 className="text-sm sm:text-base text-white/90 font-medium group-hover:text-amber-500/90 transition-colors leading-snug">
         {cert.name}
       </h4>
-      <p className="text-sm text-slate-500">{cert.issuer}</p>
+      <p className="text-xs sm:text-sm text-slate-400">{cert.issuer}</p>
     </div>
   </motion.div>
 );

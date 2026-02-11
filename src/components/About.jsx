@@ -68,7 +68,7 @@ const About = () => {
             </h2>
 
             {/* Description */}
-            <div className="space-y-4 text-slate-500 leading-relaxed">
+            <div className="space-y-4 text-slate-400 leading-relaxed">
               <p>
                 I'm Hanesh Koganti, a passionate Full Stack Developer with expertise in modern web technologies and cloud infrastructure.
                 My journey in tech has been driven by a fascination with creating seamless digital experiences.
@@ -102,7 +102,7 @@ const About = () => {
                   className="text-center"
                 >
                   <div className="text-3xl md:text-4xl font-bold text-amber-500/80 stat-glow">{stat.value}</div>
-                  <div className="text-xs text-slate-500 font-mono mt-1">{stat.label}</div>
+                  <div className="text-xs text-slate-400 font-mono mt-1">{stat.label}</div>
                 </motion.div>
               ))}
             </div>

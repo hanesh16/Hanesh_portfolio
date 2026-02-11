@@ -64,7 +64,7 @@ const ProjectCard = ({ project, index }) => {
           {project.title}
         </h3>
 
-        <p className="text-slate-500 leading-relaxed">
+        <p className="text-slate-400 leading-relaxed">
           {project.description}
         </p>
 

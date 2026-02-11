@@ -8,7 +8,7 @@ const ExperienceCard = ({ exp, index }) => (
     whileInView={{ opacity: 1, x: 0 }}
     transition={{ duration: 0.6, delay: index * 0.2 }}
     viewport={{ once: true }}
-    className="relative pl-8 md:pl-12"
+    className="relative pl-6 md:pl-12"
   >
     {/* Timeline line */}
     <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-amber-500/30 via-amber-500/10 to-transparent" />
@@ -25,11 +25,11 @@ const ExperienceCard = ({ exp, index }) => (
     {/* Card */}
     <div className="group relative">
       <div className="absolute -inset-0.5 bg-gradient-to-r from-amber-500/20 to-orange-500/20 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-500" />
-      <div className="relative p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/5 hover:border-amber-500/20 transition-all duration-300">
+      <div className="relative p-4 sm:p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/5 hover:border-amber-500/20 transition-all duration-300">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-start md:justify-between gap-4 mb-6">
           <div>
-            <h3 className="text-2xl font-bold text-white/90 group-hover:text-amber-500/90 transition-colors">
+            <h3 className="text-xl sm:text-2xl font-bold text-white/90 group-hover:text-amber-500/90 transition-colors">
               {exp.role}
             </h3>
             <div className="flex items-center gap-2 mt-1">
@@ -46,48 +46,12 @@ const ExperienceCard = ({ exp, index }) => (
           <div className="flex flex-col items-start md:items-end gap-1">
             <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/5">
               <Calendar size={14} className="text-amber-500/70" />
-              <span className="text-sm text-slate-400 font-mono">{exp.period}</span>
+              <span className="text-xs sm:text-sm text-slate-400 font-mono">{exp.period}</span>
             </div>
-            <div className="flex items-center gap-2 text-slate-500 text-sm">
+            <div className="flex items-center gap-2 text-slate-400 text-sm">
               <MapPin size={14} />
               <span>{exp.location}</span>
             </div>
-          </div>
-        </div>
-
-        {/* Divider */}
-        <div className="h-px bg-gradient-to-r from-amber-500/20 via-white/5 to-transparent mb-6" />
-
-        {/* Points */}
-        <ul className="space-y-4">
-          {exp.points.map((point, idx) => (
-            <motion.li
-              key={idx}
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 + idx * 0.1 }}
-              viewport={{ once: true }}
-              className="flex items-start gap-3 group/item"
-            >
-              <span className="flex-shrink-0 w-1.5 h-1.5 mt-2 rounded-full bg-amber-500/60 group-hover/item:scale-150 transition-transform" />
-              <span className="text-slate-500 text-sm leading-relaxed group-hover/item:text-slate-400 transition-colors">
-                {point}
-              </span>
-            </motion.li>
-          ))}
-        </ul>
-
-        {/* Tech stack */}
-        <div className="mt-6 pt-6 border-t border-white/5">
-          <div className="flex flex-wrap gap-2">
-            {["Python", "Flask", "SQL", "Docker", "Linux", "CI/CD"].map((tech) => (
-              <span
-                key={tech}
-                className="shimmer-badge px-3 py-1 text-xs font-mono rounded-full bg-amber-500/5 text-slate-400 border border-amber-500/10 hover:border-amber-500/30 transition-all"
-              >
-                {tech}
-              </span>
-            ))}
           </div>
         </div>
       </div>
@@ -99,21 +63,34 @@ const Experience = () => {
   const experiences = [
     {
       company: "Comcast",
-      location: "Sunnyvale, CA",
-      role: "Software Development Engineer",
-      period: "Oct 2023 - Present",
+      location: "United States",
+      role: "Software Engineer",
+      period: "Jul 2024 – Feb 2026 · 1 yr 8 mos",
       points: [
         "Developed and maintained backend services and RESTful APIs using Python, Flask, and SQL, improving response times by 30%",
         "Automated routine system tasks and data validation workflows, reducing manual effort and improving operational efficiency",
         "Collaborated with cross-functional teams to design and deploy microservices, improving system scalability",
         "Implemented thorough unit, integration, and regression tests using PyTest and CI/CD pipelines"
-      ]
+      ],
+      skills: ["Python", "Bash", "Flask", "SQL", "Docker", "Linux", "CI/CD", "PyTest", "REST APIs"]
+    },
+    {
+      company: "Comcast",
+      location: "United States",
+      role: "Software Engineer Intern",
+      period: "Oct 2023 – Mar 2024 · 6 mos",
+      points: [
+        "Assisted in developing and testing backend services using Python and Flask",
+        "Contributed to automation scripts and data processing pipelines",
+        "Participated in code reviews and agile development practices"
+      ],
+      skills: ["Python", "Flask", "SQL", "Linux", "Git"]
     }
   ];
 
   return (
     <section id="experience" className="section-full relative">
-      <div className="max-w-5xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-6 py-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}

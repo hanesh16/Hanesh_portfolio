@@ -1,4 +1,5 @@
 import React, { Suspense, lazy, useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
 import Navbar from './components/Navbar';
 import AntigravityBackground from './components/AntigravityBackground';
 import Hero from './components/Hero';
@@ -64,7 +65,7 @@ function App() {
     <div className="relative min-h-screen font-sans text-slate-200 overflow-x-hidden selection:bg-amber-400/30 selection:text-amber-200">
       {/* Scroll Progress Bar */}
       <ScrollProgress />
-      
+
       {/* Skip to main content link for accessibility */}
       <a
         href="#main-content"
@@ -79,15 +80,67 @@ function App() {
 
       <main id="main-content" className="relative z-10" role="main">
         <Hero />
-        <About />
-        <Experience />
-        <Projects />
-        <Education />
-        <Contact />
+
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.15 }}
+          className="section-reveal"
+        >
+          <About />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.15 }}
+          className="section-reveal"
+        >
+          <Experience />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.15 }}
+          className="section-reveal"
+        >
+          <Projects />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.15 }}
+          className="section-reveal"
+        >
+          <Education />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.15 }}
+          className="section-reveal"
+        >
+          <Contact />
+        </motion.div>
       </main>
 
-      <Footer />
-      
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true }}
+      >
+        <Footer />
+      </motion.div>
+
       {/* Space Navigator - switches between modes */}
       <SpaceNavigator currentMode={mode} onModeChange={handleModeChange} />
     </div>

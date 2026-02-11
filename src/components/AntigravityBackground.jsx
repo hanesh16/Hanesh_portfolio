@@ -65,10 +65,13 @@ const CameraController = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      const mobile = window.innerWidth < 768;
-      if (mobile) {
-        camera.position.set(0, 1, 18);
-        camera.fov = 75;
+      const width = window.innerWidth;
+      if (width < 640) {
+        camera.position.set(0, 1, 14);
+        camera.fov = 65;
+      } else if (width < 768) {
+        camera.position.set(0, 1.5, 15);
+        camera.fov = 65;
       } else {
         camera.position.set(0, 2, 12);
         camera.fov = 60;
@@ -125,7 +128,7 @@ const Sun = () => {
     <group>
       {/* Main Sun sphere with limb darkening shader */}
       <mesh ref={sunRef}>
-        <sphereGeometry args={[1.2, 64, 64]} />
+        <sphereGeometry args={[1.2, 128, 128]} />
         <sunMaterial
           ref={materialRef}
           uTexture={sunTexture}
@@ -274,11 +277,11 @@ const SolarSystem = () => {
     const handleResize = () => {
       const width = window.innerWidth;
       if (width < 640) {
-        setPosition([3, 0, -6]);
-        setScale(0.6);
+        setPosition([0, -3, -5]);
+        setScale(0.9);
       } else if (width < 768) {
-        setPosition([5, 0, -7]);
-        setScale(0.75);
+        setPosition([0, -2, -6]);
+        setScale(0.9);
       } else if (width < 1024) {
         setPosition([6, 0, -8]);
         setScale(0.85);
@@ -396,13 +399,138 @@ const Starfield = () => {
   );
 };
 
+// Shooting Stars / Meteors
+const ShootingStars = () => {
+  const meteorCount = 5;
+  const meteorsRef = useRef([]);
+
+  const meteorData = useMemo(() => {
+    return Array.from({ length: meteorCount }, () => ({
+      startX: (Math.random() - 0.5) * 80,
+      startY: 15 + Math.random() * 25,
+      startZ: -20 - Math.random() * 30,
+      angle: -0.3 - Math.random() * 0.4,
+      speed: 8 + Math.random() * 12,
+      delay: Math.random() * 15,
+      length: 1.5 + Math.random() * 2.5,
+    }));
+  }, []);
+
+  useFrame((state) => {
+    const time = state.clock.getElapsedTime();
+
+    meteorsRef.current.forEach((mesh, i) => {
+      if (!mesh) return;
+      const data = meteorData[i];
+      const cycle = 8; // seconds per cycle
+      const t = ((time + data.delay) % cycle) / cycle;
+
+      if (t < 0.15) {
+        // Active streak phase
+        const progress = t / 0.15;
+        mesh.visible = true;
+        mesh.position.x = data.startX + progress * data.speed * 4 * Math.cos(data.angle);
+        mesh.position.y = data.startY + progress * data.speed * 4 * Math.sin(data.angle);
+        mesh.position.z = data.startZ;
+        mesh.material.opacity = Math.sin(progress * Math.PI) * 0.7;
+      } else {
+        mesh.visible = false;
+      }
+    });
+  });
+
+  return (
+    <group>
+      {meteorData.map((data, i) => {
+        const dx = Math.cos(data.angle) * data.length;
+        const dy = Math.sin(data.angle) * data.length;
+        const points = [
+          new THREE.Vector3(0, 0, 0),
+          new THREE.Vector3(dx, dy, 0),
+        ];
+        const geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+        return (
+          <line
+            key={i}
+            ref={(el) => (meteorsRef.current[i] = el)}
+            geometry={geometry}
+            visible={false}
+          >
+            <lineBasicMaterial
+              color="#ffffff"
+              transparent
+              opacity={0}
+              blending={THREE.AdditiveBlending}
+              linewidth={1}
+            />
+          </line>
+        );
+      })}
+    </group>
+  );
+};
+
+// Nebula Cloud - subtle colored fog in the far background
+const NebulaCloud = () => {
+  const cloudRef = useRef();
+
+  useFrame((state) => {
+    if (cloudRef.current) {
+      cloudRef.current.rotation.z = state.clock.getElapsedTime() * 0.003;
+    }
+  });
+
+  return (
+    <group ref={cloudRef}>
+      {/* Violet nebula */}
+      <mesh position={[-25, 15, -50]} rotation={[0, 0, 0.3]}>
+        <planeGeometry args={[40, 25]} />
+        <meshBasicMaterial
+          color="#7c3aed"
+          transparent
+          opacity={0.015}
+          blending={THREE.AdditiveBlending}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      {/* Cyan nebula */}
+      <mesh position={[30, -10, -55]} rotation={[0, 0, -0.5]}>
+        <planeGeometry args={[35, 20]} />
+        <meshBasicMaterial
+          color="#06b6d4"
+          transparent
+          opacity={0.012}
+          blending={THREE.AdditiveBlending}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+
+      {/* Warm amber nebula */}
+      <mesh position={[0, 20, -60]} rotation={[0.2, 0, 0.1]}>
+        <planeGeometry args={[50, 30]} />
+        <meshBasicMaterial
+          color="#f59e0b"
+          transparent
+          opacity={0.008}
+          blending={THREE.AdditiveBlending}
+          side={THREE.DoubleSide}
+        />
+      </mesh>
+    </group>
+  );
+};
+
 // Scene with improved lighting
 const Scene = () => {
   return (
     <>
       <CameraController />
       <ambientLight intensity={0.08} />
+      <NebulaCloud />
       <Starfield />
+      <ShootingStars />
       <SolarSystem />
     </>
   );

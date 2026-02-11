@@ -129,7 +129,7 @@ const Hero = () => {
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 1.2, duration: 0.5 }}
-            className="text-slate-500 text-base sm:text-lg max-w-xl leading-relaxed mb-8"
+            className="text-slate-400 text-base sm:text-lg max-w-xl leading-relaxed mb-8"
           >
             Building scalable applications that push the boundaries of what's possible.
             Currently crafting digital experiences at Comcast.
@@ -195,7 +195,7 @@ const Hero = () => {
                 transition={{ delay: 1.9 + index * 0.1 }}
               >
                 <div className="text-2xl sm:text-3xl font-bold text-white/80 stat-glow">{stat.value}</div>
-                <div className="text-xs text-slate-500 font-mono mt-1">{stat.label}</div>
+                <div className="text-xs text-slate-400 font-mono mt-1">{stat.label}</div>
               </motion.div>
             ))}
           </motion.div>
