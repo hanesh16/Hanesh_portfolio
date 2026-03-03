@@ -165,7 +165,7 @@ const InfoCard = ({ planetKey, onClose, radius = 0 }) => {
                 exit={{ opacity: 0, scale: 0.8 }}
                 transition={{ duration: 0.3 }}
                 className="flex items-center"
-                style={{ pointerEvents: 'auto', minWidth: '350px' }} // Ensure clicks work on the card
+                style={{ pointerEvents: 'auto', minWidth: 'min(320px, 85vw)' }} // Ensure clicks work on the card
             >
                 {/* Connecting Line */}
                 <div className="relative flex items-center">
@@ -176,21 +176,21 @@ const InfoCard = ({ planetKey, onClose, radius = 0 }) => {
                 </div>
 
                 {/* Card Container */}
-                <div className="relative ml-2 bg-black/80 backdrop-blur-xl border border-cyan-500/30 p-5 rounded-r-2xl rounded-bl-2xl shadow-[0_0_30px_rgba(0,0,0,0.5)] overflow-hidden">
+                <div className="relative ml-2 bg-black/80 backdrop-blur-xl border border-cyan-500/30 p-3 sm:p-5 rounded-r-2xl rounded-bl-2xl shadow-[0_0_30px_rgba(0,0,0,0.5)] overflow-hidden">
                     {/* Glossy overlay */}
                     <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent pointer-events-none"></div>
 
                     {/* Top Accent */}
                     <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-cyan-500 via-blue-500 to-transparent"></div>
 
-                    <button onClick={(e) => { e.stopPropagation(); onClose(); }} className="absolute top-3 right-3 text-cyan-400/60 hover:text-cyan-400 transition-colors z-10">
+                    <button onClick={(e) => { e.stopPropagation(); onClose(); }} className="absolute top-3 right-3 text-cyan-400/60 hover:text-cyan-400 transition-colors z-10" aria-label="Close planet info">
                         <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="2"><path d="M6 18L18 6M6 6l12 12" /></svg>
                     </button>
 
                     <div className="relative z-10">
                         <div className="mb-3">
                             <span className="text-cyan-400 text-[10px] font-mono uppercase tracking-[0.2em]">{data.type}</span>
-                            <h2 className="text-2xl font-bold text-white font-outfit mt-1 tracking-wide drop-shadow-md">{data.name}</h2>
+                            <h2 className="text-xl sm:text-2xl font-bold text-white font-outfit mt-1 tracking-wide drop-shadow-md">{data.name}</h2>
                         </div>
 
                         <p className="text-slate-300 text-xs leading-relaxed mb-4 border-b border-white/10 pb-3 font-light">
@@ -251,12 +251,12 @@ const SolarSystemExplorer = () => {
 
             {/* UI Overlay - Mobile Adjusted Position */}
             <div className="absolute top-24 left-6 md:top-6 md:left-6 z-30 pointer-events-none">
-                <h3 className="text-white font-mono text-sm md:text-xl font-bold tracking-widest uppercase opacity-80">
+                <h3 className="text-white font-mono text-base sm:text-lg md:text-xl font-bold tracking-widest uppercase opacity-90">
                     System Explorer
                 </h3>
                 <div className="flex items-center gap-2 mt-1">
                     <span className={`w-1.5 h-1.5 rounded-full ${isInteractionEnabled ? 'bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)] animate-pulse' : 'bg-amber-500/50'}`}></span>
-                    <p className="text-slate-500 font-mono text-[10px] md:text-sm uppercase tracking-wider">
+                    <p className="text-slate-400 font-mono text-[10px] sm:text-xs md:text-sm uppercase tracking-wider">
                         {isInteractionEnabled ? "Manual Control" : "Autopilot Engaged"}
                     </p>
                 </div>

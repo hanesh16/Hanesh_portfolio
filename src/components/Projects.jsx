@@ -57,14 +57,14 @@ const ProjectCard = ({ project, index }) => {
       {/* Content */}
       <div className={`space-y-4 ${isEven ? '' : 'lg:col-start-1 lg:row-start-1'}`}>
         <div className="flex items-center gap-2">
-          <span className="text-xs font-mono text-amber-500/70 uppercase tracking-widest">Featured Project</span>
+          <span className="text-xs font-mono text-amber-500/90 uppercase tracking-widest">Featured Project</span>
         </div>
 
-        <h3 className="text-3xl md:text-4xl font-bold text-white/90 hover:text-amber-500/90 transition-colors">
+        <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white/90 hover:text-amber-500/90 transition-colors">
           {project.title}
         </h3>
 
-        <p className="text-slate-400 leading-relaxed">
+        <p className="text-slate-300 leading-relaxed">
           {project.description}
         </p>
 
@@ -73,7 +73,7 @@ const ProjectCard = ({ project, index }) => {
           {project.tags.map((tag) => (
             <span
               key={tag}
-              className="shimmer-badge px-4 py-1.5 text-xs font-mono rounded-full bg-white/5 text-slate-400 border border-white/5 hover:border-amber-500/30 hover:text-slate-300 transition-all cursor-default"
+              className="shimmer-badge px-3 sm:px-4 py-1.5 text-xs font-mono rounded-full bg-white/5 text-slate-300 border border-white/10 hover:border-amber-500/30 hover:text-slate-200 transition-all cursor-default"
             >
               {tag}
             </span>
@@ -84,7 +84,7 @@ const ProjectCard = ({ project, index }) => {
         <div className="flex gap-4 pt-4">
           <a
             href={project.links.github}
-            className="flex items-center gap-2 text-slate-500 hover:text-white transition-colors group/link"
+            className="flex items-center gap-2 text-slate-400 hover:text-white transition-colors group/link"
           >
             <Github size={18} />
             <span className="text-sm font-mono">Source</span>
@@ -92,7 +92,7 @@ const ProjectCard = ({ project, index }) => {
           </a>
           <a
             href={project.links.external}
-            className="flex items-center gap-2 text-slate-500 hover:text-slate-300 transition-colors group/link"
+            className="flex items-center gap-2 text-slate-400 hover:text-slate-200 transition-colors group/link"
           >
             <ExternalLink size={18} />
             <span className="text-sm font-mono">Live Demo</span>
@@ -138,7 +138,7 @@ const Projects = () => {
 
   return (
     <section id="projects" className="section-full relative">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -149,7 +149,7 @@ const Projects = () => {
         >
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
           <div className="flex items-center gap-3">
-            <span className="text-amber-500/70 font-mono text-sm">03</span>
+            <span className="text-amber-500/90 font-mono text-sm">03</span>
             <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white/90">
               Projects
             </h2>

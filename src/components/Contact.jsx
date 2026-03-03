@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, MapPin, Phone, Github, Linkedin, Twitter, CheckCircle, Loader2 } from 'lucide-react';
+import { Send, Mail, Phone, Github, Linkedin, Twitter, CheckCircle, Loader2 } from 'lucide-react';
 
 const ContactLink = ({ href, icon: Icon, label, value }) => (
   <motion.a
@@ -12,7 +12,7 @@ const ContactLink = ({ href, icon: Icon, label, value }) => (
       <Icon size={22} className="text-amber-500/80" />
     </div>
     <div>
-      <p className="text-xs font-mono text-slate-500 uppercase tracking-wider">{label}</p>
+      <p className="text-xs font-mono text-slate-400 uppercase tracking-wider">{label}</p>
       <p className="text-white/90 font-medium">{value}</p>
     </div>
   </motion.a>
@@ -45,7 +45,7 @@ const Contact = () => {
 
   return (
     <section id="contact" className="section-full relative">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -56,7 +56,7 @@ const Contact = () => {
         >
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
           <div className="flex items-center gap-3">
-            <span className="text-amber-500/70 font-mono text-sm">05</span>
+            <span className="text-amber-500/90 font-mono text-sm">05</span>
             <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white/90">
               Contact
             </h2>
@@ -85,16 +85,12 @@ const Contact = () => {
               label="Phone"
               value="602-451-3727"
             />
-            <ContactLink
-              href="#"
-              icon={MapPin}
-              label="Location"
-              value="Sunnyvale, CA"
-            />
+
+
 
             {/* Social Links */}
             <div className="pt-6">
-              <p className="text-sm font-mono text-slate-500 uppercase tracking-wider mb-4">Follow Me</p>
+              <p className="text-sm font-mono text-slate-400 uppercase tracking-wider mb-4">Follow Me</p>
               <div className="flex gap-3">
                 {socialLinks.map(({ icon: Icon, href, label }) => (
                   <motion.a
@@ -102,7 +98,7 @@ const Contact = () => {
                     href={href}
                     whileHover={{ scale: 1.1, y: -4 }}
                     whileTap={{ scale: 0.95 }}
-                    className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20 transition-all"
+                    className="w-12 h-12 rounded-xl bg-white/5 border border-white/5 flex items-center justify-center text-slate-300 hover:text-amber-500 hover:border-amber-500/20 transition-all"
                   >
                     <Icon size={22} />
                   </motion.a>
@@ -119,29 +115,29 @@ const Contact = () => {
             viewport={{ once: true }}
             className="lg:col-span-3"
           >
-            <form onSubmit={handleSubmit} className="relative p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/5">
+            <form onSubmit={handleSubmit} className="relative p-4 sm:p-6 md:p-8 rounded-2xl bg-black/40 backdrop-blur-md border border-white/5">
               <div className="relative space-y-6">
                 {/* Name & Email */}
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
-                    <label className="text-sm font-mono text-slate-500 uppercase tracking-wider">Your Name</label>
+                    <label className="text-sm font-mono text-slate-400 uppercase tracking-wider">Your Name</label>
                     <input
                       type="text"
                       required
                       value={formState.name}
                       onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                      className="focus-glow w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 transition-all"
+                      className="focus-glow w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 transition-all"
                       placeholder="John Doe"
                     />
                   </div>
                   <div className="space-y-2">
-                    <label className="text-sm font-mono text-slate-500 uppercase tracking-wider">Email Address</label>
+                    <label className="text-sm font-mono text-slate-400 uppercase tracking-wider">Email Address</label>
                     <input
                       type="email"
                       required
                       value={formState.email}
                       onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      className="focus-glow w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 transition-all"
+                      className="focus-glow w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 transition-all"
                       placeholder="john@example.com"
                     />
                   </div>
@@ -149,13 +145,13 @@ const Contact = () => {
 
                 {/* Message */}
                 <div className="space-y-2">
-                  <label className="text-sm font-mono text-slate-500 uppercase tracking-wider">Message</label>
+                  <label className="text-sm font-mono text-slate-400 uppercase tracking-wider">Message</label>
                   <textarea
                     required
                     rows={5}
                     value={formState.message}
                     onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    className="focus-glow w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-600 transition-all resize-none"
+                    className="focus-glow w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 text-white placeholder-slate-500 transition-all resize-none"
                     placeholder="Tell me about your project..."
                   />
                 </div>

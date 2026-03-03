@@ -14,12 +14,12 @@ const SkillBadge = ({ icon: Icon, label, color }) => (
 
 const TechStack = () => {
   const skills = [
-    { icon: Code2, label: "React", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
-    { icon: Terminal, label: "Python", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
-    { icon: Cloud, label: "AWS", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
-    { icon: Database, label: "PostgreSQL", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
-    { icon: Cpu, label: "Docker", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
-    { icon: Rocket, label: "GraphQL", color: "text-slate-400 hover:text-amber-500/80 hover:border-amber-500/20" },
+    { icon: Code2, label: "React", color: "text-slate-300 hover:text-amber-500 hover:border-amber-500/20" },
+    { icon: Terminal, label: "Python", color: "text-slate-300 hover:text-amber-500 hover:border-amber-500/20" },
+    { icon: Cloud, label: "AWS", color: "text-slate-300 hover:text-amber-500 hover:border-amber-500/20" },
+    { icon: Database, label: "PostgreSQL", color: "text-slate-300 hover:text-amber-500 hover:border-amber-500/20" },
+    { icon: Cpu, label: "Docker", color: "text-slate-300 hover:text-amber-500 hover:border-amber-500/20" },
+    { icon: Rocket, label: "GraphQL", color: "text-slate-300 hover:text-amber-500 hover:border-amber-500/20" },
   ];
 
   return (
@@ -34,7 +34,7 @@ const TechStack = () => {
 const About = () => {
   return (
     <section id="about" className="section-full relative">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -45,7 +45,7 @@ const About = () => {
         >
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
           <div className="flex items-center gap-3">
-            <span className="text-amber-500/70 font-mono text-sm">01</span>
+            <span className="text-amber-500/90 font-mono text-sm">01</span>
             <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white/90">
               About Me
             </h2>
@@ -68,7 +68,7 @@ const About = () => {
             </h2>
 
             {/* Description */}
-            <div className="space-y-4 text-slate-400 leading-relaxed">
+            <div className="space-y-4 text-slate-300 leading-relaxed">
               <p>
                 I'm Hanesh Koganti, a passionate Full Stack Developer with expertise in modern web technologies and cloud infrastructure.
                 My journey in tech has been driven by a fascination with creating seamless digital experiences.
@@ -82,7 +82,7 @@ const About = () => {
 
             {/* Tech Stack */}
             <div className="pt-4">
-              <p className="text-sm font-mono text-slate-500 uppercase tracking-wider mb-4">Tech Stack</p>
+              <p className="text-sm font-mono text-slate-400 uppercase tracking-wider mb-4">Tech Stack</p>
               <TechStack />
             </div>
 
@@ -101,8 +101,8 @@ const About = () => {
                   viewport={{ once: true }}
                   className="text-center"
                 >
-                  <div className="text-3xl md:text-4xl font-bold text-amber-500/80 stat-glow">{stat.value}</div>
-                  <div className="text-xs text-slate-400 font-mono mt-1">{stat.label}</div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-amber-500 stat-glow">{stat.value}</div>
+                  <div className="text-[11px] sm:text-xs text-slate-400 font-mono mt-1">{stat.label}</div>
                 </motion.div>
               ))}
             </div>
@@ -131,36 +131,34 @@ const About = () => {
                   <div className="w-3 h-3 rounded-full bg-rose-500/70" />
                   <div className="w-3 h-3 rounded-full bg-amber-500/70" />
                   <div className="w-3 h-3 rounded-full bg-green-500/70" />
-                  <span className="ml-4 text-xs font-mono text-slate-600">~/about/developer.json</span>
+                  <span className="ml-4 text-xs font-mono text-slate-400">~/about/developer.json</span>
                 </div>
 
                 {/* Code-like content */}
-                <div className="font-mono text-sm space-y-3">
-                  <div className="text-slate-600">
-                    <span className="text-violet-400/80">const</span>{' '}
-                    <span className="text-cyan-400/80">developer</span> = {'{'}
+                <div className="font-mono text-xs sm:text-sm space-y-3">
+                  <div className="text-slate-400">
+                    <span className="text-violet-400">const</span>{' '}
+                    <span className="text-cyan-400">developer</span> = {'{'}
                   </div>
-                  <div className="pl-4 text-slate-500">
-                    <span className="text-amber-500/80">name</span>:{' '}
-                    <span className="text-green-400/80">Hanesh Koganti</span>,
+                  <div className="pl-4 text-slate-300">
+                    <span className="text-amber-500">name</span>:{' '}
+                    <span className="text-green-400">Hanesh Koganti</span>,
                   </div>
-                  <div className="pl-4 text-slate-500">
-                    <span className="text-amber-500/80">role</span>:{' '}
-                    <span className="text-green-400/80">Full Stack Developer</span>,
+                  <div className="pl-4 text-slate-300">
+                    <span className="text-amber-500">role</span>:{' '}
+                    <span className="text-green-400">Full Stack Developer</span>,
                   </div>
-                  <div className="pl-4 text-slate-500">
-                    <span className="text-amber-500/80">location</span>:{' '}
-                    <span className="text-green-400/80">Sunnyvale, CA</span>,
+
+
+                  <div className="pl-4 text-slate-300">
+                    <span className="text-amber-500">passion</span>:{' '}
+                    <span className="text-green-400">[Building, Learning, Creating]</span>,
                   </div>
-                  <div className="pl-4 text-slate-500">
-                    <span className="text-amber-500/80">passion</span>:{' '}
-                    <span className="text-green-400/80">[Building, Learning, Creating]</span>,
+                  <div className="pl-4 text-slate-300">
+                    <span className="text-amber-500">available</span>:{' '}
+                    <span className="text-orange-400">true</span>,
                   </div>
-                  <div className="pl-4 text-slate-500">
-                    <span className="text-amber-500/80">available</span>:{' '}
-                    <span className="text-orange-400/80">true</span>,
-                  </div>
-                  <div className="text-slate-600">{'}'};</div>
+                  <div className="text-slate-400">{'}'};</div>
                 </div>
 
                 {/* Animated cursor */}

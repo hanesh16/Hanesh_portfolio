@@ -45,9 +45,9 @@ const TechBadge = ({ icon: Icon, label, delay }) => (
     initial={{ opacity: 0, y: 10 }}
     animate={{ opacity: 1, y: 0 }}
     transition={{ delay, duration: 0.4 }}
-    className="shimmer-badge flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 text-slate-400 text-sm hover:border-amber-500/30 hover:text-slate-300 transition-all duration-300"
+    className="shimmer-badge flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-white/5 border border-white/10 text-slate-300 text-sm hover:border-amber-500/30 hover:text-slate-200 transition-all duration-300"
   >
-    <Icon size={14} className="text-amber-500/80" />
+    <Icon size={14} className="text-amber-500" />
     <span className="font-mono text-xs">{label}</span>
   </motion.div>
 );
@@ -84,7 +84,7 @@ const Hero = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 0.2 }}
-                className="text-slate-500 font-mono text-sm tracking-wider"
+                className="text-slate-400 font-mono text-sm tracking-wider"
               >
                 <Typewriter text="Hi, I'm" delay={200} speed={40} />
               </motion.p>
@@ -118,7 +118,7 @@ const Hero = () => {
               transition={{ delay: 0.7 }}
               className="mb-6"
             >
-              <p className="text-lg sm:text-xl text-slate-500 font-light">
+              <p className="text-lg sm:text-xl text-slate-400 font-light">
                 <Typewriter
                   text="Full Stack Developer | Cloud Architect | AI Enthusiast"
                   delay={900}
@@ -197,8 +197,8 @@ const Hero = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 1.9 + index * 0.1 }}
                 >
-                  <div className="text-2xl sm:text-3xl font-bold text-white/80 stat-glow">{stat.value}</div>
-                  <div className="text-xs text-slate-400 font-mono mt-1">{stat.label}</div>
+                  <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-white/90 stat-glow">{stat.value}</div>
+                  <div className="text-[11px] sm:text-xs text-slate-400 font-mono mt-1">{stat.label}</div>
                 </motion.div>
               ))}
             </motion.div>
@@ -232,7 +232,7 @@ const Hero = () => {
                 }}
               >
                 {/* Image placeholder */}
-                <div className="w-44 h-52 sm:w-56 sm:h-64 rounded-lg overflow-hidden relative">
+                <div className="w-40 h-48 sm:w-48 sm:h-56 md:w-56 md:h-64 lg:w-60 lg:h-72 rounded-lg overflow-hidden relative">
                   <div
                     className="absolute inset-0"
                     style={{
@@ -259,7 +259,7 @@ const Hero = () => {
 
                 {/* Caption area */}
                 <div className="mt-3 text-center">
-                  <p className="text-xs text-slate-500 font-mono tracking-wider">Hanesh Koganti</p>
+                  <p className="text-xs text-slate-400 font-mono tracking-wider">Hanesh Koganti</p>
                 </div>
               </div>
 

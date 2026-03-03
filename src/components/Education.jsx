@@ -28,13 +28,13 @@ const EducationCard = ({ edu, index }) => (
       <h3 className="text-xl sm:text-2xl font-bold text-white/90 mb-1 group-hover:text-amber-500/90 transition-colors">
         {edu.institution}
       </h3>
-      <div className="flex items-center gap-2 text-slate-400 text-sm mb-4">
+      <div className="flex items-center gap-2 text-slate-300 text-sm mb-4">
         <MapPin size={14} />
         <span>{edu.location}</span>
       </div>
 
       {/* Degree */}
-      <p className="text-base sm:text-lg text-slate-400 font-medium mb-4">
+      <p className="text-base sm:text-lg text-slate-300 font-medium mb-4">
         {edu.degree}
       </p>
 
@@ -43,8 +43,8 @@ const EducationCard = ({ edu, index }) => (
         <div className="space-y-2 mb-6">
           {edu.highlights.map((highlight, idx) => (
             <div key={idx} className="flex items-start gap-2">
-              <Award size={14} className="text-amber-500/70 mt-1 flex-shrink-0" />
-              <span className="text-sm text-slate-400">{highlight}</span>
+              <Award size={14} className="text-amber-500 mt-1 flex-shrink-0" />
+              <span className="text-sm text-slate-300">{highlight}</span>
             </div>
           ))}
         </div>
@@ -54,14 +54,14 @@ const EducationCard = ({ edu, index }) => (
       {edu.courses && (
         <div className="pt-4 border-t border-white/5">
           <div className="flex items-center gap-2 mb-3">
-            <BookOpen size={14} className="text-amber-500/70" />
-            <span className="text-xs font-mono text-slate-500 uppercase tracking-wider">Key Coursework</span>
+            <BookOpen size={14} className="text-amber-500" />
+            <span className="text-xs font-mono text-slate-400 uppercase tracking-wider">Key Coursework</span>
           </div>
           <div className="flex flex-wrap gap-2">
             {edu.courses.map((course) => (
               <span
                 key={course}
-                className="px-2 sm:px-3 py-1 text-[10px] sm:text-xs font-mono rounded-full bg-amber-500/5 text-slate-400 border border-amber-500/10"
+                className="px-2 sm:px-3 py-1 text-xs font-mono rounded-full bg-amber-500/10 text-slate-300 border border-amber-500/15"
               >
                 {course}
               </span>
@@ -89,7 +89,7 @@ const CertificationCard = ({ cert, index }) => (
       <h4 className="text-sm sm:text-base text-white/90 font-medium group-hover:text-amber-500/90 transition-colors leading-snug">
         {cert.name}
       </h4>
-      <p className="text-xs sm:text-sm text-slate-400">{cert.issuer}</p>
+      <p className="text-xs sm:text-sm text-slate-300">{cert.issuer}</p>
     </div>
   </motion.div>
 );
@@ -125,7 +125,7 @@ const Education = () => {
 
   return (
     <section id="education" className="section-full relative">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -136,7 +136,7 @@ const Education = () => {
         >
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
           <div className="flex items-center gap-3">
-            <span className="text-amber-500/70 font-mono text-sm">04</span>
+            <span className="text-amber-500/90 font-mono text-sm">04</span>
             <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white/90">
               Education
             </h2>

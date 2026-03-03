@@ -31,7 +31,7 @@ const SpaceNavigator = ({ currentMode, onModeChange }) => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => onModeChange('explore')}
-          className="flex items-center justify-center w-9 h-9 rounded-full text-slate-500 hover:text-cyan-400 transition-colors"
+          className="flex items-center justify-center w-9 h-9 rounded-full text-slate-400 hover:text-cyan-400 transition-colors"
           style={{
             background: 'rgba(0, 0, 0, 0.5)',
             backdropFilter: 'blur(12px)',
@@ -44,7 +44,7 @@ const SpaceNavigator = ({ currentMode, onModeChange }) => {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => onModeChange('solar')}
-          className="flex items-center justify-center w-9 h-9 rounded-full text-slate-500 hover:text-amber-400 transition-colors"
+          className="flex items-center justify-center w-9 h-9 rounded-full text-slate-400 hover:text-amber-400 transition-colors"
           style={{
             background: 'rgba(0, 0, 0, 0.5)',
             backdropFilter: 'blur(12px)',
@@ -67,7 +67,7 @@ const SpaceNavigator = ({ currentMode, onModeChange }) => {
             <MessageCircle size={18} className="text-cyan-400/80" />
           </div>
           <div className="text-left">
-            <span className="block text-[10px] text-slate-500 font-mono uppercase tracking-wider">AI Chat</span>
+            <span className="block text-[10px] text-slate-400 font-mono uppercase tracking-wider">AI Chat</span>
             <span className="block text-sm text-slate-300 group-hover:text-white transition-colors">Ask the Universe</span>
           </div>
         </motion.button>
@@ -82,7 +82,7 @@ const SpaceNavigator = ({ currentMode, onModeChange }) => {
             <Orbit size={18} className="text-amber-400/80" />
           </div>
           <div className="text-left">
-            <span className="block text-[10px] text-slate-500 font-mono uppercase tracking-wider">3D Explorer</span>
+            <span className="block text-[10px] text-slate-400 font-mono uppercase tracking-wider">3D Explorer</span>
             <span className="block text-sm text-slate-300 group-hover:text-white transition-colors">Solar System</span>
           </div>
         </motion.button>

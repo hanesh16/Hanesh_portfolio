@@ -25,7 +25,7 @@ const NavItem = memo(({ item, isActive, onClick }) => {
           transition-colors duration-200
           ${isActive
             ? 'text-amber-500/90'
-            : 'text-slate-500 hover:text-slate-300'
+            : 'text-slate-400 hover:text-slate-200'
           }
         `}
       >
@@ -73,7 +73,7 @@ const MobileNavItem = memo(({ item, isActive, onClick }) => {
           transition-all duration-300
           ${isActive
             ? 'text-amber-400'
-            : 'text-slate-500'
+            : 'text-slate-400'
           }
         `}
       >
@@ -96,7 +96,7 @@ const MobileNavItem = memo(({ item, isActive, onClick }) => {
             animate={{ opacity: 1, y: 0 }}
             className="relative z-10 text-[9px] font-semibold tracking-wide mt-0.5 uppercase"
           >
-            {item.label.slice(0, 5)}
+            {item.label.length > 6 ? item.label.slice(0, 3) : item.label}
           </motion.span>
         )}
       </motion.div>

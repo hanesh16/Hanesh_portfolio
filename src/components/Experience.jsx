@@ -8,7 +8,7 @@ const ExperienceCard = ({ exp, index }) => (
     whileInView={{ opacity: 1, x: 0 }}
     transition={{ duration: 0.6, delay: index * 0.2 }}
     viewport={{ once: true }}
-    className="relative pl-6 md:pl-12"
+    className="relative pl-6 sm:pl-8 md:pl-12"
   >
     {/* Timeline line */}
     <div className="absolute left-0 top-0 bottom-0 w-px bg-gradient-to-b from-amber-500/30 via-amber-500/10 to-transparent" />
@@ -36,7 +36,7 @@ const ExperienceCard = ({ exp, index }) => (
               <span className="text-amber-500/80 font-semibold">{exp.company}</span>
               <a
                 href="#"
-                className="text-slate-600 hover:text-slate-400 transition-colors"
+                className="text-slate-400 hover:text-slate-200 transition-colors"
               >
                 <ExternalLink size={14} />
               </a>
@@ -48,7 +48,7 @@ const ExperienceCard = ({ exp, index }) => (
               <Calendar size={14} className="text-amber-500/70" />
               <span className="text-xs sm:text-sm text-slate-400 font-mono">{exp.period}</span>
             </div>
-            <div className="flex items-center gap-2 text-slate-400 text-sm">
+            <div className="flex items-center gap-2 text-slate-300 text-sm">
               <MapPin size={14} />
               <span>{exp.location}</span>
             </div>
@@ -90,7 +90,7 @@ const Experience = () => {
 
   return (
     <section id="experience" className="section-full relative">
-      <div className="max-w-6xl mx-auto px-6 py-12">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Section Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -101,7 +101,7 @@ const Experience = () => {
         >
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
           <div className="flex items-center gap-3">
-            <span className="text-amber-500/70 font-mono text-sm">02</span>
+            <span className="text-amber-500/90 font-mono text-sm">02</span>
             <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white/90">
               Experience
             </h2>
@@ -121,11 +121,11 @@ const Experience = () => {
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
             viewport={{ once: true }}
-            className="relative pl-8 md:pl-12 pt-8"
+            className="relative pl-6 sm:pl-8 md:pl-12 pt-8"
           >
             <div className="absolute left-0 top-8 w-2.5 h-2.5 rounded-full border-2 border-dashed border-slate-700" />
             <div className="p-6 rounded-2xl border border-dashed border-slate-800 bg-black/20">
-              <p className="text-slate-600 font-mono text-sm flex items-center gap-2">
+              <p className="text-slate-400 font-mono text-sm flex items-center gap-2">
                 <span className="text-amber-500/60">→</span>
                 Next mission loading...
               </p>

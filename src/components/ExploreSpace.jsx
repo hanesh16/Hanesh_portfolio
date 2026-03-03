@@ -65,9 +65,9 @@ const ExploreSpace = () => {
 
             {/* Cosmic Background Effects */}
             <div className="absolute inset-0 opacity-30 pointer-events-none">
-                <div className="absolute top-1/4 left-1/4 w-[400px] h-[400px] bg-cosmic-violet/10 rounded-full blur-[150px]"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-cosmic-amber/10 rounded-full blur-[150px]"></div>
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-cosmic-cyan/5 rounded-full blur-[120px]"></div>
+                <div className="absolute top-1/4 left-1/4 w-[50vw] max-w-[400px] h-[50vw] max-h-[400px] bg-cosmic-violet/10 rounded-full blur-[100px] sm:blur-[150px]"></div>
+                <div className="absolute bottom-1/4 right-1/4 w-[50vw] max-w-[400px] h-[50vw] max-h-[400px] bg-cosmic-amber/10 rounded-full blur-[100px] sm:blur-[150px]"></div>
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] max-w-[500px] h-[60vw] max-h-[500px] bg-cosmic-cyan/5 rounded-full blur-[80px] sm:blur-[120px]"></div>
             </div>
 
             {/* Floating particles */}
@@ -99,7 +99,7 @@ const ExploreSpace = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.8 }}
-                className="relative z-10 text-center px-6 max-w-3xl mx-auto backdrop-blur-xl p-10 rounded-3xl border border-white/10 bg-black/40"
+                className="relative z-10 text-center px-4 sm:px-6 max-w-3xl mx-auto w-[calc(100%-2rem)] sm:w-auto backdrop-blur-xl p-5 sm:p-8 md:p-10 rounded-2xl sm:rounded-3xl border border-white/10 bg-black/40"
                 style={{
                     boxShadow: `
                         0 8px 32px rgba(0, 0, 0, 0.4),
@@ -110,20 +110,20 @@ const ExploreSpace = () => {
                 }}
             >
                 {/* Decorative corner accents */}
-                <div className="absolute top-0 left-0 w-16 h-16 border-l-2 border-t-2 border-cosmic-amber/30 rounded-tl-3xl"></div>
-                <div className="absolute top-0 right-0 w-16 h-16 border-r-2 border-t-2 border-cosmic-violet/30 rounded-tr-3xl"></div>
-                <div className="absolute bottom-0 left-0 w-16 h-16 border-l-2 border-b-2 border-cosmic-violet/30 rounded-bl-3xl"></div>
-                <div className="absolute bottom-0 right-0 w-16 h-16 border-r-2 border-b-2 border-cosmic-amber/30 rounded-br-3xl"></div>
+                <div className="absolute top-0 left-0 w-10 h-10 sm:w-16 sm:h-16 border-l-2 border-t-2 border-cosmic-amber/30 rounded-tl-2xl sm:rounded-tl-3xl"></div>
+                <div className="absolute top-0 right-0 w-10 h-10 sm:w-16 sm:h-16 border-r-2 border-t-2 border-cosmic-violet/30 rounded-tr-2xl sm:rounded-tr-3xl"></div>
+                <div className="absolute bottom-0 left-0 w-10 h-10 sm:w-16 sm:h-16 border-l-2 border-b-2 border-cosmic-violet/30 rounded-bl-2xl sm:rounded-bl-3xl"></div>
+                <div className="absolute bottom-0 right-0 w-10 h-10 sm:w-16 sm:h-16 border-r-2 border-b-2 border-cosmic-amber/30 rounded-br-2xl sm:rounded-br-3xl"></div>
 
-                <div className="mb-8">
-                    <div className="flex items-center justify-center gap-3 mb-4">
-                        <Stars className="text-cosmic-amber" size={24} />
-                        <h2 className="text-4xl md:text-5xl font-light bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 bg-clip-text text-transparent tracking-tight">
+                <div className="mb-6 sm:mb-8">
+                    <div className="flex items-center justify-center gap-2 sm:gap-3 mb-4">
+                        <Stars className="text-cosmic-amber hidden sm:block" size={24} />
+                        <h2 className="text-2xl sm:text-4xl md:text-5xl font-light bg-gradient-to-r from-slate-100 via-slate-200 to-slate-100 bg-clip-text text-transparent tracking-tight">
                             Where curiosity begins.
                         </h2>
-                        <Stars className="text-cosmic-violet" size={24} />
+                        <Stars className="text-cosmic-violet hidden sm:block" size={24} />
                     </div>
-                    <p className="text-slate-400 text-lg font-light">
+                    <p className="text-slate-300 text-base sm:text-lg font-light">
                         Ask the universe anything.
                     </p>
                 </div>
@@ -147,7 +147,7 @@ const ExploreSpace = () => {
                             value={query}
                             onChange={(e) => setQuery(e.target.value)}
                             placeholder="Explore deep space..."
-                            className="bg-transparent border-none outline-none text-slate-200 text-lg w-full placeholder-slate-500 font-light py-2"
+                            className="bg-transparent border-none outline-none text-slate-200 text-base sm:text-lg w-full placeholder-slate-500 font-light py-2"
                             disabled={isLoading}
                         />
                         <button
@@ -220,7 +220,7 @@ const ExploreSpace = () => {
                     )}
                 </div>
 
-                <div className="mt-4 flex items-center justify-center gap-6 text-slate-500 text-sm">
+                <div className="mt-4 flex items-center justify-center gap-4 sm:gap-6 text-slate-400 text-xs sm:text-sm">
                     <span className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 bg-cosmic-amber rounded-full shadow-[0_0_6px_rgba(251,191,36,0.8)]"></span>
                         Powered by Stardust
