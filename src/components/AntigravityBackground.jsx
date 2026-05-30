@@ -1,30 +1,27 @@
-import React, { useRef, useMemo } from 'react';
+import React, { useRef } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
+
+// Star positions generated once at module load (stable, avoids impure calls during render)
+const STAR_COUNT = 3000;
+const STAR_POSITIONS = (() => {
+    const pos = new Float32Array(STAR_COUNT * 3);
+    for (let i = 0; i < STAR_COUNT; i++) {
+        const i3 = i * 3;
+        const radius = 30 + Math.random() * 60;
+        const theta = Math.random() * Math.PI * 2;
+        const phi = Math.acos(2 * Math.random() - 1);
+
+        pos[i3] = radius * Math.sin(phi) * Math.cos(theta);
+        pos[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
+        pos[i3 + 2] = radius * Math.cos(phi);
+    }
+    return pos;
+})();
 
 // Enhanced Starfield
 const Starfield = () => {
     const starsRef = useRef();
-    const starCount = 3000;
-
-    const [positions, sizes] = useMemo(() => {
-        const pos = new Float32Array(starCount * 3);
-        const size = new Float32Array(starCount);
-
-        for (let i = 0; i < starCount; i++) {
-            const i3 = i * 3;
-            const radius = 30 + Math.random() * 60;
-            const theta = Math.random() * Math.PI * 2;
-            const phi = Math.acos(2 * Math.random() - 1);
-
-            pos[i3] = radius * Math.sin(phi) * Math.cos(theta);
-            pos[i3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-            pos[i3 + 2] = radius * Math.cos(phi);
-
-            size[i] = 0.02 + Math.random() * 0.04;
-        }
-        return [pos, size];
-    }, []);
 
     useFrame((state) => {
         if (starsRef.current) {
@@ -37,8 +34,8 @@ const Starfield = () => {
             <bufferGeometry>
                 <bufferAttribute
                     attach="attributes-position"
-                    count={starCount}
-                    array={positions}
+                    count={STAR_COUNT}
+                    array={STAR_POSITIONS}
                     itemSize={3}
                 />
             </bufferGeometry>
@@ -54,29 +51,28 @@ const Starfield = () => {
     );
 };
 
+// Meteor data generated once at module load (stable, avoids impure calls during render)
+const METEOR_COUNT = 5;
+const METEOR_DATA = Array.from({ length: METEOR_COUNT }, () => ({
+    startX: (Math.random() - 0.5) * 80,
+    startY: 15 + Math.random() * 25,
+    startZ: -20 - Math.random() * 30,
+    angle: -0.3 - Math.random() * 0.4,
+    speed: 8 + Math.random() * 12,
+    delay: Math.random() * 15,
+    length: 1.5 + Math.random() * 2.5,
+}));
+
 // Shooting Stars / Meteors
 const ShootingStars = () => {
-    const meteorCount = 5;
     const meteorsRef = useRef([]);
-
-    const meteorData = useMemo(() => {
-        return Array.from({ length: meteorCount }, () => ({
-            startX: (Math.random() - 0.5) * 80,
-            startY: 15 + Math.random() * 25,
-            startZ: -20 - Math.random() * 30,
-            angle: -0.3 - Math.random() * 0.4,
-            speed: 8 + Math.random() * 12,
-            delay: Math.random() * 15,
-            length: 1.5 + Math.random() * 2.5,
-        }));
-    }, []);
 
     useFrame((state) => {
         const time = state.clock.getElapsedTime();
 
         meteorsRef.current.forEach((mesh, i) => {
             if (!mesh) return;
-            const data = meteorData[i];
+            const data = METEOR_DATA[i];
             const cycle = 8;
             const t = ((time + data.delay) % cycle) / cycle;
 
@@ -95,7 +91,7 @@ const ShootingStars = () => {
 
     return (
         <group>
-            {meteorData.map((data, i) => {
+            {METEOR_DATA.map((data, i) => {
                 const dx = Math.cos(data.angle) * data.length;
                 const dy = Math.sin(data.angle) * data.length;
                 const points = [

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, memo } from 'react';
 import { motion, useScroll, useTransform, useSpring } from 'framer-motion';
 import { Link, Events, scrollSpy } from 'react-scroll';
-import { User, Briefcase, FolderGit2, GraduationCap, Mail } from 'lucide-react';
+import { User, Briefcase, Layers, GraduationCap, Mail } from 'lucide-react';
 
 // Memoized nav item
 const NavItem = memo(({ item, isActive, onClick }) => {
@@ -106,7 +106,6 @@ const MobileNavItem = memo(({ item, isActive, onClick }) => {
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState('hero');
-  const [scrolled, setScrolled] = useState(false);
 
   const { scrollY } = useScroll();
   const smoothScrollY = useSpring(scrollY, {
@@ -125,7 +124,6 @@ const Navbar = () => {
       rafId = requestAnimationFrame(() => {
         const currentScrollY = window.scrollY;
         if (Math.abs(currentScrollY - lastScrollY) > 5) {
-          setScrolled(currentScrollY > 50);
           lastScrollY = currentScrollY;
         }
         rafId = null;
@@ -162,7 +160,7 @@ const Navbar = () => {
   const navItems = [
     { id: 'about', label: 'About', icon: User },
     { id: 'experience', label: 'Experience', icon: Briefcase },
-    { id: 'projects', label: 'Projects', icon: FolderGit2 },
+    { id: 'work', label: 'Works', icon: Layers },
     { id: 'education', label: 'Education', icon: GraduationCap },
     { id: 'contact', label: 'Contact', icon: Mail },
   ];

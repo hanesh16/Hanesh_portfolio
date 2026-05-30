@@ -56,7 +56,7 @@ const Contact = () => {
         >
           <div className="h-px flex-1 bg-gradient-to-r from-transparent via-amber-500/30 to-transparent" />
           <div className="flex items-center gap-3">
-            <span className="text-amber-500/90 font-mono text-sm">05</span>
+            <span className="text-amber-500/90 font-mono text-sm">06</span>
             <h2 className="text-4xl md:text-5xl font-bold font-outfit text-white/90">
               Contact
             </h2>

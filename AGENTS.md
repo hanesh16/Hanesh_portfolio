@@ -56,14 +56,18 @@ This is a **personal portfolio website** for Hanesh Koganti, a Software Engineer
 │   ├── index.css           # Global styles, Tailwind imports, animations
 │   ├── App.css             # Component-specific styles (minimal)
 │   ├── components/
-│   │   ├── Navbar.jsx      # Fixed navigation (desktop + mobile variants)
+│   │   ├── Navbar.jsx      # Fixed in-page section nav (desktop + mobile variants)
+│   │   ├── SpaceNavigator.jsx         # Switches the 3 app modes (portfolio/explore/solar)
 │   │   ├── Hero.jsx        # Hero section with typewriter terminal
 │   │   ├── About.jsx       # About section with skills grid
 │   │   ├── Experience.jsx  # Work experience timeline
 │   │   ├── Projects.jsx    # Project showcase with image overlays
+│   │   ├── Research.jsx    # Research / publications section
 │   │   ├── Education.jsx   # Education & certifications cards
 │   │   ├── Contact.jsx     # Contact section with social links
+│   │   ├── Footer.jsx      # Site footer
 │   │   ├── TiltCard.jsx    # Reusable 3D tilt effect card component
+│   │   ├── ScrollProgress.jsx         # Top scroll progress indicator bar
 │   │   ├── AntigravityBackground.jsx  # 3D particle background + mini solar system
 │   │   ├── SolarSystemExplorer.jsx    # Interactive 3D planet explorer (LAZY LOADED)
 │   │   ├── ExploreSpace.jsx           # AI chat interface (LAZY LOADED)
@@ -128,23 +132,29 @@ npm run lint
 
 ## Component Architecture
 
-### App.jsx Layout
+### Navigation Modes (no React Router)
+`App.jsx` holds a single `mode` state (`'portfolio' | 'explore' | 'solar'`), toggled by `SpaceNavigator` via `onModeChange`. Each mode early-returns a different tree; switching modes scrolls to top. The two non-portfolio modes are lazy-loaded and rendered standalone (NOT nested inside `<main>`).
+- **portfolio** — Full scrollable site (`react-scroll` smooth-scroll). Section IDs: `hero`, `about`, `experience`, `projects`, `research`, `education`, `contact`
+- **explore** — `ExploreSpace` AI chat (lazy)
+- **solar** — `SolarSystemExplorer` 3D scene (lazy)
+
+### App.jsx Portfolio Layout
 ```
+<ScrollProgress />         # Top progress bar
 <AntigravityBackground />  # Fixed 3D background (z-index: -1)
 <AudioPlayer />            # Fixed music toggle (z-index: 50)
-<Navbar />                 # Fixed navigation (z-index: 50)
-<main id="main-content">
+<Navbar />                 # Fixed in-page section nav (z-index: 50)
+<main id="main-content">   # Each section wrapped in a whileInView motion.div
   <Hero />                 # Top section
   <About />                # About + skills
   <Experience />           # Work history timeline
   <Projects />             # Project showcase
+  <Research />             # Research / publications
   <Education />            # Education cards
   <Contact />              # Contact CTA
-  <Suspense fallback={<SpaceLoader />}>
-    <ExploreSpace />       # AI chat (LAZY LOADED)
-    <SolarSystemExplorer /> # 3D explorer (LAZY LOADED)
-  </Suspense>
 </main>
+<Footer />
+<SpaceNavigator />         # Mode switcher (portfolio/explore/solar)
 ```
 
 ### TiltCard Component

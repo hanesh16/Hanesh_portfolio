@@ -137,7 +137,7 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="section-full relative">
+    <section id="work" className="section-full relative">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Section Header */}
         <motion.div

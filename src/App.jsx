@@ -6,6 +6,7 @@ import Hero from './components/Hero';
 import About from './components/About';
 import Experience from './components/Experience';
 import Projects from './components/Projects';
+import Research from './components/Research';
 import Education from './components/Education';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
@@ -109,6 +110,16 @@ function App() {
           className="section-reveal"
         >
           <Projects />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          viewport={{ once: true, amount: 0.15 }}
+          className="section-reveal"
+        >
+          <Research />
         </motion.div>
 
         <motion.div

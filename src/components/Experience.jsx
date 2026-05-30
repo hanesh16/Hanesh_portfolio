@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, MapPin, ExternalLink } from 'lucide-react';
+import { Briefcase, Calendar, MapPin, ExternalLink, Code2 } from 'lucide-react';
 
 const ExperienceCard = ({ exp, index }) => (
   <motion.div
@@ -54,6 +54,38 @@ const ExperienceCard = ({ exp, index }) => (
             </div>
           </div>
         </div>
+
+        {/* Responsibilities */}
+        {exp.points?.length > 0 && (
+          <ul className="space-y-3 mb-7">
+            {exp.points.map((point, i) => (
+              <li key={i} className="flex items-start gap-3 text-slate-300/90 text-sm sm:text-base leading-relaxed">
+                <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-amber-500/70" />
+                <span>{point}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
+        {/* Tech Stack */}
+        {exp.skills?.length > 0 && (
+          <div className="pt-6 border-t border-white/5">
+            <div className="flex items-center gap-2 mb-3">
+              <Code2 size={14} className="text-amber-500/70" />
+              <span className="text-xs font-mono uppercase tracking-wider text-slate-400">Tech Stack</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {exp.skills.map((skill, i) => (
+                <span
+                  key={i}
+                  className="px-3 py-1.5 rounded-lg text-xs sm:text-sm font-medium text-amber-200/80 bg-amber-500/5 border border-amber-500/15 hover:border-amber-500/40 hover:bg-amber-500/10 transition-colors"
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   </motion.div>
@@ -61,30 +93,22 @@ const ExperienceCard = ({ exp, index }) => (
 
 const Experience = () => {
   const experiences = [
+     {
+      company: "Microsoft",
+      location: "Seattle, United States",
+      role: "Software Engineer II",
+      period: "Mar 2026 – Present",
+      points: [],
+      skills: [".NET", "C#", "ASP.NET Core", "Azure App Services", "Azure Cloud", "REST APIs", "Microservices", "Docker", "CI/CD", "SQL"]
+    },
+
     {
       company: "Comcast",
       location: "United States",
       role: "Software Engineer",
       period: "Jul 2024 – Feb 2026 · 1 yr 8 mos",
-      points: [
-        "Developed and maintained backend services and RESTful APIs using Python, Flask, and SQL, improving response times by 30%",
-        "Automated routine system tasks and data validation workflows, reducing manual effort and improving operational efficiency",
-        "Collaborated with cross-functional teams to design and deploy microservices, improving system scalability",
-        "Implemented thorough unit, integration, and regression tests using PyTest and CI/CD pipelines"
-      ],
-      skills: ["Python", "Bash", "Flask", "SQL", "Docker", "Linux", "CI/CD", "PyTest", "REST APIs"]
-    },
-    {
-      company: "Comcast",
-      location: "United States",
-      role: "Software Engineer Intern",
-      period: "Oct 2023 – Mar 2024 · 6 mos",
-      points: [
-        "Assisted in developing and testing backend services using Python and Flask",
-        "Contributed to automation scripts and data processing pipelines",
-        "Participated in code reviews and agile development practices"
-      ],
-      skills: ["Python", "Flask", "SQL", "Linux", "Git"]
+      points: [],
+      skills: ["Python", "Flask", "SQL", "REST APIs", "Microservices", "Bash", "Docker", "Linux", "CI/CD", "PyTest"]
     }
   ];
 
@@ -116,7 +140,7 @@ const Experience = () => {
           ))}
 
           {/* Future placeholder */}
-          <motion.div
+          {/* <motion.div
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
@@ -130,7 +154,7 @@ const Experience = () => {
                 Next mission loading...
               </p>
             </div>
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </section>
