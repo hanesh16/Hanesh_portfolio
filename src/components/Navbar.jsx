@@ -269,12 +269,12 @@ const Navbar = () => {
           background: 'linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, transparent 100%)',
         }}
       >
-        <div className="flex items-center justify-between w-full pointer-events-auto">
+        <div className="flex items-center justify-between w-full pointer-events-none">
           <Link
             to="hero"
             smooth="easeInOutCubic"
             duration={600}
-            className="flex items-center gap-2"
+            className="flex items-center gap-2 pointer-events-auto"
             onClick={handleHomeClick}
           >
             <motion.div

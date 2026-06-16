@@ -24,10 +24,10 @@ const SpaceNavigator = ({ currentMode, onModeChange }) => {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 2.5, duration: 0.5 }}
-      className="fixed z-40"
+      className="fixed z-[60]"
     >
       {/* Mobile: top-right small icons to avoid bottom dock overlap */}
-      <div className="flex md:hidden fixed top-4 right-14 items-center gap-1.5">
+      <div className="flex md:hidden fixed top-4 right-14 z-[60] items-center gap-1.5">
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => onModeChange('explore')}
