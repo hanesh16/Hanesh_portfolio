@@ -39,6 +39,20 @@ const BlinkingCursor = () => (
   <span className="inline-block w-2 h-5 ml-1 bg-amber-500/80 animate-pulse" />
 );
 
+// Microsoft Logo (small inline mark)
+const MicrosoftLogo = () => (
+  <svg
+    viewBox="0 0 23 23"
+    aria-hidden="true"
+    className="w-[1em] h-[1em] inline-block shrink-0 align-[-0.15em]"
+  >
+    <rect x="1" y="1" width="10" height="10" fill="#F25022" />
+    <rect x="12" y="1" width="10" height="10" fill="#7FBA00" />
+    <rect x="1" y="12" width="10" height="10" fill="#00A4EF" />
+    <rect x="12" y="12" width="10" height="10" fill="#FFB900" />
+  </svg>
+);
+
 // Tech Badge with shimmer effect
 const TechBadge = ({ icon: Icon, label, delay }) => (
   <motion.div
@@ -118,12 +132,13 @@ const Hero = () => {
               transition={{ delay: 0.7 }}
               className="mb-6"
             >
-              <p className="text-lg sm:text-xl text-slate-400 font-light">
+              <p className="text-lg sm:text-xl text-slate-400 font-light inline-flex flex-wrap items-center gap-x-2">
                 <Typewriter
-                  text="Full Stack Developer | Cloud Architect | AI Enthusiast"
+                  text="Software Engineer | Microsoft"
                   delay={900}
                   speed={30}
                 />
+                <MicrosoftLogo />
               </p>
             </motion.div>
 
@@ -135,7 +150,7 @@ const Hero = () => {
               className="text-slate-400 text-base sm:text-lg max-w-xl leading-relaxed mb-8"
             >
               Building scalable applications that push the boundaries of what's possible.
-              Currently crafting digital experiences at Comcast.
+              Currently crafting digital experiences at Microsoft.
             </motion.p>
 
             {/* Tech Stack */}
